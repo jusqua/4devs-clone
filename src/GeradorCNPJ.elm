@@ -41,7 +41,7 @@ type alias Model = {genCNPJ : String}
 
 init : () -> (Model, Cmd Msg)
 init _ = (Model "", Cmd.none)
-
+ 
 -- UPDATE
 type Msg = Gen | Calc Int | CNPJ Int
 

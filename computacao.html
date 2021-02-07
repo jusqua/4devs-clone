@@ -1,0 +1,167 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>PF | Computação</title>
+
+    <script src="reverterString.js"></script>
+    <script src="areaQuadrado.js"></script>
+    <script src="areaRetangulo.js"></script>
+    <script src="areaTriangulo.js"></script>
+    <script src="areaCoroaCircular.js"></script>
+    <script src="areaCoroaLosango.js"></script>
+    <script src="areaParalelogramo.js"></script>
+    <script src="areaPentagono.js"></script>
+    <script src="areaSetorCircular.js"></script>
+    <script src="areaLosango.js"></script>
+    <script src="areaTrapezio.js"></script>
+    <script src="areaElipse.js"></script>
+    <script src="areaPoligonoRegular.js"></script>
+    <script src="areaHexagono.js"></script>
+    <script src="restoDivisao.js"></script>
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <style>
+        .form-control:focus {
+            border-color: #fff;
+            box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.1) inset, 0px 0px 8px rgba(255, 255, 255, 0.8);
+        }
+    </style>
+</head>
+
+<body class="bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><i class="fas fa-code"></i> Programação Funcional</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html"><i class="fas fa-divide"></i> Matemática <span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link active" href="computacao.html"><i class="fas fa-code"></i> Computação</a>
+                    </li>
+            </div>
+    </nav>
+
+    <div class="container-fluid">
+
+        <div class="row bg-dark">
+            <div class="bg-light">
+                <h5 class="h5 text-dark "> <i class="fas fa-laptop-code"></i> Computação</h4>
+            </div>
+            <div class="container" id="myapp"></div>
+            <div class="container" id="myapp2"></div>
+            <div class="container" id="myapp3"></div>
+        </div>
+
+        <div class="row bg-dark">
+            <div class="container" id="myapp4"></div>
+            <div class="container" id="myapp5"></div>
+            <div class="container" id="myapp6"></div>
+        </div>
+
+        <div class="row bg-dark">
+            <div class="container" id="myapp7"></div>
+            <div class="container" id="myapp8"></div>
+            <div class="container" id="myapp9"></div>
+        </div>
+
+        <div class="row bg-dark">
+            <div class="container" id="myapp10"></div>
+            <div class="container" id="myapp11"></div>
+            <div class="container" id="myapp12"></div>
+        </div>
+
+        <div class="row bg-dark">
+            <div class="container" id="myapp13"></div>
+            <div class="container" id="myapp14"></div>
+            <div class="container" id="myapp15"></div>
+        </div>
+
+    <script>
+        var app = Elm.ReverterString.init({
+            node: document.getElementById('myapp')
+        });
+    </script>
+    <!-- <script>
+        var app = Elm.AreaQuadrado.init({
+            node: document.getElementById('myapp2')
+        });
+    </script>
+    <script>
+        var app = Elm.AreaRetangulo.init({
+            node: document.getElementById('myapp3')
+        });
+    </script>
+    <script>
+        var app = Elm.AreaTriangulo.init({
+            node: document.getElementById('myapp4')
+        });
+    </script>
+    <script>
+        var app = Elm.AreaCoroaCircular.init({
+            node: document.getElementById('myapp5')
+        });
+    </script>
+    <script>
+        var app = Elm.AreaSetorCircular.init({
+            node: document.getElementById('myapp6')
+        });
+    </script>
+    <script>
+        var app = Elm.AreaParalelogramo.init({
+            node: document.getElementById('myapp7')
+        });
+    </script>
+    <script>
+        var app = Elm.AreaPentagono.init({
+            node: document.getElementById('myapp8')
+        });
+    </script>
+    <script>
+        var app = Elm.AreaLosango.init({
+            node: document.getElementById('myapp9')
+        });
+    </script>
+    <script>
+        var app = Elm.AreaTrapezio.init({
+            node: document.getElementById('myapp10')
+        });
+    </script>
+    <script>
+        var app = Elm.AreaElipse.init({
+            node: document.getElementById('myapp11')
+        });
+    </script>
+    <script>
+        var app = Elm.AreaPoligonoRegular.init({
+            node: document.getElementById('myapp12')
+        });
+    </script>
+    <script>
+        var app = Elm.AreaHexagono.init({
+            node: document.getElementById('myapp13')
+        });
+    </script>
+    <script>
+        var app = Elm.RestoDivisao.init({
+            node: document.getElementById('myapp14')
+        });
+    </script> -->
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+    crossorigin="anonymous"></script>
+
+</html>

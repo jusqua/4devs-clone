@@ -4355,10 +4355,9 @@ function _Browser_load(url)
 		}
 	}));
 }
-var $author$project$AreaTriangulo$Model = F2(
-	function (i1, i2) {
-		return {i1: i1, i2: i2};
-	});
+var $author$project$ReverterString$Model = function (i1) {
+	return {i1: i1};
+};
 var $elm$core$Basics$EQ = {$: 'EQ'};
 var $elm$core$Basics$GT = {$: 'GT'};
 var $elm$core$Basics$LT = {$: 'LT'};
@@ -5169,41 +5168,16 @@ var $elm$browser$Browser$sandbox = function (impl) {
 			view: impl.view
 		});
 };
-var $author$project$AreaTriangulo$update = F2(
+var $author$project$ReverterString$update = F2(
 	function (msg, model) {
-		if (msg.$ === 'Input1') {
-			var n = msg.a;
-			return _Utils_update(
-				model,
-				{i1: n});
-		} else {
-			var m = msg.a;
-			return _Utils_update(
-				model,
-				{i2: m});
-		}
+		var n = msg.a;
+		return _Utils_update(
+			model,
+			{i1: n});
 	});
-var $author$project$AreaTriangulo$Input1 = function (a) {
-	return {$: 'Input1', a: a};
+var $author$project$ReverterString$Input = function (a) {
+	return {$: 'Input', a: a};
 };
-var $author$project$AreaTriangulo$Input2 = function (a) {
-	return {$: 'Input2', a: a};
-};
-var $elm$core$String$fromFloat = _String_fromNumber;
-var $elm$core$String$toFloat = _String_toFloat;
-var $author$project$AreaTriangulo$areaTriangulo = F2(
-	function (b, h) {
-		var _v0 = _Utils_Tuple2(
-			$elm$core$String$toFloat(b),
-			$elm$core$String$toFloat(h));
-		if ((_v0.a.$ === 'Just') && (_v0.b.$ === 'Just')) {
-			var n = _v0.a.a;
-			var m = _v0.b.a;
-			return ((n > 0) && (m > 0)) ? ($elm$core$String$fromFloat((n * m) / 2) + ' u²') : 'Indeterminado';
-		} else {
-			return 'Indeterminado';
-		}
-	});
 var $elm$json$Json$Encode$string = _Json_wrap;
 var $elm$html$Html$Attributes$stringProperty = F2(
 	function (key, string) {
@@ -5251,16 +5225,18 @@ var $elm$html$Html$Events$onInput = function (tagger) {
 			A2($elm$json$Json$Decode$map, tagger, $elm$html$Html$Events$targetValue)));
 };
 var $elm$html$Html$Attributes$placeholder = $elm$html$Html$Attributes$stringProperty('placeholder');
+var $elm$core$String$reverse = _String_reverse;
 var $elm$html$Html$span = _VirtualDom_node('span');
+var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
+var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
 var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
-var $author$project$AreaTriangulo$view = function (model) {
+var $author$project$ReverterString$view = function (model) {
 	var toText = {
-		box1: 'Base',
-		box2: 'Altura',
-		output: A2($author$project$AreaTriangulo$areaTriangulo, model.i1, model.i2),
-		title: 'Calcular Área do Triângulo'
+		box1: 'Texto',
+		output: $elm$core$String$reverse(model.i1),
+		title: 'Reverter Texto'
 	};
 	return A2(
 		$elm$html$Html$div,
@@ -5305,7 +5281,7 @@ var $author$project$AreaTriangulo$view = function (model) {
 										$elm$html$Html$div,
 										_List_fromArray(
 											[
-												$elm$html$Html$Attributes$class('col-md-6')
+												$elm$html$Html$Attributes$class('col-md-12')
 											]),
 										_List_fromArray(
 											[
@@ -5315,27 +5291,9 @@ var $author$project$AreaTriangulo$view = function (model) {
 													[
 														$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
 														$elm$html$Html$Attributes$placeholder(toText.box1),
-														$elm$html$Html$Attributes$type_('number'),
-														$elm$html$Html$Events$onInput($author$project$AreaTriangulo$Input1)
-													]),
-												_List_Nil)
-											])),
-										A2(
-										$elm$html$Html$div,
-										_List_fromArray(
-											[
-												$elm$html$Html$Attributes$class('col-md-6')
-											]),
-										_List_fromArray(
-											[
-												A2(
-												$elm$html$Html$input,
-												_List_fromArray(
-													[
-														$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
-														$elm$html$Html$Attributes$placeholder(toText.box2),
-														$elm$html$Html$Attributes$type_('number'),
-														$elm$html$Html$Events$onInput($author$project$AreaTriangulo$Input2)
+														$elm$html$Html$Attributes$type_('text'),
+														$elm$html$Html$Events$onInput($author$project$ReverterString$Input),
+														A2($elm$html$Html$Attributes$style, 'margin-right', '10px')
 													]),
 												_List_Nil)
 											]))
@@ -5364,20 +5322,19 @@ var $author$project$AreaTriangulo$view = function (model) {
 													]),
 												_List_fromArray(
 													[
-														$elm$html$Html$text('Resultado: ')
-													])),
-												$elm$html$Html$text(toText.output)
+														$elm$html$Html$text(toText.output)
+													]))
 											]))
 									]))
 							]))
 					]))
 			]));
 };
-var $author$project$AreaTriangulo$main = $elm$browser$Browser$sandbox(
+var $author$project$ReverterString$main = $elm$browser$Browser$sandbox(
 	{
-		init: A2($author$project$AreaTriangulo$Model, '', ''),
-		update: $author$project$AreaTriangulo$update,
-		view: $author$project$AreaTriangulo$view
+		init: $author$project$ReverterString$Model(''),
+		update: $author$project$ReverterString$update,
+		view: $author$project$ReverterString$view
 	});
-_Platform_export({'AreaTriangulo':{'init':$author$project$AreaTriangulo$main(
+_Platform_export({'ReverterString':{'init':$author$project$ReverterString$main(
 	$elm$json$Json$Decode$succeed(_Utils_Tuple0))(0)}});}(this));
