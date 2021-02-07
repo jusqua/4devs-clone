@@ -4355,7 +4355,7 @@ function _Browser_load(url)
 		}
 	}));
 }
-var $author$project$ReverterString$Model = function (i1) {
+var $author$project$Fatorar$Model = function (i1) {
 	return {i1: i1};
 };
 var $elm$core$Basics$EQ = {$: 'EQ'};
@@ -5168,14 +5168,14 @@ var $elm$browser$Browser$sandbox = function (impl) {
 			view: impl.view
 		});
 };
-var $author$project$ReverterString$update = F2(
+var $author$project$Fatorar$update = F2(
 	function (msg, model) {
 		var n = msg.a;
 		return _Utils_update(
 			model,
 			{i1: n});
 	});
-var $author$project$ReverterString$Input = function (a) {
+var $author$project$Fatorar$Input = function (a) {
 	return {$: 'Input', a: a};
 };
 var $elm$json$Json$Encode$string = _Json_wrap;
@@ -5188,6 +5188,38 @@ var $elm$html$Html$Attributes$stringProperty = F2(
 	});
 var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('className');
 var $elm$html$Html$div = _VirtualDom_node('div');
+var $elm$core$Basics$modBy = _Basics_modBy;
+var $elm$core$Basics$negate = function (n) {
+	return -n;
+};
+var $author$project$Fatorar$fatorar = function (f) {
+	var aux = F2(
+		function (num, fct) {
+			aux:
+			while (true) {
+				if (_Utils_eq(num, fct) || (num === 1)) {
+					return $elm$core$String$fromInt(num);
+				} else {
+					if (!A2($elm$core$Basics$modBy, fct, num)) {
+						return $elm$core$String$fromInt(fct) + ('.' + A2(aux, (num / fct) | 0, fct));
+					} else {
+						var $temp$num = num,
+							$temp$fct = fct + 1;
+						num = $temp$num;
+						fct = $temp$fct;
+						continue aux;
+					}
+				}
+			}
+		});
+	var _v0 = $elm$core$String$toInt(f);
+	if (_v0.$ === 'Just') {
+		var n = _v0.a;
+		return (!n) ? '0' : ((n > 0) ? A2(aux, n, 2) : ('-(' + (A2(aux, -n, 2) + ')')));
+	} else {
+		return 'Indeterminado';
+	}
+};
 var $elm$html$Html$h5 = _VirtualDom_node('h5');
 var $elm$html$Html$input = _VirtualDom_node('input');
 var $elm$html$Html$Events$alwaysStop = function (x) {
@@ -5225,18 +5257,17 @@ var $elm$html$Html$Events$onInput = function (tagger) {
 			A2($elm$json$Json$Decode$map, tagger, $elm$html$Html$Events$targetValue)));
 };
 var $elm$html$Html$Attributes$placeholder = $elm$html$Html$Attributes$stringProperty('placeholder');
-var $elm$core$String$reverse = _String_reverse;
 var $elm$html$Html$span = _VirtualDom_node('span');
 var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
 var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
 var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
-var $author$project$ReverterString$view = function (model) {
+var $author$project$Fatorar$view = function (model) {
 	var toText = {
-		box1: 'Texto',
-		output: $elm$core$String$reverse(model.i1),
-		title: 'Reverter Texto'
+		box1: 'Número',
+		output: $author$project$Fatorar$fatorar(model.i1),
+		title: 'Fatoração Numérica'
 	};
 	return A2(
 		$elm$html$Html$div,
@@ -5291,8 +5322,8 @@ var $author$project$ReverterString$view = function (model) {
 													[
 														$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
 														$elm$html$Html$Attributes$placeholder(toText.box1),
-														$elm$html$Html$Attributes$type_('text'),
-														$elm$html$Html$Events$onInput($author$project$ReverterString$Input),
+														$elm$html$Html$Attributes$type_('number'),
+														$elm$html$Html$Events$onInput($author$project$Fatorar$Input),
 														A2($elm$html$Html$Attributes$style, 'margin-right', '10px')
 													]),
 												_List_Nil)
@@ -5324,27 +5355,18 @@ var $author$project$ReverterString$view = function (model) {
 													[
 														$elm$html$Html$text('Resultado: ')
 													])),
-												A2(
-												$elm$html$Html$span,
-												_List_fromArray(
-													[
-														$elm$html$Html$Attributes$class('h6')
-													]),
-												_List_fromArray(
-													[
-														$elm$html$Html$text(toText.output)
-													]))
+												$elm$html$Html$text(toText.output)
 											]))
 									]))
 							]))
 					]))
 			]));
 };
-var $author$project$ReverterString$main = $elm$browser$Browser$sandbox(
+var $author$project$Fatorar$main = $elm$browser$Browser$sandbox(
 	{
-		init: $author$project$ReverterString$Model(''),
-		update: $author$project$ReverterString$update,
-		view: $author$project$ReverterString$view
+		init: $author$project$Fatorar$Model(''),
+		update: $author$project$Fatorar$update,
+		view: $author$project$Fatorar$view
 	});
-_Platform_export({'ReverterString':{'init':$author$project$ReverterString$main(
+_Platform_export({'Fatorar':{'init':$author$project$Fatorar$main(
 	$elm$json$Json$Decode$succeed(_Utils_Tuple0))(0)}});}(this));

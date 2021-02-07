@@ -1,4 +1,6 @@
 module SubstituirLinha exposing (..)
+import Html exposing (textarea)
+import Html.Attributes exposing (class)
 import Browser
 import Html exposing (..)
 import Html.Events exposing (..)
@@ -48,8 +50,8 @@ view model =
             [ h5 [ class "card-title" ] [ text toText.title ]
             , div []
                 [ div [ class "row" ]
-                    [ textarea [ placeholder toText.box1, onInput Input1, style "margin-right" "10px" ] [] ]
-                    , div [ class "col-md-6" ] [ input [ class "form-control bg-dark text-light", placeholder toText.box2, type_ "text", onInput Input2 ] [] ]
+                    [ div [ class "col-md-12"] [textarea [class "form-control bg-dark text-light", placeholder toText.box1, onInput Input1, style "margin-right" "10px" ] [] ]]
+                    , div [ class "col-md-12 mt-2" ] [ input [ class "form-control bg-dark text-light", placeholder toText.box2, type_ "text", onInput Input2 ] [] ]
                     ]
                 , div [ class "row" ] [ div [ class "col-md-12" ] [ span [ class "h6" ] [ text "Resultado: \n" ], text toText.output ] ]
                 ]

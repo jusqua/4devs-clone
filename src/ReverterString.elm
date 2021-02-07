@@ -39,7 +39,7 @@ view model =
               [ div [ class "row" ]
                 [ 
                   div [ class "col-md-12" ] [ input [ class "form-control bg-dark text-light", placeholder toText.box1, type_ "text", onInput Input, style "margin-right" "10px" ] [] ] ],
-                  div [ class "row" ] [ div [ class "col-md-12" ] [ span [ class "h6" ] [ text toText.output ] ]
+                  div [ class "row" ] [ div [ class "col-md-12" ] [  span [ class "h6" ] [ text "Resultado: " ], span [ class "h6" ] [ text toText.output ] ]
                 ]
               ]
           ]

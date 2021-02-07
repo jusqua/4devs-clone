@@ -5,20 +5,12 @@
     <title>PF | Computação</title>
 
     <script src="reverterString.js"></script>
-    <script src="areaQuadrado.js"></script>
-    <script src="areaRetangulo.js"></script>
-    <script src="areaTriangulo.js"></script>
-    <script src="areaCoroaCircular.js"></script>
-    <script src="areaCoroaLosango.js"></script>
-    <script src="areaParalelogramo.js"></script>
-    <script src="areaPentagono.js"></script>
-    <script src="areaSetorCircular.js"></script>
-    <script src="areaLosango.js"></script>
-    <script src="areaTrapezio.js"></script>
-    <script src="areaElipse.js"></script>
-    <script src="areaPoligonoRegular.js"></script>
-    <script src="areaHexagono.js"></script>
-    <script src="restoDivisao.js"></script>
+    <script src="contadorString.js"></script>
+    <script src="substituirLinha.js"></script>
+    <script src="geradorCPF.js"></script>
+    <script src="geradorCNPJ.js"></script>
+    <script src="validadorCPF.js"></script>
+    <script src="validadorCNPJ.js"></script>
 
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
         integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
@@ -89,7 +81,7 @@
         </div>
 
     </div>
-    <footer class="footer bg-light fixed-bottom">
+    <footer class="footer bg-light">
         <div class="container">
           <div class="row">
             <div class="col-md-2 col-3">
@@ -111,38 +103,38 @@
                 node: document.getElementById('myapp')
             });
         </script>
-        <!-- <script>
-        var app = Elm.AreaQuadrado.init({
+        <script>
+        var app = Elm.ContadorString.init({
             node: document.getElementById('myapp2')
         });
     </script>
     <script>
-        var app = Elm.AreaRetangulo.init({
+        var app = Elm.SubstituirLinha.init({
             node: document.getElementById('myapp3')
         });
     </script>
     <script>
-        var app = Elm.AreaTriangulo.init({
+        var app = Elm.GeradorCPF.init({
             node: document.getElementById('myapp4')
         });
     </script>
     <script>
-        var app = Elm.AreaCoroaCircular.init({
+        var app = Elm.GeradorCNPJ.init({
             node: document.getElementById('myapp5')
         });
     </script>
     <script>
-        var app = Elm.AreaSetorCircular.init({
+        var app = Elm.Nothing.init({
             node: document.getElementById('myapp6')
         });
     </script>
     <script>
-        var app = Elm.AreaParalelogramo.init({
+        var app = Elm.ValidadorCPF.init({
             node: document.getElementById('myapp7')
         });
     </script>
     <script>
-        var app = Elm.AreaPentagono.init({
+        var app = Elm.ValidadorCNPJ.init({
             node: document.getElementById('myapp8')
         });
     </script>
@@ -175,7 +167,7 @@
         var app = Elm.RestoDivisao.init({
             node: document.getElementById('myapp14')
         });
-    </script> -->
+    </script>
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"

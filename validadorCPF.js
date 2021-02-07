@@ -4355,9 +4355,6 @@ function _Browser_load(url)
 		}
 	}));
 }
-var $author$project$ReverterString$Model = function (i1) {
-	return {i1: i1};
-};
 var $elm$core$Basics$EQ = {$: 'EQ'};
 var $elm$core$Basics$GT = {$: 'GT'};
 var $elm$core$Basics$LT = {$: 'LT'};
@@ -5146,38 +5143,328 @@ var $elm$core$Task$perform = F2(
 			$elm$core$Task$Perform(
 				A2($elm$core$Task$map, toMessage, task)));
 	});
+var $elm$browser$Browser$element = _Browser_element;
+var $author$project$ValidadorCPF$Model = F2(
+	function (inputCPF, outputCPF) {
+		return {inputCPF: inputCPF, outputCPF: outputCPF};
+	});
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
+var $author$project$ValidadorCPF$init = function (_v0) {
+	return _Utils_Tuple2(
+		A2($author$project$ValidadorCPF$Model, '', ''),
+		$elm$core$Platform$Cmd$none);
+};
 var $elm$core$Platform$Sub$batch = _Platform_batch;
 var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
-var $elm$browser$Browser$sandbox = function (impl) {
-	return _Browser_element(
-		{
-			init: function (_v0) {
-				return _Utils_Tuple2(impl.init, $elm$core$Platform$Cmd$none);
-			},
-			subscriptions: function (_v1) {
-				return $elm$core$Platform$Sub$none;
-			},
-			update: F2(
-				function (msg, model) {
-					return _Utils_Tuple2(
-						A2(impl.update, msg, model),
-						$elm$core$Platform$Cmd$none);
-				}),
-			view: impl.view
-		});
-};
-var $author$project$ReverterString$update = F2(
-	function (msg, model) {
-		var n = msg.a;
-		return _Utils_update(
-			model,
-			{i1: n});
+var $elm$core$List$append = F2(
+	function (xs, ys) {
+		if (!ys.b) {
+			return xs;
+		} else {
+			return A3($elm$core$List$foldr, $elm$core$List$cons, ys, xs);
+		}
 	});
-var $author$project$ReverterString$Input = function (a) {
-	return {$: 'Input', a: a};
+var $author$project$Auxiliar$cpfc = F2(
+	function (l, i) {
+		if (i === 1) {
+			return _List_Nil;
+		} else {
+			if (l.b && (l.a.$ === 'Just')) {
+				var x = l.a.a;
+				var xs = l.b;
+				return A2(
+					$elm$core$List$cons,
+					x * i,
+					A2($author$project$Auxiliar$cpfc, xs, i - 1));
+			} else {
+				return _List_Nil;
+			}
+		}
+	});
+var $author$project$Auxiliar$charToInt = function (ch) {
+	switch (ch.valueOf()) {
+		case '0':
+			return $elm$core$Maybe$Just(0);
+		case '1':
+			return $elm$core$Maybe$Just(1);
+		case '2':
+			return $elm$core$Maybe$Just(2);
+		case '3':
+			return $elm$core$Maybe$Just(3);
+		case '4':
+			return $elm$core$Maybe$Just(4);
+		case '5':
+			return $elm$core$Maybe$Just(5);
+		case '6':
+			return $elm$core$Maybe$Just(6);
+		case '7':
+			return $elm$core$Maybe$Just(7);
+		case '8':
+			return $elm$core$Maybe$Just(8);
+		case '9':
+			return $elm$core$Maybe$Just(9);
+		default:
+			return $elm$core$Maybe$Nothing;
+	}
 };
+var $elm$core$List$filter = F2(
+	function (isGood, list) {
+		return A3(
+			$elm$core$List$foldr,
+			F2(
+				function (x, xs) {
+					return isGood(x) ? A2($elm$core$List$cons, x, xs) : xs;
+				}),
+			_List_Nil,
+			list);
+	});
+var $elm$core$Basics$not = _Basics_not;
+var $author$project$Auxiliar$isNotDigit = function (ch) {
+	return !$elm$core$Char$isDigit(ch);
+};
+var $elm$core$Basics$neq = _Utils_notEqual;
+var $author$project$Auxiliar$listSame = function (l) {
+	listSame:
+	while (true) {
+		if (!l.b) {
+			return true;
+		} else {
+			if (l.b.b) {
+				var x = l.a;
+				var _v1 = l.b;
+				var y = _v1.a;
+				var xs = _v1.b;
+				if (!_Utils_eq(x, y)) {
+					return false;
+				} else {
+					var $temp$l = A2($elm$core$List$cons, y, xs);
+					l = $temp$l;
+					continue listSame;
+				}
+			} else {
+				return true;
+			}
+		}
+	}
+};
+var $elm$core$String$foldr = _String_foldr;
+var $elm$core$String$toList = function (string) {
+	return A3($elm$core$String$foldr, $elm$core$List$cons, _List_Nil, string);
+};
+var $author$project$Auxiliar$cpfncnpjTrait = function (str) {
+	var strl = $elm$core$String$toList(str);
+	var test1 = A2($elm$core$List$filter, $author$project$Auxiliar$isNotDigit, strl);
+	var test2 = A2($elm$core$List$map, $author$project$Auxiliar$charToInt, strl);
+	return (!_Utils_eq(test1, _List_Nil)) ? _List_Nil : ($author$project$Auxiliar$listSame(test2) ? _List_Nil : test2);
+};
+var $author$project$Auxiliar$digg = function (l) {
+	var _v0 = $elm$core$List$reverse(l);
+	if (_v0.b && _v0.b.b) {
+		var x = _v0.a;
+		var _v1 = _v0.b;
+		var y = _v1.a;
+		var xs = _v1.b;
+		var _v2 = _Utils_Tuple2(y, x);
+		if ((_v2.a.$ === 'Just') && (_v2.b.$ === 'Just')) {
+			var n = _v2.a.a;
+			var m = _v2.b.a;
+			return _Utils_Tuple2(n, m);
+		} else {
+			return _Utils_Tuple2(0, 0);
+		}
+	} else {
+		return _Utils_Tuple2(0, 0);
+	}
+};
+var $elm$core$Basics$modBy = _Basics_modBy;
+var $elm$core$List$sum = function (numbers) {
+	return A3($elm$core$List$foldl, $elm$core$Basics$add, 0, numbers);
+};
+var $author$project$Auxiliar$digv = function (l) {
+	var calc = A2(
+		$elm$core$Basics$modBy,
+		11,
+		$elm$core$List$sum(l));
+	return (calc < 2) ? 0 : (11 - calc);
+};
+var $elm$core$Tuple$second = function (_v0) {
+	var y = _v0.b;
+	return y;
+};
+var $elm$core$List$takeReverse = F3(
+	function (n, list, kept) {
+		takeReverse:
+		while (true) {
+			if (n <= 0) {
+				return kept;
+			} else {
+				if (!list.b) {
+					return kept;
+				} else {
+					var x = list.a;
+					var xs = list.b;
+					var $temp$n = n - 1,
+						$temp$list = xs,
+						$temp$kept = A2($elm$core$List$cons, x, kept);
+					n = $temp$n;
+					list = $temp$list;
+					kept = $temp$kept;
+					continue takeReverse;
+				}
+			}
+		}
+	});
+var $elm$core$List$takeTailRec = F2(
+	function (n, list) {
+		return $elm$core$List$reverse(
+			A3($elm$core$List$takeReverse, n, list, _List_Nil));
+	});
+var $elm$core$List$takeFast = F3(
+	function (ctr, n, list) {
+		if (n <= 0) {
+			return _List_Nil;
+		} else {
+			var _v0 = _Utils_Tuple2(n, list);
+			_v0$1:
+			while (true) {
+				_v0$5:
+				while (true) {
+					if (!_v0.b.b) {
+						return list;
+					} else {
+						if (_v0.b.b.b) {
+							switch (_v0.a) {
+								case 1:
+									break _v0$1;
+								case 2:
+									var _v2 = _v0.b;
+									var x = _v2.a;
+									var _v3 = _v2.b;
+									var y = _v3.a;
+									return _List_fromArray(
+										[x, y]);
+								case 3:
+									if (_v0.b.b.b.b) {
+										var _v4 = _v0.b;
+										var x = _v4.a;
+										var _v5 = _v4.b;
+										var y = _v5.a;
+										var _v6 = _v5.b;
+										var z = _v6.a;
+										return _List_fromArray(
+											[x, y, z]);
+									} else {
+										break _v0$5;
+									}
+								default:
+									if (_v0.b.b.b.b && _v0.b.b.b.b.b) {
+										var _v7 = _v0.b;
+										var x = _v7.a;
+										var _v8 = _v7.b;
+										var y = _v8.a;
+										var _v9 = _v8.b;
+										var z = _v9.a;
+										var _v10 = _v9.b;
+										var w = _v10.a;
+										var tl = _v10.b;
+										return (ctr > 1000) ? A2(
+											$elm$core$List$cons,
+											x,
+											A2(
+												$elm$core$List$cons,
+												y,
+												A2(
+													$elm$core$List$cons,
+													z,
+													A2(
+														$elm$core$List$cons,
+														w,
+														A2($elm$core$List$takeTailRec, n - 4, tl))))) : A2(
+											$elm$core$List$cons,
+											x,
+											A2(
+												$elm$core$List$cons,
+												y,
+												A2(
+													$elm$core$List$cons,
+													z,
+													A2(
+														$elm$core$List$cons,
+														w,
+														A3($elm$core$List$takeFast, ctr + 1, n - 4, tl)))));
+									} else {
+										break _v0$5;
+									}
+							}
+						} else {
+							if (_v0.a === 1) {
+								break _v0$1;
+							} else {
+								break _v0$5;
+							}
+						}
+					}
+				}
+				return list;
+			}
+			var _v1 = _v0.b;
+			var x = _v1.a;
+			return _List_fromArray(
+				[x]);
+		}
+	});
+var $elm$core$List$take = F2(
+	function (n, list) {
+		return A3($elm$core$List$takeFast, 0, n, list);
+	});
+var $author$project$ValidadorCPF$validarCPF = function (input) {
+	var cpf = $author$project$Auxiliar$cpfncnpjTrait(input);
+	if ($elm$core$List$length(cpf) === 11) {
+		var odig = $author$project$Auxiliar$digg(cpf);
+		var cpft = A2($elm$core$List$take, 9, cpf);
+		var pdig = $author$project$Auxiliar$digv(
+			A2($author$project$Auxiliar$cpfc, cpft, 10));
+		var sdig = $author$project$Auxiliar$digv(
+			A2(
+				$author$project$Auxiliar$cpfc,
+				A2(
+					$elm$core$List$append,
+					cpft,
+					_List_fromArray(
+						[
+							$elm$core$Maybe$Just(pdig)
+						])),
+				11));
+		return (_Utils_eq(pdig, odig.a) && _Utils_eq(sdig, odig.b)) ? 'Válido' : 'Inválido';
+	} else {
+		return 'Indefinido';
+	}
+};
+var $author$project$ValidadorCPF$update = F2(
+	function (msg, model) {
+		if (msg.$ === 'CPF') {
+			var cpf = msg.a;
+			return _Utils_Tuple2(
+				_Utils_update(
+					model,
+					{inputCPF: cpf}),
+				$elm$core$Platform$Cmd$none);
+		} else {
+			return _Utils_Tuple2(
+				_Utils_update(
+					model,
+					{
+						outputCPF: $author$project$ValidadorCPF$validarCPF(model.inputCPF)
+					}),
+				$elm$core$Platform$Cmd$none);
+		}
+	});
+var $author$project$ValidadorCPF$CPF = function (a) {
+	return {$: 'CPF', a: a};
+};
+var $author$project$ValidadorCPF$Submit = {$: 'Submit'};
+var $elm$html$Html$button = _VirtualDom_node('button');
 var $elm$json$Json$Encode$string = _Json_wrap;
 var $elm$html$Html$Attributes$stringProperty = F2(
 	function (key, string) {
@@ -5190,13 +5477,29 @@ var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('
 var $elm$html$Html$div = _VirtualDom_node('div');
 var $elm$html$Html$h5 = _VirtualDom_node('h5');
 var $elm$html$Html$input = _VirtualDom_node('input');
+var $elm$virtual_dom$VirtualDom$Normal = function (a) {
+	return {$: 'Normal', a: a};
+};
+var $elm$virtual_dom$VirtualDom$on = _VirtualDom_on;
+var $elm$html$Html$Events$on = F2(
+	function (event, decoder) {
+		return A2(
+			$elm$virtual_dom$VirtualDom$on,
+			event,
+			$elm$virtual_dom$VirtualDom$Normal(decoder));
+	});
+var $elm$html$Html$Events$onClick = function (msg) {
+	return A2(
+		$elm$html$Html$Events$on,
+		'click',
+		$elm$json$Json$Decode$succeed(msg));
+};
 var $elm$html$Html$Events$alwaysStop = function (x) {
 	return _Utils_Tuple2(x, true);
 };
 var $elm$virtual_dom$VirtualDom$MayStopPropagation = function (a) {
 	return {$: 'MayStopPropagation', a: a};
 };
-var $elm$virtual_dom$VirtualDom$on = _VirtualDom_on;
 var $elm$html$Html$Events$stopPropagationOn = F2(
 	function (event, decoder) {
 		return A2(
@@ -5225,19 +5528,13 @@ var $elm$html$Html$Events$onInput = function (tagger) {
 			A2($elm$json$Json$Decode$map, tagger, $elm$html$Html$Events$targetValue)));
 };
 var $elm$html$Html$Attributes$placeholder = $elm$html$Html$Attributes$stringProperty('placeholder');
-var $elm$core$String$reverse = _String_reverse;
-var $elm$html$Html$span = _VirtualDom_node('span');
 var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
 var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
 var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
-var $author$project$ReverterString$view = function (model) {
-	var toText = {
-		box1: 'Texto',
-		output: $elm$core$String$reverse(model.i1),
-		title: 'Reverter Texto'
-	};
+var $elm$html$Html$Attributes$value = $elm$html$Html$Attributes$stringProperty('value');
+var $author$project$ValidadorCPF$view = function (model) {
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
@@ -5262,7 +5559,7 @@ var $author$project$ReverterString$view = function (model) {
 							]),
 						_List_fromArray(
 							[
-								$elm$html$Html$text(toText.title)
+								$elm$html$Html$text('Validador de CPF')
 							])),
 						A2(
 						$elm$html$Html$div,
@@ -5278,73 +5575,43 @@ var $author$project$ReverterString$view = function (model) {
 								_List_fromArray(
 									[
 										A2(
-										$elm$html$Html$div,
+										$elm$html$Html$input,
 										_List_fromArray(
 											[
-												$elm$html$Html$Attributes$class('col-md-12')
+												$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
+												$elm$html$Html$Attributes$type_('text'),
+												$elm$html$Html$Attributes$placeholder('CPF'),
+												$elm$html$Html$Attributes$value(model.inputCPF),
+												$elm$html$Html$Events$onInput($author$project$ValidadorCPF$CPF)
 											]),
-										_List_fromArray(
-											[
-												A2(
-												$elm$html$Html$input,
-												_List_fromArray(
-													[
-														$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
-														$elm$html$Html$Attributes$placeholder(toText.box1),
-														$elm$html$Html$Attributes$type_('text'),
-														$elm$html$Html$Events$onInput($author$project$ReverterString$Input),
-														A2($elm$html$Html$Attributes$style, 'margin-right', '10px')
-													]),
-												_List_Nil)
-											]))
-									])),
-								A2(
-								$elm$html$Html$div,
-								_List_fromArray(
-									[
-										$elm$html$Html$Attributes$class('row')
-									]),
-								_List_fromArray(
-									[
+										_List_Nil),
 										A2(
-										$elm$html$Html$div,
+										$elm$html$Html$button,
 										_List_fromArray(
 											[
-												$elm$html$Html$Attributes$class('col-md-12')
+												$elm$html$Html$Attributes$class('btn btn-outline-light mt-2'),
+												$elm$html$Html$Events$onClick($author$project$ValidadorCPF$Submit),
+												A2($elm$html$Html$Attributes$style, 'margin-right', '10px')
 											]),
 										_List_fromArray(
 											[
-												A2(
-												$elm$html$Html$span,
-												_List_fromArray(
-													[
-														$elm$html$Html$Attributes$class('h6')
-													]),
-												_List_fromArray(
-													[
-														$elm$html$Html$text('Resultado: ')
-													])),
-												A2(
-												$elm$html$Html$span,
-												_List_fromArray(
-													[
-														$elm$html$Html$Attributes$class('h6')
-													]),
-												_List_fromArray(
-													[
-														$elm$html$Html$text(toText.output)
-													]))
-											]))
+												$elm$html$Html$text('Validar')
+											])),
+										$elm$html$Html$text('Resultado: '),
+										$elm$html$Html$text(model.outputCPF)
 									]))
 							]))
 					]))
 			]));
 };
-var $author$project$ReverterString$main = $elm$browser$Browser$sandbox(
+var $author$project$ValidadorCPF$main = $elm$browser$Browser$element(
 	{
-		init: $author$project$ReverterString$Model(''),
-		update: $author$project$ReverterString$update,
-		view: $author$project$ReverterString$view
+		init: $author$project$ValidadorCPF$init,
+		subscriptions: function (model) {
+			return $elm$core$Platform$Sub$none;
+		},
+		update: $author$project$ValidadorCPF$update,
+		view: $author$project$ValidadorCPF$view
 	});
-_Platform_export({'ReverterString':{'init':$author$project$ReverterString$main(
+_Platform_export({'ValidadorCPF':{'init':$author$project$ValidadorCPF$main(
 	$elm$json$Json$Decode$succeed(_Utils_Tuple0))(0)}});}(this));

@@ -1,8 +1,8 @@
 module GeradorCNPJ exposing (..)
 import Auxiliar exposing (digv, cnpjc, charToInt, intToChar)
 import Html exposing (..)
-import Html.Attributes exposing (style)
-import Html.Events exposing (onClick)
+import Html.Attributes exposing (..)
+import Html.Events exposing (..)
 import Random
 import Browser
 
@@ -41,7 +41,7 @@ type alias Model = {genCNPJ : String}
 
 init : () -> (Model, Cmd Msg)
 init _ = (Model "", Cmd.none)
- 
+
 -- UPDATE
 type Msg = Gen | Calc Int | CNPJ Int
 
@@ -58,8 +58,17 @@ update msg model =
 -- VIEW
 view : Model -> Html Msg
 view model = 
-  div []
-    [ 
-      button [onClick Gen, style "margin-right" "10px"] [text "Gerar"],
-      text <| gerarCNPJ model.genCNPJ
-    ]
+   div
+        [ class "card col-md-4 bg-dark" ]
+        [ div [ class "card-body bg-dark text-light" ]
+            [ h5 [ class "card-title" ] [ text "Gerador de CNPJ" ]
+            , div []
+                [ div [ class "row" ]
+                    [ div []
+                        [ button [ class "btn btn-outline-light", onClick Gen, style "margin-right" "10px" ] [ text "Gerar" ],
+                        span [class "h6"] [text "Resultado: "] , text <| gerarCNPJ model.genCNPJ
+                        ]
+                    ]
+                ]
+            ]
+        ]

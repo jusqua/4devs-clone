@@ -4355,9 +4355,10 @@ function _Browser_load(url)
 		}
 	}));
 }
-var $author$project$ReverterString$Model = function (i1) {
-	return {i1: i1};
-};
+var $author$project$SubstituirLinha$Model = F2(
+	function (i1, i2) {
+		return {i1: i1, i2: i2};
+	});
 var $elm$core$Basics$EQ = {$: 'EQ'};
 var $elm$core$Basics$GT = {$: 'GT'};
 var $elm$core$Basics$LT = {$: 'LT'};
@@ -5168,15 +5169,25 @@ var $elm$browser$Browser$sandbox = function (impl) {
 			view: impl.view
 		});
 };
-var $author$project$ReverterString$update = F2(
+var $author$project$SubstituirLinha$update = F2(
 	function (msg, model) {
-		var n = msg.a;
-		return _Utils_update(
-			model,
-			{i1: n});
+		if (msg.$ === 'Input1') {
+			var n = msg.a;
+			return _Utils_update(
+				model,
+				{i1: n});
+		} else {
+			var m = msg.a;
+			return _Utils_update(
+				model,
+				{i2: m});
+		}
 	});
-var $author$project$ReverterString$Input = function (a) {
-	return {$: 'Input', a: a};
+var $author$project$SubstituirLinha$Input1 = function (a) {
+	return {$: 'Input1', a: a};
+};
+var $author$project$SubstituirLinha$Input2 = function (a) {
+	return {$: 'Input2', a: a};
 };
 var $elm$json$Json$Encode$string = _Json_wrap;
 var $elm$html$Html$Attributes$stringProperty = F2(
@@ -5225,18 +5236,58 @@ var $elm$html$Html$Events$onInput = function (tagger) {
 			A2($elm$json$Json$Decode$map, tagger, $elm$html$Html$Events$targetValue)));
 };
 var $elm$html$Html$Attributes$placeholder = $elm$html$Html$Attributes$stringProperty('placeholder');
-var $elm$core$String$reverse = _String_reverse;
 var $elm$html$Html$span = _VirtualDom_node('span');
 var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
 var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
+var $elm$core$List$append = F2(
+	function (xs, ys) {
+		if (!ys.b) {
+			return xs;
+		} else {
+			return A3($elm$core$List$foldr, $elm$core$List$cons, ys, xs);
+		}
+	});
+var $elm$core$String$fromList = _String_fromList;
+var $elm$core$String$foldr = _String_foldr;
+var $elm$core$String$toList = function (string) {
+	return A3($elm$core$String$foldr, $elm$core$List$cons, _List_Nil, string);
+};
+var $author$project$SubstituirLinha$substituirLinha = F2(
+	function (text, ntext) {
+		var aux = F2(
+			function (ls, ts) {
+				if (!ls.b) {
+					return _List_Nil;
+				} else {
+					var x = ls.a;
+					var xs = ls.b;
+					return _Utils_eq(
+						x,
+						_Utils_chr('\n')) ? A2(
+						$elm$core$List$append,
+						ts,
+						A2(aux, xs, ts)) : A2(
+						$elm$core$List$cons,
+						x,
+						A2(aux, xs, ts));
+				}
+			});
+		return $elm$core$String$fromList(
+			A2(
+				aux,
+				$elm$core$String$toList(text),
+				$elm$core$String$toList(ntext)));
+	});
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
+var $elm$html$Html$textarea = _VirtualDom_node('textarea');
 var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
-var $author$project$ReverterString$view = function (model) {
+var $author$project$SubstituirLinha$view = function (model) {
 	var toText = {
-		box1: 'Texto',
-		output: $elm$core$String$reverse(model.i1),
-		title: 'Reverter Texto'
+		box1: 'Texto Original',
+		box2: 'Texto Substituto',
+		output: A2($author$project$SubstituirLinha$substituirLinha, model.i1, model.i2),
+		title: 'Substituir Quebra de Linha'
 	};
 	return A2(
 		$elm$html$Html$div,
@@ -5286,13 +5337,12 @@ var $author$project$ReverterString$view = function (model) {
 										_List_fromArray(
 											[
 												A2(
-												$elm$html$Html$input,
+												$elm$html$Html$textarea,
 												_List_fromArray(
 													[
 														$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
 														$elm$html$Html$Attributes$placeholder(toText.box1),
-														$elm$html$Html$Attributes$type_('text'),
-														$elm$html$Html$Events$onInput($author$project$ReverterString$Input),
+														$elm$html$Html$Events$onInput($author$project$SubstituirLinha$Input1),
 														A2($elm$html$Html$Attributes$style, 'margin-right', '10px')
 													]),
 												_List_Nil)
@@ -5302,49 +5352,59 @@ var $author$project$ReverterString$view = function (model) {
 								$elm$html$Html$div,
 								_List_fromArray(
 									[
-										$elm$html$Html$Attributes$class('row')
+										$elm$html$Html$Attributes$class('col-md-12 mt-2')
 									]),
 								_List_fromArray(
 									[
 										A2(
-										$elm$html$Html$div,
+										$elm$html$Html$input,
 										_List_fromArray(
 											[
-												$elm$html$Html$Attributes$class('col-md-12')
+												$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
+												$elm$html$Html$Attributes$placeholder(toText.box2),
+												$elm$html$Html$Attributes$type_('text'),
+												$elm$html$Html$Events$onInput($author$project$SubstituirLinha$Input2)
+											]),
+										_List_Nil)
+									]))
+							])),
+						A2(
+						$elm$html$Html$div,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class('row')
+							]),
+						_List_fromArray(
+							[
+								A2(
+								$elm$html$Html$div,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$class('col-md-12')
+									]),
+								_List_fromArray(
+									[
+										A2(
+										$elm$html$Html$span,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('h6')
 											]),
 										_List_fromArray(
 											[
-												A2(
-												$elm$html$Html$span,
-												_List_fromArray(
-													[
-														$elm$html$Html$Attributes$class('h6')
-													]),
-												_List_fromArray(
-													[
-														$elm$html$Html$text('Resultado: ')
-													])),
-												A2(
-												$elm$html$Html$span,
-												_List_fromArray(
-													[
-														$elm$html$Html$Attributes$class('h6')
-													]),
-												_List_fromArray(
-													[
-														$elm$html$Html$text(toText.output)
-													]))
-											]))
+												$elm$html$Html$text('Resultado: \n')
+											])),
+										$elm$html$Html$text(toText.output)
 									]))
 							]))
 					]))
 			]));
 };
-var $author$project$ReverterString$main = $elm$browser$Browser$sandbox(
+var $author$project$SubstituirLinha$main = $elm$browser$Browser$sandbox(
 	{
-		init: $author$project$ReverterString$Model(''),
-		update: $author$project$ReverterString$update,
-		view: $author$project$ReverterString$view
+		init: A2($author$project$SubstituirLinha$Model, '', ''),
+		update: $author$project$SubstituirLinha$update,
+		view: $author$project$SubstituirLinha$view
 	});
-_Platform_export({'ReverterString':{'init':$author$project$ReverterString$main(
+_Platform_export({'SubstituirLinha':{'init':$author$project$SubstituirLinha$main(
 	$elm$json$Json$Decode$succeed(_Utils_Tuple0))(0)}});}(this));

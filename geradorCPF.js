@@ -4355,9 +4355,89 @@ function _Browser_load(url)
 		}
 	}));
 }
-var $author$project$ReverterString$Model = function (i1) {
-	return {i1: i1};
+
+
+
+var _Bitwise_and = F2(function(a, b)
+{
+	return a & b;
+});
+
+var _Bitwise_or = F2(function(a, b)
+{
+	return a | b;
+});
+
+var _Bitwise_xor = F2(function(a, b)
+{
+	return a ^ b;
+});
+
+function _Bitwise_complement(a)
+{
+	return ~a;
 };
+
+var _Bitwise_shiftLeftBy = F2(function(offset, a)
+{
+	return a << offset;
+});
+
+var _Bitwise_shiftRightBy = F2(function(offset, a)
+{
+	return a >> offset;
+});
+
+var _Bitwise_shiftRightZfBy = F2(function(offset, a)
+{
+	return a >>> offset;
+});
+
+
+
+function _Time_now(millisToPosix)
+{
+	return _Scheduler_binding(function(callback)
+	{
+		callback(_Scheduler_succeed(millisToPosix(Date.now())));
+	});
+}
+
+var _Time_setInterval = F2(function(interval, task)
+{
+	return _Scheduler_binding(function(callback)
+	{
+		var id = setInterval(function() { _Scheduler_rawSpawn(task); }, interval);
+		return function() { clearInterval(id); };
+	});
+});
+
+function _Time_here()
+{
+	return _Scheduler_binding(function(callback)
+	{
+		callback(_Scheduler_succeed(
+			A2($elm$time$Time$customZone, -(new Date().getTimezoneOffset()), _List_Nil)
+		));
+	});
+}
+
+
+function _Time_getZoneName()
+{
+	return _Scheduler_binding(function(callback)
+	{
+		try
+		{
+			var name = $elm$time$Time$Name(Intl.DateTimeFormat().resolvedOptions().timeZone);
+		}
+		catch (e)
+		{
+			var name = $elm$time$Time$Offset(new Date().getTimezoneOffset());
+		}
+		callback(_Scheduler_succeed(name));
+	});
+}
 var $elm$core$Basics$EQ = {$: 'EQ'};
 var $elm$core$Basics$GT = {$: 'GT'};
 var $elm$core$Basics$LT = {$: 'LT'};
@@ -5146,38 +5226,189 @@ var $elm$core$Task$perform = F2(
 			$elm$core$Task$Perform(
 				A2($elm$core$Task$map, toMessage, task)));
 	});
+var $elm$browser$Browser$element = _Browser_element;
+var $author$project$GeradorCPF$Model = function (genCPF) {
+	return {genCPF: genCPF};
+};
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
+var $author$project$GeradorCPF$init = function (_v0) {
+	return _Utils_Tuple2(
+		$author$project$GeradorCPF$Model(0),
+		$elm$core$Platform$Cmd$none);
+};
 var $elm$core$Platform$Sub$batch = _Platform_batch;
 var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
-var $elm$browser$Browser$sandbox = function (impl) {
-	return _Browser_element(
-		{
-			init: function (_v0) {
-				return _Utils_Tuple2(impl.init, $elm$core$Platform$Cmd$none);
-			},
-			subscriptions: function (_v1) {
-				return $elm$core$Platform$Sub$none;
-			},
-			update: F2(
-				function (msg, model) {
-					return _Utils_Tuple2(
-						A2(impl.update, msg, model),
-						$elm$core$Platform$Cmd$none);
-				}),
-			view: impl.view
-		});
+var $author$project$GeradorCPF$CPF = function (a) {
+	return {$: 'CPF', a: a};
 };
-var $author$project$ReverterString$update = F2(
-	function (msg, model) {
-		var n = msg.a;
-		return _Utils_update(
-			model,
-			{i1: n});
+var $elm$random$Random$Generate = function (a) {
+	return {$: 'Generate', a: a};
+};
+var $elm$random$Random$Seed = F2(
+	function (a, b) {
+		return {$: 'Seed', a: a, b: b};
 	});
-var $author$project$ReverterString$Input = function (a) {
-	return {$: 'Input', a: a};
+var $elm$core$Bitwise$shiftRightZfBy = _Bitwise_shiftRightZfBy;
+var $elm$random$Random$next = function (_v0) {
+	var state0 = _v0.a;
+	var incr = _v0.b;
+	return A2($elm$random$Random$Seed, ((state0 * 1664525) + incr) >>> 0, incr);
 };
+var $elm$random$Random$initialSeed = function (x) {
+	var _v0 = $elm$random$Random$next(
+		A2($elm$random$Random$Seed, 0, 1013904223));
+	var state1 = _v0.a;
+	var incr = _v0.b;
+	var state2 = (state1 + x) >>> 0;
+	return $elm$random$Random$next(
+		A2($elm$random$Random$Seed, state2, incr));
+};
+var $elm$time$Time$Name = function (a) {
+	return {$: 'Name', a: a};
+};
+var $elm$time$Time$Offset = function (a) {
+	return {$: 'Offset', a: a};
+};
+var $elm$time$Time$Zone = F2(
+	function (a, b) {
+		return {$: 'Zone', a: a, b: b};
+	});
+var $elm$time$Time$customZone = $elm$time$Time$Zone;
+var $elm$time$Time$Posix = function (a) {
+	return {$: 'Posix', a: a};
+};
+var $elm$time$Time$millisToPosix = $elm$time$Time$Posix;
+var $elm$time$Time$now = _Time_now($elm$time$Time$millisToPosix);
+var $elm$time$Time$posixToMillis = function (_v0) {
+	var millis = _v0.a;
+	return millis;
+};
+var $elm$random$Random$init = A2(
+	$elm$core$Task$andThen,
+	function (time) {
+		return $elm$core$Task$succeed(
+			$elm$random$Random$initialSeed(
+				$elm$time$Time$posixToMillis(time)));
+	},
+	$elm$time$Time$now);
+var $elm$random$Random$step = F2(
+	function (_v0, seed) {
+		var generator = _v0.a;
+		return generator(seed);
+	});
+var $elm$random$Random$onEffects = F3(
+	function (router, commands, seed) {
+		if (!commands.b) {
+			return $elm$core$Task$succeed(seed);
+		} else {
+			var generator = commands.a.a;
+			var rest = commands.b;
+			var _v1 = A2($elm$random$Random$step, generator, seed);
+			var value = _v1.a;
+			var newSeed = _v1.b;
+			return A2(
+				$elm$core$Task$andThen,
+				function (_v2) {
+					return A3($elm$random$Random$onEffects, router, rest, newSeed);
+				},
+				A2($elm$core$Platform$sendToApp, router, value));
+		}
+	});
+var $elm$random$Random$onSelfMsg = F3(
+	function (_v0, _v1, seed) {
+		return $elm$core$Task$succeed(seed);
+	});
+var $elm$random$Random$Generator = function (a) {
+	return {$: 'Generator', a: a};
+};
+var $elm$random$Random$map = F2(
+	function (func, _v0) {
+		var genA = _v0.a;
+		return $elm$random$Random$Generator(
+			function (seed0) {
+				var _v1 = genA(seed0);
+				var a = _v1.a;
+				var seed1 = _v1.b;
+				return _Utils_Tuple2(
+					func(a),
+					seed1);
+			});
+	});
+var $elm$random$Random$cmdMap = F2(
+	function (func, _v0) {
+		var generator = _v0.a;
+		return $elm$random$Random$Generate(
+			A2($elm$random$Random$map, func, generator));
+	});
+_Platform_effectManagers['Random'] = _Platform_createManager($elm$random$Random$init, $elm$random$Random$onEffects, $elm$random$Random$onSelfMsg, $elm$random$Random$cmdMap);
+var $elm$random$Random$command = _Platform_leaf('Random');
+var $elm$random$Random$generate = F2(
+	function (tagger, generator) {
+		return $elm$random$Random$command(
+			$elm$random$Random$Generate(
+				A2($elm$random$Random$map, tagger, generator)));
+	});
+var $elm$core$Bitwise$and = _Bitwise_and;
+var $elm$core$Basics$negate = function (n) {
+	return -n;
+};
+var $elm$core$Bitwise$xor = _Bitwise_xor;
+var $elm$random$Random$peel = function (_v0) {
+	var state = _v0.a;
+	var word = (state ^ (state >>> ((state >>> 28) + 4))) * 277803737;
+	return ((word >>> 22) ^ word) >>> 0;
+};
+var $elm$random$Random$int = F2(
+	function (a, b) {
+		return $elm$random$Random$Generator(
+			function (seed0) {
+				var _v0 = (_Utils_cmp(a, b) < 0) ? _Utils_Tuple2(a, b) : _Utils_Tuple2(b, a);
+				var lo = _v0.a;
+				var hi = _v0.b;
+				var range = (hi - lo) + 1;
+				if (!((range - 1) & range)) {
+					return _Utils_Tuple2(
+						(((range - 1) & $elm$random$Random$peel(seed0)) >>> 0) + lo,
+						$elm$random$Random$next(seed0));
+				} else {
+					var threshhold = (((-range) >>> 0) % range) >>> 0;
+					var accountForBias = function (seed) {
+						accountForBias:
+						while (true) {
+							var x = $elm$random$Random$peel(seed);
+							var seedN = $elm$random$Random$next(seed);
+							if (_Utils_cmp(x, threshhold) < 0) {
+								var $temp$seed = seedN;
+								seed = $temp$seed;
+								continue accountForBias;
+							} else {
+								return _Utils_Tuple2((x % range) + lo, seedN);
+							}
+						}
+					};
+					return accountForBias(seed0);
+				}
+			});
+	});
+var $author$project$GeradorCPF$update = F2(
+	function (msg, model) {
+		if (msg.$ === 'Gen') {
+			return _Utils_Tuple2(
+				model,
+				A2(
+					$elm$random$Random$generate,
+					$author$project$GeradorCPF$CPF,
+					A2($elm$random$Random$int, 10000000, 999999999)));
+		} else {
+			var n = msg.a;
+			return _Utils_Tuple2(
+				$author$project$GeradorCPF$Model(n),
+				$elm$core$Platform$Cmd$none);
+		}
+	});
+var $author$project$GeradorCPF$Gen = {$: 'Gen'};
+var $elm$html$Html$button = _VirtualDom_node('button');
 var $elm$json$Json$Encode$string = _Json_wrap;
 var $elm$html$Html$Attributes$stringProperty = F2(
 	function (key, string) {
@@ -5188,56 +5419,236 @@ var $elm$html$Html$Attributes$stringProperty = F2(
 	});
 var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('className');
 var $elm$html$Html$div = _VirtualDom_node('div');
-var $elm$html$Html$h5 = _VirtualDom_node('h5');
-var $elm$html$Html$input = _VirtualDom_node('input');
-var $elm$html$Html$Events$alwaysStop = function (x) {
-	return _Utils_Tuple2(x, true);
+var $elm$core$List$append = F2(
+	function (xs, ys) {
+		if (!ys.b) {
+			return xs;
+		} else {
+			return A3($elm$core$List$foldr, $elm$core$List$cons, ys, xs);
+		}
+	});
+var $author$project$Auxiliar$charToInt = function (ch) {
+	switch (ch.valueOf()) {
+		case '0':
+			return $elm$core$Maybe$Just(0);
+		case '1':
+			return $elm$core$Maybe$Just(1);
+		case '2':
+			return $elm$core$Maybe$Just(2);
+		case '3':
+			return $elm$core$Maybe$Just(3);
+		case '4':
+			return $elm$core$Maybe$Just(4);
+		case '5':
+			return $elm$core$Maybe$Just(5);
+		case '6':
+			return $elm$core$Maybe$Just(6);
+		case '7':
+			return $elm$core$Maybe$Just(7);
+		case '8':
+			return $elm$core$Maybe$Just(8);
+		case '9':
+			return $elm$core$Maybe$Just(9);
+		default:
+			return $elm$core$Maybe$Nothing;
+	}
 };
-var $elm$virtual_dom$VirtualDom$MayStopPropagation = function (a) {
-	return {$: 'MayStopPropagation', a: a};
+var $author$project$Auxiliar$cpfc = F2(
+	function (l, i) {
+		if (i === 1) {
+			return _List_Nil;
+		} else {
+			if (l.b && (l.a.$ === 'Just')) {
+				var x = l.a.a;
+				var xs = l.b;
+				return A2(
+					$elm$core$List$cons,
+					x * i,
+					A2($author$project$Auxiliar$cpfc, xs, i - 1));
+			} else {
+				return _List_Nil;
+			}
+		}
+	});
+var $elm$core$Basics$modBy = _Basics_modBy;
+var $elm$core$List$sum = function (numbers) {
+	return A3($elm$core$List$foldl, $elm$core$Basics$add, 0, numbers);
+};
+var $author$project$Auxiliar$digv = function (l) {
+	var calc = A2(
+		$elm$core$Basics$modBy,
+		11,
+		$elm$core$List$sum(l));
+	return (calc < 2) ? 0 : (11 - calc);
+};
+var $elm$core$String$fromList = _String_fromList;
+var $author$project$Auxiliar$intToChar = function (_int) {
+	_v0$10:
+	while (true) {
+		if (_int.$ === 'Just') {
+			switch (_int.a) {
+				case 0:
+					return _Utils_chr('0');
+				case 1:
+					return _Utils_chr('1');
+				case 2:
+					return _Utils_chr('2');
+				case 3:
+					return _Utils_chr('3');
+				case 4:
+					return _Utils_chr('4');
+				case 5:
+					return _Utils_chr('5');
+				case 6:
+					return _Utils_chr('6');
+				case 7:
+					return _Utils_chr('7');
+				case 8:
+					return _Utils_chr('8');
+				case 9:
+					return _Utils_chr('9');
+				default:
+					break _v0$10;
+			}
+		} else {
+			break _v0$10;
+		}
+	}
+	return _Utils_chr(' ');
+};
+var $elm$core$String$foldr = _String_foldr;
+var $elm$core$String$toList = function (string) {
+	return A3($elm$core$String$foldr, $elm$core$List$cons, _List_Nil, string);
+};
+var $author$project$GeradorCPF$gerarCPF = function (gen) {
+	var cpfl = $elm$core$String$toList(
+		$elm$core$String$fromInt(gen));
+	var cpfl2 = ($elm$core$List$length(cpfl) === 9) ? A2($elm$core$List$map, $author$project$Auxiliar$charToInt, cpfl) : A2(
+		$elm$core$List$map,
+		$author$project$Auxiliar$charToInt,
+		A2(
+			$elm$core$List$cons,
+			_Utils_chr('0'),
+			cpfl));
+	var pdig = $author$project$Auxiliar$digv(
+		A2($author$project$Auxiliar$cpfc, cpfl2, 10));
+	var sdig = $author$project$Auxiliar$digv(
+		A2(
+			$author$project$Auxiliar$cpfc,
+			A2(
+				$elm$core$List$append,
+				cpfl2,
+				_List_fromArray(
+					[
+						$elm$core$Maybe$Just(pdig)
+					])),
+			11));
+	var cpf = A2(
+		$elm$core$List$append,
+		A2(
+			$elm$core$List$append,
+			cpfl2,
+			_List_fromArray(
+				[
+					$elm$core$Maybe$Just(pdig)
+				])),
+		_List_fromArray(
+			[
+				$elm$core$Maybe$Just(sdig)
+			]));
+	var trait = A2($elm$core$List$map, $author$project$Auxiliar$intToChar, cpf);
+	if ((((((((((trait.b && trait.b.b) && trait.b.b.b) && trait.b.b.b.b) && trait.b.b.b.b.b) && trait.b.b.b.b.b.b) && trait.b.b.b.b.b.b.b) && trait.b.b.b.b.b.b.b.b) && trait.b.b.b.b.b.b.b.b.b) && trait.b.b.b.b.b.b.b.b.b.b) && trait.b.b.b.b.b.b.b.b.b.b.b) {
+		var a = trait.a;
+		var _v1 = trait.b;
+		var b = _v1.a;
+		var _v2 = _v1.b;
+		var c = _v2.a;
+		var _v3 = _v2.b;
+		var d = _v3.a;
+		var _v4 = _v3.b;
+		var e = _v4.a;
+		var _v5 = _v4.b;
+		var f = _v5.a;
+		var _v6 = _v5.b;
+		var g = _v6.a;
+		var _v7 = _v6.b;
+		var h = _v7.a;
+		var _v8 = _v7.b;
+		var i = _v8.a;
+		var _v9 = _v8.b;
+		var j = _v9.a;
+		var _v10 = _v9.b;
+		var k = _v10.a;
+		var xs = _v10.b;
+		return $elm$core$String$fromList(
+			A2(
+				$elm$core$List$cons,
+				a,
+				A2(
+					$elm$core$List$cons,
+					b,
+					A2(
+						$elm$core$List$cons,
+						c,
+						A2(
+							$elm$core$List$cons,
+							_Utils_chr('.'),
+							A2(
+								$elm$core$List$cons,
+								d,
+								A2(
+									$elm$core$List$cons,
+									e,
+									A2(
+										$elm$core$List$cons,
+										f,
+										A2(
+											$elm$core$List$cons,
+											_Utils_chr('.'),
+											A2(
+												$elm$core$List$cons,
+												g,
+												A2(
+													$elm$core$List$cons,
+													h,
+													A2(
+														$elm$core$List$cons,
+														i,
+														A2(
+															$elm$core$List$cons,
+															_Utils_chr('-'),
+															A2(
+																$elm$core$List$cons,
+																j,
+																A2($elm$core$List$cons, k, xs)))))))))))))));
+	} else {
+		return '';
+	}
+};
+var $elm$html$Html$h5 = _VirtualDom_node('h5');
+var $elm$virtual_dom$VirtualDom$Normal = function (a) {
+	return {$: 'Normal', a: a};
 };
 var $elm$virtual_dom$VirtualDom$on = _VirtualDom_on;
-var $elm$html$Html$Events$stopPropagationOn = F2(
+var $elm$html$Html$Events$on = F2(
 	function (event, decoder) {
 		return A2(
 			$elm$virtual_dom$VirtualDom$on,
 			event,
-			$elm$virtual_dom$VirtualDom$MayStopPropagation(decoder));
+			$elm$virtual_dom$VirtualDom$Normal(decoder));
 	});
-var $elm$json$Json$Decode$field = _Json_decodeField;
-var $elm$json$Json$Decode$at = F2(
-	function (fields, decoder) {
-		return A3($elm$core$List$foldr, $elm$json$Json$Decode$field, decoder, fields);
-	});
-var $elm$json$Json$Decode$string = _Json_decodeString;
-var $elm$html$Html$Events$targetValue = A2(
-	$elm$json$Json$Decode$at,
-	_List_fromArray(
-		['target', 'value']),
-	$elm$json$Json$Decode$string);
-var $elm$html$Html$Events$onInput = function (tagger) {
+var $elm$html$Html$Events$onClick = function (msg) {
 	return A2(
-		$elm$html$Html$Events$stopPropagationOn,
-		'input',
-		A2(
-			$elm$json$Json$Decode$map,
-			$elm$html$Html$Events$alwaysStop,
-			A2($elm$json$Json$Decode$map, tagger, $elm$html$Html$Events$targetValue)));
+		$elm$html$Html$Events$on,
+		'click',
+		$elm$json$Json$Decode$succeed(msg));
 };
-var $elm$html$Html$Attributes$placeholder = $elm$html$Html$Attributes$stringProperty('placeholder');
-var $elm$core$String$reverse = _String_reverse;
 var $elm$html$Html$span = _VirtualDom_node('span');
 var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
 var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
-var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
-var $author$project$ReverterString$view = function (model) {
-	var toText = {
-		box1: 'Texto',
-		output: $elm$core$String$reverse(model.i1),
-		title: 'Reverter Texto'
-	};
+var $author$project$GeradorCPF$view = function (model) {
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
@@ -5262,7 +5673,7 @@ var $author$project$ReverterString$view = function (model) {
 							]),
 						_List_fromArray(
 							[
-								$elm$html$Html$text(toText.title)
+								$elm$html$Html$text('Gerador de CPF')
 							])),
 						A2(
 						$elm$html$Html$div,
@@ -5279,41 +5690,21 @@ var $author$project$ReverterString$view = function (model) {
 									[
 										A2(
 										$elm$html$Html$div,
-										_List_fromArray(
-											[
-												$elm$html$Html$Attributes$class('col-md-12')
-											]),
+										_List_Nil,
 										_List_fromArray(
 											[
 												A2(
-												$elm$html$Html$input,
+												$elm$html$Html$button,
 												_List_fromArray(
 													[
-														$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
-														$elm$html$Html$Attributes$placeholder(toText.box1),
-														$elm$html$Html$Attributes$type_('text'),
-														$elm$html$Html$Events$onInput($author$project$ReverterString$Input),
+														$elm$html$Html$Attributes$class('btn btn-outline-light'),
+														$elm$html$Html$Events$onClick($author$project$GeradorCPF$Gen),
 														A2($elm$html$Html$Attributes$style, 'margin-right', '10px')
 													]),
-												_List_Nil)
-											]))
-									])),
-								A2(
-								$elm$html$Html$div,
-								_List_fromArray(
-									[
-										$elm$html$Html$Attributes$class('row')
-									]),
-								_List_fromArray(
-									[
-										A2(
-										$elm$html$Html$div,
-										_List_fromArray(
-											[
-												$elm$html$Html$Attributes$class('col-md-12')
-											]),
-										_List_fromArray(
-											[
+												_List_fromArray(
+													[
+														$elm$html$Html$text('Gerar')
+													])),
 												A2(
 												$elm$html$Html$span,
 												_List_fromArray(
@@ -5324,27 +5715,22 @@ var $author$project$ReverterString$view = function (model) {
 													[
 														$elm$html$Html$text('Resultado: ')
 													])),
-												A2(
-												$elm$html$Html$span,
-												_List_fromArray(
-													[
-														$elm$html$Html$Attributes$class('h6')
-													]),
-												_List_fromArray(
-													[
-														$elm$html$Html$text(toText.output)
-													]))
+												$elm$html$Html$text(
+												$author$project$GeradorCPF$gerarCPF(model.genCPF))
 											]))
 									]))
 							]))
 					]))
 			]));
 };
-var $author$project$ReverterString$main = $elm$browser$Browser$sandbox(
+var $author$project$GeradorCPF$main = $elm$browser$Browser$element(
 	{
-		init: $author$project$ReverterString$Model(''),
-		update: $author$project$ReverterString$update,
-		view: $author$project$ReverterString$view
+		init: $author$project$GeradorCPF$init,
+		subscriptions: function (model) {
+			return $elm$core$Platform$Sub$none;
+		},
+		update: $author$project$GeradorCPF$update,
+		view: $author$project$GeradorCPF$view
 	});
-_Platform_export({'ReverterString':{'init':$author$project$ReverterString$main(
+_Platform_export({'GeradorCPF':{'init':$author$project$GeradorCPF$main(
 	$elm$json$Json$Decode$succeed(_Utils_Tuple0))(0)}});}(this));

@@ -4355,7 +4355,7 @@ function _Browser_load(url)
 		}
 	}));
 }
-var $author$project$ReverterString$Model = function (i1) {
+var $author$project$ContadorString$Model = function (i1) {
 	return {i1: i1};
 };
 var $elm$core$Basics$EQ = {$: 'EQ'};
@@ -5168,14 +5168,14 @@ var $elm$browser$Browser$sandbox = function (impl) {
 			view: impl.view
 		});
 };
-var $author$project$ReverterString$update = F2(
+var $author$project$ContadorString$update = F2(
 	function (msg, model) {
 		var n = msg.a;
 		return _Utils_update(
 			model,
 			{i1: n});
 	});
-var $author$project$ReverterString$Input = function (a) {
+var $author$project$ContadorString$Input = function (a) {
 	return {$: 'Input', a: a};
 };
 var $elm$json$Json$Encode$string = _Json_wrap;
@@ -5187,6 +5187,82 @@ var $elm$html$Html$Attributes$stringProperty = F2(
 			$elm$json$Json$Encode$string(string));
 	});
 var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('className');
+var $elm$core$List$filter = F2(
+	function (isGood, list) {
+		return A3(
+			$elm$core$List$foldr,
+			F2(
+				function (x, xs) {
+					return isGood(x) ? A2($elm$core$List$cons, x, xs) : xs;
+				}),
+			_List_Nil,
+			list);
+	});
+var $elm$core$Char$toLocaleLower = _Char_toLocaleLower;
+var $author$project$ContadorString$isVowel = function (ch) {
+	var _v0 = $elm$core$Char$toLocaleLower(ch);
+	switch (_v0.valueOf()) {
+		case 'a':
+			return true;
+		case 'e':
+			return true;
+		case 'i':
+			return true;
+		case 'o':
+			return true;
+		case 'u':
+			return true;
+		default:
+			return false;
+	}
+};
+var $author$project$ContadorString$isConsonant = function (ch) {
+	return $elm$core$Char$isAlpha(ch) ? ($author$project$ContadorString$isVowel(ch) ? false : true) : false;
+};
+var $elm$core$Basics$neq = _Utils_notEqual;
+var $elm$core$String$foldr = _String_foldr;
+var $elm$core$String$toList = function (string) {
+	return A3($elm$core$String$foldr, $elm$core$List$cons, _List_Nil, string);
+};
+var $author$project$ContadorString$contadorString = function (str) {
+	var lch = $elm$core$String$toList(str);
+	return ($elm$core$String$length(str) > 0) ? {
+		c: $elm$core$String$length(str),
+		con: $elm$core$List$length(
+			A2($elm$core$List$filter, $author$project$ContadorString$isConsonant, lch)),
+		cse: $elm$core$List$length(
+			A2(
+				$elm$core$List$filter,
+				function (ch) {
+					return !_Utils_eq(
+						ch,
+						_Utils_chr(' '));
+				},
+				lch)),
+		e: $elm$core$List$length(
+			A2(
+				$elm$core$List$filter,
+				function (ch) {
+					return _Utils_eq(
+						ch,
+						_Utils_chr(' '));
+				},
+				lch)),
+		l: $elm$core$List$length(
+			A2(
+				$elm$core$List$filter,
+				function (ch) {
+					return _Utils_eq(
+						ch,
+						_Utils_chr('\n'));
+				},
+				lch)),
+		n: $elm$core$List$length(
+			A2($elm$core$List$filter, $elm$core$Char$isDigit, lch)),
+		v: $elm$core$List$length(
+			A2($elm$core$List$filter, $author$project$ContadorString$isVowel, lch))
+	} : {c: 0, con: 0, cse: 0, e: 0, l: 0, n: 0, v: 0};
+};
 var $elm$html$Html$div = _VirtualDom_node('div');
 var $elm$html$Html$h5 = _VirtualDom_node('h5');
 var $elm$html$Html$input = _VirtualDom_node('input');
@@ -5225,18 +5301,16 @@ var $elm$html$Html$Events$onInput = function (tagger) {
 			A2($elm$json$Json$Decode$map, tagger, $elm$html$Html$Events$targetValue)));
 };
 var $elm$html$Html$Attributes$placeholder = $elm$html$Html$Attributes$stringProperty('placeholder');
-var $elm$core$String$reverse = _String_reverse;
 var $elm$html$Html$span = _VirtualDom_node('span');
 var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
 var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
-var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
-var $author$project$ReverterString$view = function (model) {
+var $author$project$ContadorString$view = function (model) {
 	var toText = {
 		box1: 'Texto',
-		output: $elm$core$String$reverse(model.i1),
-		title: 'Reverter Texto'
+		output: $author$project$ContadorString$contadorString(model.i1),
+		title: 'Contador de Texto'
 	};
 	return A2(
 		$elm$html$Html$div,
@@ -5270,81 +5344,194 @@ var $author$project$ReverterString$view = function (model) {
 						_List_fromArray(
 							[
 								A2(
-								$elm$html$Html$div,
+								$elm$html$Html$input,
 								_List_fromArray(
 									[
-										$elm$html$Html$Attributes$class('row')
+										$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
+										$elm$html$Html$Attributes$placeholder(toText.box1),
+										$elm$html$Html$Events$onInput($author$project$ContadorString$Input),
+										A2($elm$html$Html$Attributes$style, 'margin-right', '10px')
 									]),
-								_List_fromArray(
-									[
-										A2(
-										$elm$html$Html$div,
-										_List_fromArray(
-											[
-												$elm$html$Html$Attributes$class('col-md-12')
-											]),
-										_List_fromArray(
-											[
-												A2(
-												$elm$html$Html$input,
-												_List_fromArray(
-													[
-														$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
-														$elm$html$Html$Attributes$placeholder(toText.box1),
-														$elm$html$Html$Attributes$type_('text'),
-														$elm$html$Html$Events$onInput($author$project$ReverterString$Input),
-														A2($elm$html$Html$Attributes$style, 'margin-right', '10px')
-													]),
-												_List_Nil)
-											]))
-									])),
+								_List_Nil)
+							]))
+					])),
+				A2(
+				$elm$html$Html$div,
+				_List_fromArray(
+					[
+						$elm$html$Html$Attributes$class('row'),
+						A2($elm$html$Html$Attributes$style, 'margin-left', '5px')
+					]),
+				_List_fromArray(
+					[
+						A2(
+						$elm$html$Html$div,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class('col-md-4')
+							]),
+						_List_fromArray(
+							[
 								A2(
-								$elm$html$Html$div,
+								$elm$html$Html$span,
 								_List_fromArray(
 									[
-										$elm$html$Html$Attributes$class('row')
+										$elm$html$Html$Attributes$class('h6 text-light')
 									]),
 								_List_fromArray(
 									[
-										A2(
-										$elm$html$Html$div,
-										_List_fromArray(
-											[
-												$elm$html$Html$Attributes$class('col-md-12')
-											]),
-										_List_fromArray(
-											[
-												A2(
-												$elm$html$Html$span,
-												_List_fromArray(
-													[
-														$elm$html$Html$Attributes$class('h6')
-													]),
-												_List_fromArray(
-													[
-														$elm$html$Html$text('Resultado: ')
-													])),
-												A2(
-												$elm$html$Html$span,
-												_List_fromArray(
-													[
-														$elm$html$Html$Attributes$class('h6')
-													]),
-												_List_fromArray(
-													[
-														$elm$html$Html$text(toText.output)
-													]))
-											]))
+										$elm$html$Html$text(
+										'Caractéres: ' + $elm$core$String$fromInt(toText.output.c))
+									]))
+							])),
+						A2(
+						$elm$html$Html$div,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class('col-md-8')
+							]),
+						_List_fromArray(
+							[
+								A2(
+								$elm$html$Html$span,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$class('h6 text-light')
+									]),
+								_List_fromArray(
+									[
+										$elm$html$Html$text(
+										'Caractéres sem espaço: ' + $elm$core$String$fromInt(toText.output.cse))
+									]))
+							]))
+					])),
+				A2(
+				$elm$html$Html$div,
+				_List_fromArray(
+					[
+						$elm$html$Html$Attributes$class('row'),
+						A2($elm$html$Html$Attributes$style, 'margin-left', '5px')
+					]),
+				_List_fromArray(
+					[
+						A2(
+						$elm$html$Html$div,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class('col-md-4')
+							]),
+						_List_fromArray(
+							[
+								A2(
+								$elm$html$Html$span,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$class('h6 text-light')
+									]),
+								_List_fromArray(
+									[
+										$elm$html$Html$text(
+										'Espaços: ' + $elm$core$String$fromInt(toText.output.e))
+									]))
+							])),
+						A2(
+						$elm$html$Html$div,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class('col-md-8')
+							]),
+						_List_fromArray(
+							[
+								A2(
+								$elm$html$Html$span,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$class('h6 text-light')
+									]),
+								_List_fromArray(
+									[
+										$elm$html$Html$text(
+										'Linhas: ' + $elm$core$String$fromInt(toText.output.l))
+									]))
+							]))
+					])),
+				A2(
+				$elm$html$Html$div,
+				_List_fromArray(
+					[
+						$elm$html$Html$Attributes$class('row mb-3'),
+						A2($elm$html$Html$Attributes$style, 'margin-left', '5px')
+					]),
+				_List_fromArray(
+					[
+						A2(
+						$elm$html$Html$div,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class('col-md-4')
+							]),
+						_List_fromArray(
+							[
+								A2(
+								$elm$html$Html$span,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$class('h6 text-light')
+									]),
+								_List_fromArray(
+									[
+										$elm$html$Html$text(
+										'Vogais: ' + $elm$core$String$fromInt(toText.output.v))
+									]))
+							])),
+						A2(
+						$elm$html$Html$div,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class('col-md-5')
+							]),
+						_List_fromArray(
+							[
+								A2(
+								$elm$html$Html$span,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$class('h6 text-light')
+									]),
+								_List_fromArray(
+									[
+										$elm$html$Html$text(
+										'Consoantes: ' + $elm$core$String$fromInt(toText.output.con))
+									]))
+							])),
+						A2(
+						$elm$html$Html$div,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class('col-md-3')
+							]),
+						_List_fromArray(
+							[
+								A2(
+								$elm$html$Html$span,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$class('h6 text-light')
+									]),
+								_List_fromArray(
+									[
+										$elm$html$Html$text(
+										'Números: ' + $elm$core$String$fromInt(toText.output.n))
 									]))
 							]))
 					]))
 			]));
 };
-var $author$project$ReverterString$main = $elm$browser$Browser$sandbox(
+var $author$project$ContadorString$main = $elm$browser$Browser$sandbox(
 	{
-		init: $author$project$ReverterString$Model(''),
-		update: $author$project$ReverterString$update,
-		view: $author$project$ReverterString$view
+		init: $author$project$ContadorString$Model(''),
+		update: $author$project$ContadorString$update,
+		view: $author$project$ContadorString$view
 	});
-_Platform_export({'ReverterString':{'init':$author$project$ReverterString$main(
+_Platform_export({'ContadorString':{'init':$author$project$ContadorString$main(
 	$elm$json$Json$Decode$succeed(_Utils_Tuple0))(0)}});}(this));
