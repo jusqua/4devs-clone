@@ -1,5 +1,4 @@
 module AreaRetangulo exposing (..)
-
 import Browser
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -86,7 +85,7 @@ view model =
                     [ div [ class "col-md-6" ] [ input [ class "form-control bg-dark text-light", placeholder "Base", type_ "number", onInput Input1 ] [] ]
                     , div [ class "col-md-6" ] [ input [ class "form-control bg-dark text-light", placeholder "Altura", type_ "number", onInput Input2 ] [] ]
                     ]
-                , div [ class "row" ] [ div [ class "col-md-6" ] [ span [ class "h6" ] [ text "Resultado: " ], text <| areaRetangulo model.base model.altura ] ]
+                , div [ class "row" ] [ div [ class "col-md-12" ] [ span [ class "h6" ] [ text "Resultado: " ], text <| areaRetangulo model.base model.altura ] ]
                 ]
             ]
         ]
