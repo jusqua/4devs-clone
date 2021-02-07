@@ -4355,9 +4355,10 @@ function _Browser_load(url)
 		}
 	}));
 }
-var $author$project$AreaCircunferencia$Model = function (i1) {
-	return {i1: i1};
-};
+var $author$project$AreaTrapezio$Model = F3(
+	function (i1, i2, i3) {
+		return {i1: i1, i2: i2, i3: i3};
+	});
 var $elm$core$Basics$EQ = {$: 'EQ'};
 var $elm$core$Basics$GT = {$: 'GT'};
 var $elm$core$Basics$LT = {$: 'LT'};
@@ -5168,30 +5169,52 @@ var $elm$browser$Browser$sandbox = function (impl) {
 			view: impl.view
 		});
 };
-var $author$project$AreaCircunferencia$update = F2(
+var $author$project$AreaTrapezio$update = F2(
 	function (msg, model) {
-		var n = msg.a;
-		return _Utils_update(
-			model,
-			{i1: n});
+		switch (msg.$) {
+			case 'Input1':
+				var n = msg.a;
+				return _Utils_update(
+					model,
+					{i1: n});
+			case 'Input2':
+				var m = msg.a;
+				return _Utils_update(
+					model,
+					{i2: m});
+			default:
+				var p = msg.a;
+				return _Utils_update(
+					model,
+					{i3: p});
+		}
 	});
-var $author$project$AreaCircunferencia$Input = function (a) {
-	return {$: 'Input', a: a};
+var $author$project$AreaTrapezio$Input1 = function (a) {
+	return {$: 'Input1', a: a};
+};
+var $author$project$AreaTrapezio$Input2 = function (a) {
+	return {$: 'Input2', a: a};
+};
+var $author$project$AreaTrapezio$Input3 = function (a) {
+	return {$: 'Input3', a: a};
 };
 var $elm$core$String$fromFloat = _String_fromNumber;
-var $elm$core$Basics$pi = _Basics_pi;
-var $elm$core$Basics$pow = _Basics_pow;
 var $elm$core$String$toFloat = _String_toFloat;
-var $author$project$AreaCircunferencia$areaCircunferencia = function (r) {
-	var _v0 = $elm$core$String$toFloat(r);
-	if (_v0.$ === 'Just') {
-		var n = _v0.a;
-		return (n > 0.0) ? ($elm$core$String$fromFloat(
-			$elm$core$Basics$pi * A2($elm$core$Basics$pow, n, 2)) + ' u²') : 'Indeterminado';
-	} else {
-		return 'Indeterminado';
-	}
-};
+var $author$project$AreaTrapezio$areaTrapezio = F3(
+	function (bM, bm, h) {
+		var _v0 = _Utils_Tuple3(
+			$elm$core$String$toFloat(bM),
+			$elm$core$String$toFloat(bm),
+			$elm$core$String$toFloat(h));
+		if (((_v0.a.$ === 'Just') && (_v0.b.$ === 'Just')) && (_v0.c.$ === 'Just')) {
+			var n = _v0.a.a;
+			var m = _v0.b.a;
+			var p = _v0.c.a;
+			return ((n > 0) && ((m > 0) && (p > 0))) ? ($elm$core$String$fromFloat(((n + m) * p) / 2) + ' u²') : 'Indeterminado';
+		} else {
+			return 'Indeterminado';
+		}
+	});
 var $elm$json$Json$Encode$string = _Json_wrap;
 var $elm$html$Html$Attributes$stringProperty = F2(
 	function (key, string) {
@@ -5240,16 +5263,16 @@ var $elm$html$Html$Events$onInput = function (tagger) {
 };
 var $elm$html$Html$Attributes$placeholder = $elm$html$Html$Attributes$stringProperty('placeholder');
 var $elm$html$Html$span = _VirtualDom_node('span');
-var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
-var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
 var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
-var $author$project$AreaCircunferencia$view = function (model) {
+var $author$project$AreaTrapezio$view = function (model) {
 	var toText = {
-		box1: 'Raio',
-		output: $author$project$AreaCircunferencia$areaCircunferencia(model.i1),
-		title: 'Calcular Área da Circunferência'
+		box1: 'Base maior',
+		box2: 'Base menor',
+		box3: 'Altura',
+		output: A3($author$project$AreaTrapezio$areaTrapezio, model.i1, model.i2, model.i3),
+		title: 'Calcular Área do Trapézio'
 	};
 	return A2(
 		$elm$html$Html$div,
@@ -5294,7 +5317,7 @@ var $author$project$AreaCircunferencia$view = function (model) {
 										$elm$html$Html$div,
 										_List_fromArray(
 											[
-												$elm$html$Html$Attributes$class('col-md-12')
+												$elm$html$Html$Attributes$class('col-md-4')
 											]),
 										_List_fromArray(
 											[
@@ -5305,8 +5328,45 @@ var $author$project$AreaCircunferencia$view = function (model) {
 														$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
 														$elm$html$Html$Attributes$placeholder(toText.box1),
 														$elm$html$Html$Attributes$type_('number'),
-														$elm$html$Html$Events$onInput($author$project$AreaCircunferencia$Input),
-														A2($elm$html$Html$Attributes$style, 'margin-right', '10px')
+														$elm$html$Html$Events$onInput($author$project$AreaTrapezio$Input1)
+													]),
+												_List_Nil)
+											])),
+										A2(
+										$elm$html$Html$div,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('col-md-4')
+											]),
+										_List_fromArray(
+											[
+												A2(
+												$elm$html$Html$input,
+												_List_fromArray(
+													[
+														$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
+														$elm$html$Html$Attributes$placeholder(toText.box2),
+														$elm$html$Html$Attributes$type_('number'),
+														$elm$html$Html$Events$onInput($author$project$AreaTrapezio$Input2)
+													]),
+												_List_Nil)
+											])),
+										A2(
+										$elm$html$Html$div,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('col-md-4')
+											]),
+										_List_fromArray(
+											[
+												A2(
+												$elm$html$Html$input,
+												_List_fromArray(
+													[
+														$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
+														$elm$html$Html$Attributes$placeholder(toText.box3),
+														$elm$html$Html$Attributes$type_('number'),
+														$elm$html$Html$Events$onInput($author$project$AreaTrapezio$Input3)
 													]),
 												_List_Nil)
 											]))
@@ -5344,11 +5404,11 @@ var $author$project$AreaCircunferencia$view = function (model) {
 					]))
 			]));
 };
-var $author$project$AreaCircunferencia$main = $elm$browser$Browser$sandbox(
+var $author$project$AreaTrapezio$main = $elm$browser$Browser$sandbox(
 	{
-		init: $author$project$AreaCircunferencia$Model(''),
-		update: $author$project$AreaCircunferencia$update,
-		view: $author$project$AreaCircunferencia$view
+		init: A3($author$project$AreaTrapezio$Model, '', '', ''),
+		update: $author$project$AreaTrapezio$update,
+		view: $author$project$AreaTrapezio$view
 	});
-_Platform_export({'AreaCircunferencia':{'init':$author$project$AreaCircunferencia$main(
+_Platform_export({'AreaTrapezio':{'init':$author$project$AreaTrapezio$main(
 	$elm$json$Json$Decode$succeed(_Utils_Tuple0))(0)}});}(this));

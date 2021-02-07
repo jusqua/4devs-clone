@@ -4356,10 +4356,9 @@ function _Browser_load(url)
 	}));
 }
 var $author$project$AreaRetangulo$Model = F2(
-	function (base, altura) {
-		return {altura: altura, base: base};
+	function (i1, i2) {
+		return {i1: i1, i2: i2};
 	});
-var $author$project$AreaRetangulo$init = A2($author$project$AreaRetangulo$Model, '', '');
 var $elm$core$Basics$EQ = {$: 'EQ'};
 var $elm$core$Basics$GT = {$: 'GT'};
 var $elm$core$Basics$LT = {$: 'LT'};
@@ -5172,19 +5171,16 @@ var $elm$browser$Browser$sandbox = function (impl) {
 };
 var $author$project$AreaRetangulo$update = F2(
 	function (msg, model) {
-		switch (msg.$) {
-			case 'Input1':
-				var n = msg.a;
-				return _Utils_update(
-					model,
-					{base: n});
-			case 'Input2':
-				var m = msg.a;
-				return _Utils_update(
-					model,
-					{altura: m});
-			default:
-				return model;
+		if (msg.$ === 'Input1') {
+			var n = msg.a;
+			return _Utils_update(
+				model,
+				{i1: n});
+		} else {
+			var m = msg.a;
+			return _Utils_update(
+				model,
+				{i2: m});
 		}
 	});
 var $author$project$AreaRetangulo$Input1 = function (a) {
@@ -5260,6 +5256,12 @@ var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
 var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
 var $author$project$AreaRetangulo$view = function (model) {
+	var toText = {
+		box1: 'Base',
+		box2: 'Altura',
+		output: A2($author$project$AreaRetangulo$areaRetangulo, model.i1, model.i2),
+		title: 'Calcular Área do Retângulo'
+	};
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
@@ -5284,7 +5286,7 @@ var $author$project$AreaRetangulo$view = function (model) {
 							]),
 						_List_fromArray(
 							[
-								$elm$html$Html$text('Calcular Área do Retangulo')
+								$elm$html$Html$text(toText.title)
 							])),
 						A2(
 						$elm$html$Html$div,
@@ -5312,7 +5314,7 @@ var $author$project$AreaRetangulo$view = function (model) {
 												_List_fromArray(
 													[
 														$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
-														$elm$html$Html$Attributes$placeholder('Base'),
+														$elm$html$Html$Attributes$placeholder(toText.box1),
 														$elm$html$Html$Attributes$type_('number'),
 														$elm$html$Html$Events$onInput($author$project$AreaRetangulo$Input1)
 													]),
@@ -5331,7 +5333,7 @@ var $author$project$AreaRetangulo$view = function (model) {
 												_List_fromArray(
 													[
 														$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
-														$elm$html$Html$Attributes$placeholder('Altura'),
+														$elm$html$Html$Attributes$placeholder(toText.box2),
 														$elm$html$Html$Attributes$type_('number'),
 														$elm$html$Html$Events$onInput($author$project$AreaRetangulo$Input2)
 													]),
@@ -5350,7 +5352,7 @@ var $author$project$AreaRetangulo$view = function (model) {
 										$elm$html$Html$div,
 										_List_fromArray(
 											[
-												$elm$html$Html$Attributes$class('col-md-6')
+												$elm$html$Html$Attributes$class('col-md-12')
 											]),
 										_List_fromArray(
 											[
@@ -5364,8 +5366,7 @@ var $author$project$AreaRetangulo$view = function (model) {
 													[
 														$elm$html$Html$text('Resultado: ')
 													])),
-												$elm$html$Html$text(
-												A2($author$project$AreaRetangulo$areaRetangulo, model.base, model.altura))
+												$elm$html$Html$text(toText.output)
 											]))
 									]))
 							]))
@@ -5373,6 +5374,10 @@ var $author$project$AreaRetangulo$view = function (model) {
 			]));
 };
 var $author$project$AreaRetangulo$main = $elm$browser$Browser$sandbox(
-	{init: $author$project$AreaRetangulo$init, update: $author$project$AreaRetangulo$update, view: $author$project$AreaRetangulo$view});
+	{
+		init: A2($author$project$AreaRetangulo$Model, '', ''),
+		update: $author$project$AreaRetangulo$update,
+		view: $author$project$AreaRetangulo$view
+	});
 _Platform_export({'AreaRetangulo':{'init':$author$project$AreaRetangulo$main(
 	$elm$json$Json$Decode$succeed(_Utils_Tuple0))(0)}});}(this));

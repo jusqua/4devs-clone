@@ -4355,7 +4355,9 @@ function _Browser_load(url)
 		}
 	}));
 }
-var $author$project$AreaQuadrado$init = 'Indeterminado';
+var $author$project$AreaQuadrado$Model = function (i1) {
+	return {i1: i1};
+};
 var $elm$core$Basics$EQ = {$: 'EQ'};
 var $elm$core$Basics$GT = {$: 'GT'};
 var $elm$core$Basics$LT = {$: 'LT'};
@@ -5166,6 +5168,16 @@ var $elm$browser$Browser$sandbox = function (impl) {
 			view: impl.view
 		});
 };
+var $author$project$AreaQuadrado$update = F2(
+	function (msg, model) {
+		var n = msg.a;
+		return _Utils_update(
+			model,
+			{i1: n});
+	});
+var $author$project$AreaQuadrado$Input = function (a) {
+	return {$: 'Input', a: a};
+};
 var $elm$core$String$fromFloat = _String_fromNumber;
 var $elm$core$Basics$pow = _Basics_pow;
 var $elm$core$String$toFloat = _String_toFloat;
@@ -5178,18 +5190,6 @@ var $author$project$AreaQuadrado$areaQuadrado = function (l) {
 	} else {
 		return 'Indeterminado';
 	}
-};
-var $author$project$AreaQuadrado$update = F2(
-	function (msg, model) {
-		if (msg.$ === 'Input') {
-			var newContent = msg.a;
-			return $author$project$AreaQuadrado$areaQuadrado(newContent);
-		} else {
-			return model;
-		}
-	});
-var $author$project$AreaQuadrado$Input = function (a) {
-	return {$: 'Input', a: a};
 };
 var $elm$json$Json$Encode$string = _Json_wrap;
 var $elm$html$Html$Attributes$stringProperty = F2(
@@ -5245,6 +5245,11 @@ var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
 var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
 var $author$project$AreaQuadrado$view = function (model) {
+	var toText = {
+		box1: 'Lado',
+		output: $author$project$AreaQuadrado$areaQuadrado(model.i1),
+		title: 'Calcular Área do Quadrado'
+	};
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
@@ -5269,7 +5274,7 @@ var $author$project$AreaQuadrado$view = function (model) {
 							]),
 						_List_fromArray(
 							[
-								$elm$html$Html$text('Calcular Área do Quadrado')
+								$elm$html$Html$text(toText.title)
 							])),
 						A2(
 						$elm$html$Html$div,
@@ -5297,7 +5302,7 @@ var $author$project$AreaQuadrado$view = function (model) {
 												_List_fromArray(
 													[
 														$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
-														$elm$html$Html$Attributes$placeholder('Lado'),
+														$elm$html$Html$Attributes$placeholder(toText.box1),
 														$elm$html$Html$Attributes$type_('number'),
 														$elm$html$Html$Events$onInput($author$project$AreaQuadrado$Input),
 														A2($elm$html$Html$Attributes$style, 'margin-right', '10px')
@@ -5317,7 +5322,7 @@ var $author$project$AreaQuadrado$view = function (model) {
 										$elm$html$Html$div,
 										_List_fromArray(
 											[
-												$elm$html$Html$Attributes$class('col-md-6')
+												$elm$html$Html$Attributes$class('col-md-12')
 											]),
 										_List_fromArray(
 											[
@@ -5331,7 +5336,7 @@ var $author$project$AreaQuadrado$view = function (model) {
 													[
 														$elm$html$Html$text('Resultado: ')
 													])),
-												$elm$html$Html$text(model)
+												$elm$html$Html$text(toText.output)
 											]))
 									]))
 							]))
@@ -5339,6 +5344,10 @@ var $author$project$AreaQuadrado$view = function (model) {
 			]));
 };
 var $author$project$AreaQuadrado$main = $elm$browser$Browser$sandbox(
-	{init: $author$project$AreaQuadrado$init, update: $author$project$AreaQuadrado$update, view: $author$project$AreaQuadrado$view});
+	{
+		init: $author$project$AreaQuadrado$Model(''),
+		update: $author$project$AreaQuadrado$update,
+		view: $author$project$AreaQuadrado$view
+	});
 _Platform_export({'AreaQuadrado':{'init':$author$project$AreaQuadrado$main(
 	$elm$json$Json$Decode$succeed(_Utils_Tuple0))(0)}});}(this));

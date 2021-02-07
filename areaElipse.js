@@ -4355,9 +4355,10 @@ function _Browser_load(url)
 		}
 	}));
 }
-var $author$project$AreaCircunferencia$Model = function (i1) {
-	return {i1: i1};
-};
+var $author$project$AreaElipse$Model = F2(
+	function (i1, i2) {
+		return {i1: i1, i2: i2};
+	});
 var $elm$core$Basics$EQ = {$: 'EQ'};
 var $elm$core$Basics$GT = {$: 'GT'};
 var $elm$core$Basics$LT = {$: 'LT'};
@@ -5168,30 +5169,42 @@ var $elm$browser$Browser$sandbox = function (impl) {
 			view: impl.view
 		});
 };
-var $author$project$AreaCircunferencia$update = F2(
+var $author$project$AreaElipse$update = F2(
 	function (msg, model) {
-		var n = msg.a;
-		return _Utils_update(
-			model,
-			{i1: n});
+		if (msg.$ === 'Input1') {
+			var n = msg.a;
+			return _Utils_update(
+				model,
+				{i1: n});
+		} else {
+			var m = msg.a;
+			return _Utils_update(
+				model,
+				{i2: m});
+		}
 	});
-var $author$project$AreaCircunferencia$Input = function (a) {
-	return {$: 'Input', a: a};
+var $author$project$AreaElipse$Input1 = function (a) {
+	return {$: 'Input1', a: a};
+};
+var $author$project$AreaElipse$Input2 = function (a) {
+	return {$: 'Input2', a: a};
 };
 var $elm$core$String$fromFloat = _String_fromNumber;
 var $elm$core$Basics$pi = _Basics_pi;
-var $elm$core$Basics$pow = _Basics_pow;
 var $elm$core$String$toFloat = _String_toFloat;
-var $author$project$AreaCircunferencia$areaCircunferencia = function (r) {
-	var _v0 = $elm$core$String$toFloat(r);
-	if (_v0.$ === 'Just') {
-		var n = _v0.a;
-		return (n > 0.0) ? ($elm$core$String$fromFloat(
-			$elm$core$Basics$pi * A2($elm$core$Basics$pow, n, 2)) + ' u²') : 'Indeterminado';
-	} else {
-		return 'Indeterminado';
-	}
-};
+var $author$project$AreaElipse$areaElipse = F2(
+	function (seM, sem) {
+		var _v0 = _Utils_Tuple2(
+			$elm$core$String$toFloat(seM),
+			$elm$core$String$toFloat(sem));
+		if ((_v0.a.$ === 'Just') && (_v0.b.$ === 'Just')) {
+			var n = _v0.a.a;
+			var m = _v0.b.a;
+			return ((n > 0) && (m > 0)) ? ($elm$core$String$fromFloat(($elm$core$Basics$pi * n) * m) + ' u²') : 'Indeterminado';
+		} else {
+			return 'Indeterminado';
+		}
+	});
 var $elm$json$Json$Encode$string = _Json_wrap;
 var $elm$html$Html$Attributes$stringProperty = F2(
 	function (key, string) {
@@ -5240,16 +5253,15 @@ var $elm$html$Html$Events$onInput = function (tagger) {
 };
 var $elm$html$Html$Attributes$placeholder = $elm$html$Html$Attributes$stringProperty('placeholder');
 var $elm$html$Html$span = _VirtualDom_node('span');
-var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
-var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
 var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
-var $author$project$AreaCircunferencia$view = function (model) {
+var $author$project$AreaElipse$view = function (model) {
 	var toText = {
-		box1: 'Raio',
-		output: $author$project$AreaCircunferencia$areaCircunferencia(model.i1),
-		title: 'Calcular Área da Circunferência'
+		box1: 'Semi Eixo Maior',
+		box2: 'Semi Eixo Menor',
+		output: A2($author$project$AreaElipse$areaElipse, model.i1, model.i2),
+		title: 'Calcular Área da Elipse'
 	};
 	return A2(
 		$elm$html$Html$div,
@@ -5294,7 +5306,7 @@ var $author$project$AreaCircunferencia$view = function (model) {
 										$elm$html$Html$div,
 										_List_fromArray(
 											[
-												$elm$html$Html$Attributes$class('col-md-12')
+												$elm$html$Html$Attributes$class('col-md-6')
 											]),
 										_List_fromArray(
 											[
@@ -5305,8 +5317,26 @@ var $author$project$AreaCircunferencia$view = function (model) {
 														$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
 														$elm$html$Html$Attributes$placeholder(toText.box1),
 														$elm$html$Html$Attributes$type_('number'),
-														$elm$html$Html$Events$onInput($author$project$AreaCircunferencia$Input),
-														A2($elm$html$Html$Attributes$style, 'margin-right', '10px')
+														$elm$html$Html$Events$onInput($author$project$AreaElipse$Input1)
+													]),
+												_List_Nil)
+											])),
+										A2(
+										$elm$html$Html$div,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('col-md-6')
+											]),
+										_List_fromArray(
+											[
+												A2(
+												$elm$html$Html$input,
+												_List_fromArray(
+													[
+														$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
+														$elm$html$Html$Attributes$placeholder(toText.box2),
+														$elm$html$Html$Attributes$type_('number'),
+														$elm$html$Html$Events$onInput($author$project$AreaElipse$Input2)
 													]),
 												_List_Nil)
 											]))
@@ -5344,11 +5374,11 @@ var $author$project$AreaCircunferencia$view = function (model) {
 					]))
 			]));
 };
-var $author$project$AreaCircunferencia$main = $elm$browser$Browser$sandbox(
+var $author$project$AreaElipse$main = $elm$browser$Browser$sandbox(
 	{
-		init: $author$project$AreaCircunferencia$Model(''),
-		update: $author$project$AreaCircunferencia$update,
-		view: $author$project$AreaCircunferencia$view
+		init: A2($author$project$AreaElipse$Model, '', ''),
+		update: $author$project$AreaElipse$update,
+		view: $author$project$AreaElipse$view
 	});
-_Platform_export({'AreaCircunferencia':{'init':$author$project$AreaCircunferencia$main(
+_Platform_export({'AreaElipse':{'init':$author$project$AreaElipse$main(
 	$elm$json$Json$Decode$succeed(_Utils_Tuple0))(0)}});}(this));

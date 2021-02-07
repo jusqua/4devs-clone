@@ -4355,7 +4355,7 @@ function _Browser_load(url)
 		}
 	}));
 }
-var $author$project$AreaCircunferencia$Model = function (i1) {
+var $author$project$AreaHexagono$Model = function (i1) {
 	return {i1: i1};
 };
 var $elm$core$Basics$EQ = {$: 'EQ'};
@@ -5168,26 +5168,26 @@ var $elm$browser$Browser$sandbox = function (impl) {
 			view: impl.view
 		});
 };
-var $author$project$AreaCircunferencia$update = F2(
+var $author$project$AreaHexagono$update = F2(
 	function (msg, model) {
 		var n = msg.a;
 		return _Utils_update(
 			model,
 			{i1: n});
 	});
-var $author$project$AreaCircunferencia$Input = function (a) {
+var $author$project$AreaHexagono$Input = function (a) {
 	return {$: 'Input', a: a};
 };
 var $elm$core$String$fromFloat = _String_fromNumber;
-var $elm$core$Basics$pi = _Basics_pi;
 var $elm$core$Basics$pow = _Basics_pow;
+var $elm$core$Basics$sqrt = _Basics_sqrt;
 var $elm$core$String$toFloat = _String_toFloat;
-var $author$project$AreaCircunferencia$areaCircunferencia = function (r) {
-	var _v0 = $elm$core$String$toFloat(r);
+var $author$project$AreaHexagono$areaHexagono = function (l) {
+	var _v0 = $elm$core$String$toFloat(l);
 	if (_v0.$ === 'Just') {
 		var n = _v0.a;
 		return (n > 0.0) ? ($elm$core$String$fromFloat(
-			$elm$core$Basics$pi * A2($elm$core$Basics$pow, n, 2)) + ' u²') : 'Indeterminado';
+			((6 * A2($elm$core$Basics$pow, n, 2)) * $elm$core$Basics$sqrt(3)) / 4) + ' u²') : 'Indeterminado';
 	} else {
 		return 'Indeterminado';
 	}
@@ -5245,11 +5245,11 @@ var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
 var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
-var $author$project$AreaCircunferencia$view = function (model) {
+var $author$project$AreaHexagono$view = function (model) {
 	var toText = {
-		box1: 'Raio',
-		output: $author$project$AreaCircunferencia$areaCircunferencia(model.i1),
-		title: 'Calcular Área da Circunferência'
+		box1: 'Lado',
+		output: $author$project$AreaHexagono$areaHexagono(model.i1),
+		title: 'Calcular Área do Hexagono'
 	};
 	return A2(
 		$elm$html$Html$div,
@@ -5305,7 +5305,7 @@ var $author$project$AreaCircunferencia$view = function (model) {
 														$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
 														$elm$html$Html$Attributes$placeholder(toText.box1),
 														$elm$html$Html$Attributes$type_('number'),
-														$elm$html$Html$Events$onInput($author$project$AreaCircunferencia$Input),
+														$elm$html$Html$Events$onInput($author$project$AreaHexagono$Input),
 														A2($elm$html$Html$Attributes$style, 'margin-right', '10px')
 													]),
 												_List_Nil)
@@ -5344,11 +5344,11 @@ var $author$project$AreaCircunferencia$view = function (model) {
 					]))
 			]));
 };
-var $author$project$AreaCircunferencia$main = $elm$browser$Browser$sandbox(
+var $author$project$AreaHexagono$main = $elm$browser$Browser$sandbox(
 	{
-		init: $author$project$AreaCircunferencia$Model(''),
-		update: $author$project$AreaCircunferencia$update,
-		view: $author$project$AreaCircunferencia$view
+		init: $author$project$AreaHexagono$Model(''),
+		update: $author$project$AreaHexagono$update,
+		view: $author$project$AreaHexagono$view
 	});
-_Platform_export({'AreaCircunferencia':{'init':$author$project$AreaCircunferencia$main(
+_Platform_export({'AreaHexagono':{'init':$author$project$AreaHexagono$main(
 	$elm$json$Json$Decode$succeed(_Utils_Tuple0))(0)}});}(this));

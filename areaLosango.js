@@ -4355,9 +4355,10 @@ function _Browser_load(url)
 		}
 	}));
 }
-var $author$project$AreaCircunferencia$Model = function (i1) {
-	return {i1: i1};
-};
+var $author$project$AreaLosango$Model = F2(
+	function (i1, i2) {
+		return {i1: i1, i2: i2};
+	});
 var $elm$core$Basics$EQ = {$: 'EQ'};
 var $elm$core$Basics$GT = {$: 'GT'};
 var $elm$core$Basics$LT = {$: 'LT'};
@@ -5168,30 +5169,41 @@ var $elm$browser$Browser$sandbox = function (impl) {
 			view: impl.view
 		});
 };
-var $author$project$AreaCircunferencia$update = F2(
+var $author$project$AreaLosango$update = F2(
 	function (msg, model) {
-		var n = msg.a;
-		return _Utils_update(
-			model,
-			{i1: n});
+		if (msg.$ === 'Input1') {
+			var n = msg.a;
+			return _Utils_update(
+				model,
+				{i1: n});
+		} else {
+			var m = msg.a;
+			return _Utils_update(
+				model,
+				{i2: m});
+		}
 	});
-var $author$project$AreaCircunferencia$Input = function (a) {
-	return {$: 'Input', a: a};
+var $author$project$AreaLosango$Input1 = function (a) {
+	return {$: 'Input1', a: a};
+};
+var $author$project$AreaLosango$Input2 = function (a) {
+	return {$: 'Input2', a: a};
 };
 var $elm$core$String$fromFloat = _String_fromNumber;
-var $elm$core$Basics$pi = _Basics_pi;
-var $elm$core$Basics$pow = _Basics_pow;
 var $elm$core$String$toFloat = _String_toFloat;
-var $author$project$AreaCircunferencia$areaCircunferencia = function (r) {
-	var _v0 = $elm$core$String$toFloat(r);
-	if (_v0.$ === 'Just') {
-		var n = _v0.a;
-		return (n > 0.0) ? ($elm$core$String$fromFloat(
-			$elm$core$Basics$pi * A2($elm$core$Basics$pow, n, 2)) + ' u²') : 'Indeterminado';
-	} else {
-		return 'Indeterminado';
-	}
-};
+var $author$project$AreaLosango$areaLosango = F2(
+	function (d1, d2) {
+		var _v0 = _Utils_Tuple2(
+			$elm$core$String$toFloat(d1),
+			$elm$core$String$toFloat(d2));
+		if ((_v0.a.$ === 'Just') && (_v0.b.$ === 'Just')) {
+			var n = _v0.a.a;
+			var m = _v0.b.a;
+			return ((n > 0) && (m > 0)) ? ($elm$core$String$fromFloat((n * m) / 2) + ' u²') : 'Indeterminado';
+		} else {
+			return 'Indeterminado';
+		}
+	});
 var $elm$json$Json$Encode$string = _Json_wrap;
 var $elm$html$Html$Attributes$stringProperty = F2(
 	function (key, string) {
@@ -5240,16 +5252,15 @@ var $elm$html$Html$Events$onInput = function (tagger) {
 };
 var $elm$html$Html$Attributes$placeholder = $elm$html$Html$Attributes$stringProperty('placeholder');
 var $elm$html$Html$span = _VirtualDom_node('span');
-var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
-var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
 var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
-var $author$project$AreaCircunferencia$view = function (model) {
+var $author$project$AreaLosango$view = function (model) {
 	var toText = {
-		box1: 'Raio',
-		output: $author$project$AreaCircunferencia$areaCircunferencia(model.i1),
-		title: 'Calcular Área da Circunferência'
+		box1: 'Diagonal 1',
+		box2: 'Diagonal 2',
+		output: A2($author$project$AreaLosango$areaLosango, model.i1, model.i2),
+		title: 'Calcular Área do Losango'
 	};
 	return A2(
 		$elm$html$Html$div,
@@ -5294,7 +5305,7 @@ var $author$project$AreaCircunferencia$view = function (model) {
 										$elm$html$Html$div,
 										_List_fromArray(
 											[
-												$elm$html$Html$Attributes$class('col-md-12')
+												$elm$html$Html$Attributes$class('col-md-6')
 											]),
 										_List_fromArray(
 											[
@@ -5305,8 +5316,26 @@ var $author$project$AreaCircunferencia$view = function (model) {
 														$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
 														$elm$html$Html$Attributes$placeholder(toText.box1),
 														$elm$html$Html$Attributes$type_('number'),
-														$elm$html$Html$Events$onInput($author$project$AreaCircunferencia$Input),
-														A2($elm$html$Html$Attributes$style, 'margin-right', '10px')
+														$elm$html$Html$Events$onInput($author$project$AreaLosango$Input1)
+													]),
+												_List_Nil)
+											])),
+										A2(
+										$elm$html$Html$div,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('col-md-6')
+											]),
+										_List_fromArray(
+											[
+												A2(
+												$elm$html$Html$input,
+												_List_fromArray(
+													[
+														$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
+														$elm$html$Html$Attributes$placeholder(toText.box2),
+														$elm$html$Html$Attributes$type_('number'),
+														$elm$html$Html$Events$onInput($author$project$AreaLosango$Input2)
 													]),
 												_List_Nil)
 											]))
@@ -5344,11 +5373,11 @@ var $author$project$AreaCircunferencia$view = function (model) {
 					]))
 			]));
 };
-var $author$project$AreaCircunferencia$main = $elm$browser$Browser$sandbox(
+var $author$project$AreaLosango$main = $elm$browser$Browser$sandbox(
 	{
-		init: $author$project$AreaCircunferencia$Model(''),
-		update: $author$project$AreaCircunferencia$update,
-		view: $author$project$AreaCircunferencia$view
+		init: A2($author$project$AreaLosango$Model, '', ''),
+		update: $author$project$AreaLosango$update,
+		view: $author$project$AreaLosango$view
 	});
-_Platform_export({'AreaCircunferencia':{'init':$author$project$AreaCircunferencia$main(
+_Platform_export({'AreaLosango':{'init':$author$project$AreaLosango$main(
 	$elm$json$Json$Decode$succeed(_Utils_Tuple0))(0)}});}(this));

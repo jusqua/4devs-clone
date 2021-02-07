@@ -1,14 +1,14 @@
-module AreaQuadrado exposing (..)
+module AreaHexagono exposing (..)
 import Browser
 import Html exposing (..)
 import Html.Events exposing (..)
 import Html.Attributes exposing (..)
 
-areaQuadrado : String -> String
-areaQuadrado l =
+areaHexagono : String -> String
+areaHexagono l =
   case String.toFloat l of
     Just n ->
-      if n > 0.0 then String.fromFloat(n^2) ++ " u²"
+      if n > 0.0 then String.fromFloat((6*(n^2)*sqrt(3))/4) ++ " u²"
       else "Indeterminado"
     Nothing -> "Indeterminado"
 
@@ -37,7 +37,7 @@ update msg model =
 view : Model -> Html Msg
 view model =
   let
-    toText = {output = areaQuadrado model.i1, title = "Calcular Área do Quadrado", box1 = "Lado"}
+    toText = {output = areaHexagono model.i1, title = "Calcular Área do Hexagono", box1 = "Lado"}
   in
     div 
       [ class "card col-md-4 bg-dark" ]
