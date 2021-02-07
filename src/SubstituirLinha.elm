@@ -1,17 +1,20 @@
-module RestoDivisao exposing (..)
+module SubstituirLinha exposing (..)
 import Browser
 import Html exposing (..)
 import Html.Events exposing (..)
 import Html.Attributes exposing (..)
 
-restoDivisao : String -> String -> String
-restoDivisao a b =
-  case (String.toInt a, String.toInt b) of
-    (Just n, Just m) ->
-      if n >= 0 && m > 0 && n >= m then String.fromInt(n-(n//m)*m)
-      else "Indeterminado"
-    _ -> "Indeterminado"
-
+substituirLinha : String -> String -> String
+substituirLinha text ntext =
+  let
+    aux : List Char -> List Char -> List Char
+    aux ls ts =
+      case ls of
+        [] -> []
+        x::xs -> if x == '\n' then List.append ts (aux xs ts) else x::(aux xs ts)
+  in
+    String.fromList <| aux (String.toList text) (String.toList ntext)
+    
 -- MAIN 
 -- O programa principal é uma função chamada sandbox em que você passa um Record de ELM contendo três elementos: init (que é o modelo incial), update (função de atualização de valores do modelo) e view (função para visualização no Browser)
 type alias Model = {i1 : String, i2 : String}
@@ -38,17 +41,16 @@ update msg model =
 view : Model -> Html Msg
 view model =
   let
-    toText = {output = restoDivisao model.i1 model.i2, title = "Resto da Divisão", box1 = "Numerador", box2 = "Denominador"}
+    toText = {output = substituirLinha model.i1 model.i2, title = "Substituir Quebra de Linha", box1 = "Texto Original", box2 = "Texto Substituto"}
   in
     div [ class "card col-md-4 bg-dark" ]
         [ div [ class "card-body bg-dark text-light" ]
             [ h5 [ class "card-title" ] [ text toText.title ]
             , div []
                 [ div [ class "row" ]
-                    [ div [ class "col-md-6" ] [ input [ class "form-control bg-dark text-light", placeholder toText.box1, type_ "number", onInput Input1 ] [] ]
-                    , div [ class "col-md-6" ] [ input [ class "form-control bg-dark text-light", placeholder toText.box2, type_ "number", onInput Input2 ] [] ]
+                    [ textarea [ placeholder toText.box1, onInput Input1, style "margin-right" "10px" ] [] ]
+                    , div [ class "col-md-6" ] [ input [ class "form-control bg-dark text-light", placeholder toText.box2, type_ "text", onInput Input2 ] [] ]
                     ]
-                , div [ class "row" ] [ div [ class "col-md-12" ] [ span [ class "h6" ] [ text "Resultado: " ], text toText.output ] ]
+                , div [ class "row" ] [ div [ class "col-md-12" ] [ span [ class "h6" ] [ text "Resultado: \n" ], text toText.output ] ]
                 ]
             ]
-        ]
