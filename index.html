@@ -1,0 +1,94 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Main</title>
+  <script src="areaCircunferencia.js"></script>
+  <script src="areaQuadrado.js"></script>
+  <script src="areaRetangulo.js"></script>
+  <script src="areaTriangulo.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Programação Funcional</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Funcionalidades
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div> -->
+    </div>
+  </nav>
+  <div class="bg-info">
+    <h4 class="h4 text-light mb-0">Matemática</h4>
+  </div>
+
+  <div class="row bg-dark">
+    <div class="container" id="myapp"></div>
+    <div class="container" id="myapp2"></div>
+    <div class="container" id="myapp3"></div>
+  </div>
+
+  <div class="row mt-0 bg-dark">
+    <div class="container" id="myapp4"></div>
+    <div class="container" id="myapp5"></div>
+    <div class="container" id="myapp6"></div>
+  </div>
+
+  <div class="bg-info">
+    <h4 class="h4 text-light mb-0">Computação</h4>
+  </div>
+
+  <script>
+    var app = Elm.AreaCircunferencia.init({
+      node: document.getElementById('myapp')
+    });
+  </script>
+  <script>
+    var app = Elm.AreaQuadrado.init({
+      node: document.getElementById('myapp2')
+    });
+  </script>
+  <script>
+    var app = Elm.AreaRetangulo.init({
+      node: document.getElementById('myapp3')
+    });
+  </script>
+  <script>
+    var app = Elm.AreaTriangulo.init({
+      node: document.getElementById('myapp4')
+    });
+  </script>
+  <script>
+    var app = Elm.AreaTriangulo.init({
+      node: document.getElementById('myapp5')
+    });
+  </script>
+  <script>
+    var app = Elm.AreaTriangulo.init({
+      node: document.getElementById('myapp6')
+    });
+  </script>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+</html>
