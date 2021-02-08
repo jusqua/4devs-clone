@@ -51,7 +51,7 @@ getWords lch =
   case lch of
     [] -> 0
     x::y::xs -> 
-      if (x /= ' ' || x /= '\n') && (y == ' ' || y == '\n') then 1 + getWords (List.append [y] xs)
+      if (x /= ' ' && x /= '\n') && (y == ' ' || y == '\n') then 1 + getWords (List.append [y] xs)
       else 0 + getWords (List.append [y] xs)
     [x] -> if x == ' ' || x == '\n' then 0 else 1
 
