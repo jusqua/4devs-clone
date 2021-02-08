@@ -5331,7 +5331,7 @@ var $author$project$ContadorString$contadorString = function (str) {
 				lch)),
 		es: $elm$core$List$length(
 			A2($elm$core$List$filter, $author$project$ContadorString$isSpecialChar, lch)),
-		l: $elm$core$List$length(
+		l: 1 + $elm$core$List$length(
 			A2(
 				$elm$core$List$filter,
 				function (ch) {
