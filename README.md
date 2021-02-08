@@ -1,6 +1,6 @@
 <h1 align="center"> Avaliação 4 - UFS/DCOMP - T08/Grupo C<h1>
 <p align="center">Programação funcional em Elm<p/>
-<h3>Integrantes<h3/>
+<h3>Integrantes:<h3/>
   <p>Jordan Santos de Jesus<p/>
   <p>Ádrian dos Santos Gama<p/>
   <p>Rafael Lauton Santos de Oliveira<p/>
