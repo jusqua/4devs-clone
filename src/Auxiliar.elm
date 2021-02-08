@@ -10,17 +10,43 @@ listSame l =
       else listSame (y::xs)
     _ -> True
 
-cpfncnpjTrait : String -> List (Maybe Int)
-cpfncnpjTrait str =
+cpfncnpjTrait : String -> Bool -> List (Maybe Int)
+cpfncnpjTrait str iscpf =
   let
     strl = String.toList str
-    test1 = List.filter isNotDigit strl
-    test2 = List.map charToInt strl
+    strlen = String.length str
+    
+    test : List Char -> List (Maybe Int)
+    test lch =
+      let
+        test1 = List.filter isNotDigit lch
+        test2 = List.map charToInt lch
+      in
+        if test1 /= [] then []
+      else
+        if listSame test2 then []
+        else test2
   in
-    if test1 /= [] then []
+    if iscpf then
+      case strlen of
+      11 -> test strl
+      14 -> 
+        case strl of
+          a::b::c::p1::d::e::f::p2::g::h::i::p3::j::k::xs ->
+            a::b::c::d::e::f::g::h::i::j::k::xs
+            |> test
+          _ -> []
+      _  -> []
     else
-      if listSame test2 then []
-      else test2
+      case strlen of
+      14 -> test strl
+      18 ->
+        case strl of
+          a::b::p1::c::d::e::p2::f::g::h::p3::i::j::k::l::p4::m::n::xs ->
+            a::b::c::d::e::f::g::h::i::j::k::l::m::n::xs
+            |> test
+          _ -> []
+      _  -> []
 
 isNotDigit : Char -> Bool
 isNotDigit ch = not (Char.isDigit ch)
