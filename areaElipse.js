@@ -5267,7 +5267,7 @@ var $author$project$AreaElipse$view = function (model) {
 		$elm$html$Html$div,
 		_List_fromArray(
 			[
-				$elm$html$Html$Attributes$class('card col-md-4 bg-dark')
+				$elm$html$Html$Attributes$class('card col-md-4 col-sm-12 bg-dark')
 			]),
 		_List_fromArray(
 			[

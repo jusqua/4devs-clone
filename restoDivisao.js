@@ -5245,7 +5245,7 @@ var $author$project$RestoDivisao$restoDivisao = F2(
 		if ((_v0.a.$ === 'Just') && (_v0.b.$ === 'Just')) {
 			var n = _v0.a.a;
 			var m = _v0.b.a;
-			return ((n >= 0) && ((m > 0) && (_Utils_cmp(n, m) > 0))) ? $elm$core$String$fromInt(n - (((n / m) | 0) * m)) : 'Indeterminado';
+			return ((n >= 0) && ((m > 0) && (_Utils_cmp(n, m) > -1))) ? $elm$core$String$fromInt(n - (((n / m) | 0) * m)) : 'Indeterminado';
 		} else {
 			return 'Indeterminado';
 		}
@@ -5265,7 +5265,7 @@ var $author$project$RestoDivisao$view = function (model) {
 		$elm$html$Html$div,
 		_List_fromArray(
 			[
-				$elm$html$Html$Attributes$class('card col-md-4 bg-dark')
+				$elm$html$Html$Attributes$class('card col-md-4 col-sm-12 bg-dark')
 			]),
 		_List_fromArray(
 			[
