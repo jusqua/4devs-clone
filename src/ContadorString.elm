@@ -65,7 +65,7 @@ contadorString str =
         { c = List.length <| List.filter (\ch -> ch /= '\n') lch
         , cse = List.length <| List.filter (\ch -> ch /= ' ' && ch /= '\n') lch
         , e = List.length <| List.filter (\ch -> ch == ' ') lch
-        , l = List.length <| List.filter (\ch -> ch == '\n') lch
+        , l = (+) 1 <| List.length <| List.filter (\ch -> ch == '\n') lch
         , v = List.length <| List.filter isVowel lch
         , con = List.length <| List.filter isConsonant lch
         , n = List.length <| List.filter Char.isDigit lch
