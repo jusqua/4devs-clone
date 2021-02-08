@@ -5269,12 +5269,178 @@ var $elm$core$String$foldr = _String_foldr;
 var $elm$core$String$toList = function (string) {
 	return A3($elm$core$String$foldr, $elm$core$List$cons, _List_Nil, string);
 };
-var $author$project$Auxiliar$cpfncnpjTrait = function (str) {
-	var strl = $elm$core$String$toList(str);
-	var test1 = A2($elm$core$List$filter, $author$project$Auxiliar$isNotDigit, strl);
-	var test2 = A2($elm$core$List$map, $author$project$Auxiliar$charToInt, strl);
-	return (!_Utils_eq(test1, _List_Nil)) ? _List_Nil : ($author$project$Auxiliar$listSame(test2) ? _List_Nil : test2);
-};
+var $author$project$Auxiliar$cpfncnpjTrait = F2(
+	function (str, iscpf) {
+		var test = function (lch) {
+			var test2 = A2($elm$core$List$map, $author$project$Auxiliar$charToInt, lch);
+			var test1 = A2($elm$core$List$filter, $author$project$Auxiliar$isNotDigit, lch);
+			return (!_Utils_eq(test1, _List_Nil)) ? _List_Nil : ($author$project$Auxiliar$listSame(test2) ? _List_Nil : test2);
+		};
+		var strlen = $elm$core$String$length(str);
+		var strl = $elm$core$String$toList(str);
+		if (iscpf) {
+			switch (strlen) {
+				case 11:
+					return test(strl);
+				case 14:
+					if (((((((((((((strl.b && strl.b.b) && strl.b.b.b) && strl.b.b.b.b) && strl.b.b.b.b.b) && strl.b.b.b.b.b.b) && strl.b.b.b.b.b.b.b) && strl.b.b.b.b.b.b.b.b) && strl.b.b.b.b.b.b.b.b.b) && strl.b.b.b.b.b.b.b.b.b.b) && strl.b.b.b.b.b.b.b.b.b.b.b) && strl.b.b.b.b.b.b.b.b.b.b.b.b) && strl.b.b.b.b.b.b.b.b.b.b.b.b.b) && strl.b.b.b.b.b.b.b.b.b.b.b.b.b.b) {
+						var a = strl.a;
+						var _v2 = strl.b;
+						var b = _v2.a;
+						var _v3 = _v2.b;
+						var c = _v3.a;
+						var _v4 = _v3.b;
+						var p1 = _v4.a;
+						var _v5 = _v4.b;
+						var d = _v5.a;
+						var _v6 = _v5.b;
+						var e = _v6.a;
+						var _v7 = _v6.b;
+						var f = _v7.a;
+						var _v8 = _v7.b;
+						var p2 = _v8.a;
+						var _v9 = _v8.b;
+						var g = _v9.a;
+						var _v10 = _v9.b;
+						var h = _v10.a;
+						var _v11 = _v10.b;
+						var i = _v11.a;
+						var _v12 = _v11.b;
+						var p3 = _v12.a;
+						var _v13 = _v12.b;
+						var j = _v13.a;
+						var _v14 = _v13.b;
+						var k = _v14.a;
+						var xs = _v14.b;
+						return test(
+							A2(
+								$elm$core$List$cons,
+								a,
+								A2(
+									$elm$core$List$cons,
+									b,
+									A2(
+										$elm$core$List$cons,
+										c,
+										A2(
+											$elm$core$List$cons,
+											d,
+											A2(
+												$elm$core$List$cons,
+												e,
+												A2(
+													$elm$core$List$cons,
+													f,
+													A2(
+														$elm$core$List$cons,
+														g,
+														A2(
+															$elm$core$List$cons,
+															h,
+															A2(
+																$elm$core$List$cons,
+																i,
+																A2(
+																	$elm$core$List$cons,
+																	j,
+																	A2($elm$core$List$cons, k, xs))))))))))));
+					} else {
+						return _List_Nil;
+					}
+				default:
+					return _List_Nil;
+			}
+		} else {
+			switch (strlen) {
+				case 14:
+					return test(strl);
+				case 18:
+					if (((((((((((((((((strl.b && strl.b.b) && strl.b.b.b) && strl.b.b.b.b) && strl.b.b.b.b.b) && strl.b.b.b.b.b.b) && strl.b.b.b.b.b.b.b) && strl.b.b.b.b.b.b.b.b) && strl.b.b.b.b.b.b.b.b.b) && strl.b.b.b.b.b.b.b.b.b.b) && strl.b.b.b.b.b.b.b.b.b.b.b) && strl.b.b.b.b.b.b.b.b.b.b.b.b) && strl.b.b.b.b.b.b.b.b.b.b.b.b.b) && strl.b.b.b.b.b.b.b.b.b.b.b.b.b.b) && strl.b.b.b.b.b.b.b.b.b.b.b.b.b.b.b) && strl.b.b.b.b.b.b.b.b.b.b.b.b.b.b.b.b) && strl.b.b.b.b.b.b.b.b.b.b.b.b.b.b.b.b.b) && strl.b.b.b.b.b.b.b.b.b.b.b.b.b.b.b.b.b.b) {
+						var a = strl.a;
+						var _v17 = strl.b;
+						var b = _v17.a;
+						var _v18 = _v17.b;
+						var p1 = _v18.a;
+						var _v19 = _v18.b;
+						var c = _v19.a;
+						var _v20 = _v19.b;
+						var d = _v20.a;
+						var _v21 = _v20.b;
+						var e = _v21.a;
+						var _v22 = _v21.b;
+						var p2 = _v22.a;
+						var _v23 = _v22.b;
+						var f = _v23.a;
+						var _v24 = _v23.b;
+						var g = _v24.a;
+						var _v25 = _v24.b;
+						var h = _v25.a;
+						var _v26 = _v25.b;
+						var p3 = _v26.a;
+						var _v27 = _v26.b;
+						var i = _v27.a;
+						var _v28 = _v27.b;
+						var j = _v28.a;
+						var _v29 = _v28.b;
+						var k = _v29.a;
+						var _v30 = _v29.b;
+						var l = _v30.a;
+						var _v31 = _v30.b;
+						var p4 = _v31.a;
+						var _v32 = _v31.b;
+						var m = _v32.a;
+						var _v33 = _v32.b;
+						var n = _v33.a;
+						var xs = _v33.b;
+						return test(
+							A2(
+								$elm$core$List$cons,
+								a,
+								A2(
+									$elm$core$List$cons,
+									b,
+									A2(
+										$elm$core$List$cons,
+										c,
+										A2(
+											$elm$core$List$cons,
+											d,
+											A2(
+												$elm$core$List$cons,
+												e,
+												A2(
+													$elm$core$List$cons,
+													f,
+													A2(
+														$elm$core$List$cons,
+														g,
+														A2(
+															$elm$core$List$cons,
+															h,
+															A2(
+																$elm$core$List$cons,
+																i,
+																A2(
+																	$elm$core$List$cons,
+																	j,
+																	A2(
+																		$elm$core$List$cons,
+																		k,
+																		A2(
+																			$elm$core$List$cons,
+																			l,
+																			A2(
+																				$elm$core$List$cons,
+																				m,
+																				A2($elm$core$List$cons, n, xs)))))))))))))));
+					} else {
+						return _List_Nil;
+					}
+				default:
+					return _List_Nil;
+			}
+		}
+	});
 var $author$project$Auxiliar$digg = function (l) {
 	var _v0 = $elm$core$List$reverse(l);
 	if (_v0.b && _v0.b.b) {
@@ -5436,7 +5602,7 @@ var $elm$core$List$take = F2(
 		return A3($elm$core$List$takeFast, 0, n, list);
 	});
 var $author$project$ValidadorCNPJ$validarCNPJ = function (input) {
-	var cnpj = $author$project$Auxiliar$cpfncnpjTrait(input);
+	var cnpj = A2($author$project$Auxiliar$cpfncnpjTrait, input, false);
 	if ($elm$core$List$length(cnpj) === 14) {
 		var odig = $author$project$Auxiliar$digg(cnpj);
 		var cnpjt = A2($elm$core$List$take, 12, cnpj);

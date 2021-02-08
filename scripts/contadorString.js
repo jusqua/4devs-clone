@@ -5198,28 +5198,99 @@ var $elm$core$List$filter = F2(
 			_List_Nil,
 			list);
 	});
-var $elm$core$Char$toLocaleLower = _Char_toLocaleLower;
-var $author$project$ContadorString$isVowel = function (ch) {
-	var _v0 = $elm$core$Char$toLocaleLower(ch);
-	switch (_v0.valueOf()) {
-		case 'a':
-			return true;
-		case 'e':
-			return true;
-		case 'i':
-			return true;
-		case 'o':
-			return true;
-		case 'u':
-			return true;
-		default:
-			return false;
+var $elm$core$List$append = F2(
+	function (xs, ys) {
+		if (!ys.b) {
+			return xs;
+		} else {
+			return A3($elm$core$List$foldr, $elm$core$List$cons, ys, xs);
+		}
+	});
+var $elm$core$Basics$neq = _Utils_notEqual;
+var $author$project$ContadorString$getWords = function (lch) {
+	if (!lch.b) {
+		return 0;
+	} else {
+		if (lch.b.b) {
+			var x = lch.a;
+			var _v1 = lch.b;
+			var y = _v1.a;
+			var xs = _v1.b;
+			return (((!_Utils_eq(
+				x,
+				_Utils_chr(' '))) || (!_Utils_eq(
+				x,
+				_Utils_chr('\n')))) && (_Utils_eq(
+				y,
+				_Utils_chr(' ')) || _Utils_eq(
+				y,
+				_Utils_chr('\n')))) ? (1 + $author$project$ContadorString$getWords(
+				A2(
+					$elm$core$List$append,
+					_List_fromArray(
+						[y]),
+					xs))) : (0 + $author$project$ContadorString$getWords(
+				A2(
+					$elm$core$List$append,
+					_List_fromArray(
+						[y]),
+					xs)));
+		} else {
+			var x = lch.a;
+			return (_Utils_eq(
+				x,
+				_Utils_chr(' ')) || _Utils_eq(
+				x,
+				_Utils_chr('\n'))) ? 0 : 1;
+		}
 	}
 };
-var $author$project$ContadorString$isConsonant = function (ch) {
-	return $elm$core$Char$isAlpha(ch) ? ($author$project$ContadorString$isVowel(ch) ? false : true) : false;
+var $author$project$ContadorString$isVowel = function (ch) {
+	var vowels = _List_fromArray(
+		[65, 69, 73, 79, 85, 97, 101, 105, 111, 117, 129, 192, 193, 194, 195, 196, 197, 198, 200, 201, 202, 203, 204, 205, 206, 207, 210, 211, 212, 213, 214, 216, 217, 218, 219, 220, 224, 225, 226, 227, 228, 229, 230, 232, 233, 234, 235, 236, 237, 238, 239, 242, 243, 244, 245, 246, 248, 249, 250, 251, 252]);
+	var chc = $elm$core$Char$toCode(ch);
+	var _v0 = A2(
+		$elm$core$List$filter,
+		function (c) {
+			return _Utils_eq(c, chc);
+		},
+		vowels);
+	if (_v0.b && (!_v0.b.b)) {
+		var x = _v0.a;
+		return true;
+	} else {
+		return false;
+	}
 };
-var $elm$core$Basics$neq = _Utils_notEqual;
+var $elm$core$Basics$not = _Basics_not;
+var $author$project$ContadorString$isConsonant = function (ch) {
+	var sconsonants = _List_fromArray(
+		[138, 142, 154, 158, 159, 199, 209, 221, 231, 241, 253, 255]);
+	var chc = $elm$core$Char$toCode(ch);
+	if ($elm$core$Char$isAlpha(ch) && (!$author$project$ContadorString$isVowel(ch))) {
+		return true;
+	} else {
+		var _v0 = A2(
+			$elm$core$List$filter,
+			function (c) {
+				return _Utils_eq(c, chc);
+			},
+			sconsonants);
+		if (_v0.b && (!_v0.b.b)) {
+			var x = _v0.a;
+			return true;
+		} else {
+			return false;
+		}
+	}
+};
+var $author$project$ContadorString$isSpecialChar = function (ch) {
+	return (_Utils_eq(
+		ch,
+		_Utils_chr(' ')) || (_Utils_eq(
+		ch,
+		_Utils_chr('\n')) || ($author$project$ContadorString$isVowel(ch) || $author$project$ContadorString$isConsonant(ch)))) ? false : true;
+};
 var $elm$core$String$foldr = _String_foldr;
 var $elm$core$String$toList = function (string) {
 	return A3($elm$core$String$foldr, $elm$core$List$cons, _List_Nil, string);
@@ -5227,16 +5298,26 @@ var $elm$core$String$toList = function (string) {
 var $author$project$ContadorString$contadorString = function (str) {
 	var lch = $elm$core$String$toList(str);
 	return ($elm$core$String$length(str) > 0) ? {
-		c: $elm$core$String$length(str),
+		c: $elm$core$List$length(
+			A2(
+				$elm$core$List$filter,
+				function (ch) {
+					return !_Utils_eq(
+						ch,
+						_Utils_chr('\n'));
+				},
+				lch)),
 		con: $elm$core$List$length(
 			A2($elm$core$List$filter, $author$project$ContadorString$isConsonant, lch)),
 		cse: $elm$core$List$length(
 			A2(
 				$elm$core$List$filter,
 				function (ch) {
-					return !_Utils_eq(
+					return (!_Utils_eq(
 						ch,
-						_Utils_chr(' '));
+						_Utils_chr(' '))) && (!_Utils_eq(
+						ch,
+						_Utils_chr('\n')));
 				},
 				lch)),
 		e: $elm$core$List$length(
@@ -5248,6 +5329,8 @@ var $author$project$ContadorString$contadorString = function (str) {
 						_Utils_chr(' '));
 				},
 				lch)),
+		es: $elm$core$List$length(
+			A2($elm$core$List$filter, $author$project$ContadorString$isSpecialChar, lch)),
 		l: $elm$core$List$length(
 			A2(
 				$elm$core$List$filter,
@@ -5259,9 +5342,10 @@ var $author$project$ContadorString$contadorString = function (str) {
 				lch)),
 		n: $elm$core$List$length(
 			A2($elm$core$List$filter, $elm$core$Char$isDigit, lch)),
+		p: $author$project$ContadorString$getWords(lch),
 		v: $elm$core$List$length(
 			A2($elm$core$List$filter, $author$project$ContadorString$isVowel, lch))
-	} : {c: 0, con: 0, cse: 0, e: 0, l: 0, n: 0, v: 0};
+	} : {c: 0, con: 0, cse: 0, e: 0, es: 0, l: 0, n: 0, p: 0, v: 0};
 };
 var $elm$html$Html$div = _VirtualDom_node('div');
 var $elm$html$Html$h5 = _VirtualDom_node('h5');
@@ -5359,7 +5443,7 @@ var $author$project$ContadorString$view = function (model) {
 				$elm$html$Html$div,
 				_List_fromArray(
 					[
-						$elm$html$Html$Attributes$class('row'),
+						$elm$html$Html$Attributes$class('row mb-3'),
 						A2($elm$html$Html$Attributes$style, 'margin-left', '5px')
 					]),
 				_List_fromArray(
@@ -5388,7 +5472,7 @@ var $author$project$ContadorString$view = function (model) {
 						$elm$html$Html$div,
 						_List_fromArray(
 							[
-								$elm$html$Html$Attributes$class('col-md-8')
+								$elm$html$Html$Attributes$class('col-md-5')
 							]),
 						_List_fromArray(
 							[
@@ -5403,13 +5487,33 @@ var $author$project$ContadorString$view = function (model) {
 										$elm$html$Html$text(
 										'Caractéres sem espaço: ' + $elm$core$String$fromInt(toText.output.cse))
 									]))
+							])),
+						A2(
+						$elm$html$Html$div,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class('col-md-3')
+							]),
+						_List_fromArray(
+							[
+								A2(
+								$elm$html$Html$span,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$class('h6 text-light')
+									]),
+								_List_fromArray(
+									[
+										$elm$html$Html$text(
+										'Palavras: ' + $elm$core$String$fromInt(toText.output.p))
+									]))
 							]))
 					])),
 				A2(
 				$elm$html$Html$div,
 				_List_fromArray(
 					[
-						$elm$html$Html$Attributes$class('row'),
+						$elm$html$Html$Attributes$class('row mb-3'),
 						A2($elm$html$Html$Attributes$style, 'margin-left', '5px')
 					]),
 				_List_fromArray(
@@ -5438,7 +5542,7 @@ var $author$project$ContadorString$view = function (model) {
 						$elm$html$Html$div,
 						_List_fromArray(
 							[
-								$elm$html$Html$Attributes$class('col-md-8')
+								$elm$html$Html$Attributes$class('col-md-5')
 							]),
 						_List_fromArray(
 							[
@@ -5452,6 +5556,26 @@ var $author$project$ContadorString$view = function (model) {
 									[
 										$elm$html$Html$text(
 										'Linhas: ' + $elm$core$String$fromInt(toText.output.l))
+									]))
+							])),
+						A2(
+						$elm$html$Html$div,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class('col-md-3')
+							]),
+						_List_fromArray(
+							[
+								A2(
+								$elm$html$Html$span,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$class('h6 text-light')
+									]),
+								_List_fromArray(
+									[
+										$elm$html$Html$text(
+										'Especial: ' + $elm$core$String$fromInt(toText.output.es))
 									]))
 							]))
 					])),
