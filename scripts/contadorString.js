@@ -5218,7 +5218,7 @@ var $author$project$ContadorString$getWords = function (lch) {
 			var xs = _v1.b;
 			return (((!_Utils_eq(
 				x,
-				_Utils_chr(' '))) || (!_Utils_eq(
+				_Utils_chr(' '))) && (!_Utils_eq(
 				x,
 				_Utils_chr('\n')))) && (_Utils_eq(
 				y,
