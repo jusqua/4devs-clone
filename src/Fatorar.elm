@@ -48,7 +48,7 @@ view model =
     toText = {output = fatorar model.i1, title = "Fatoração Numérica", box1 = "Número"}
   in
     div 
-      [ class "card col-md-4 bg-dark" ]
+      [ class "card col-md-4 col-sm-12 bg-dark" ]
         [ div [ class "card-body bg-dark text-light" ]
           [ h5 [ class "card-title" ] [ text toText.title ],
             div []

@@ -40,7 +40,7 @@ view model =
     toText = {output = areaHexagono model.i1, title = "Calcular Área do Hexagono", box1 = "Lado"}
   in
     div 
-      [ class "card col-md-4 bg-dark" ]
+      [ class "card col-md-4 col-sm-12 bg-dark" ]
         [ div [ class "card-body bg-dark text-light" ]
           [ h5 [ class "card-title" ] [ text toText.title ],
             div []

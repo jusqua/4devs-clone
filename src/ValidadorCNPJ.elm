@@ -89,15 +89,15 @@ update msg model =
 view : Model -> Html Msg
 view model =
    div
-        [ class "card col-md-4 bg-dark" ]
+        [ class "card col-md-4 col-sm-12 bg-dark" ]
         [ div [ class "card-body bg-dark text-light" ]
             [ h5 [ class "card-title" ] [ text "Validador de CNPJ" ]
             , div []
                 [ div [ class "row" ]
                     [ input [class "form-control bg-dark text-light", type_ "text", placeholder "CNPJ", value model.inputCNPJ, onInput CNPJ ] []
-                    , button [class "btn btn-outline-light mt-2", onClick Submit, style "margin-right" "10px" ] [ text "Validar" ]
-                    ,text "Resultado: ", text model.outputCNPJ
-                    ]
+                    , button [class "btn btn-outline-light mt-2", onClick Submit] [ text "Validar" ]
+                    ],
+                    div[class "row"] [span [class "h6"][text "Resultado: ", text model.outputCNPJ]]
                 ]
             ]
         ]

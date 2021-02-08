@@ -124,13 +124,13 @@ view model =
             { output = contadorString model.i1, title = "Contador de Texto", box1 = "Texto" }
     in
     div
-        [ class "card col-md-4 bg-dark" ]
+        [ class "card col-md-4 col-sm-12 bg-dark" ]
         [ div [ class "card-body bg-dark text-light" ]
             [ h5 [ class "card-title" ] [ text toText.title ]
             , div []
-                [ input [ class "form-control bg-dark text-light", placeholder toText.box1, onInput Input, style "margin-right" "10px" ] [] ]
+                [ textarea [ class "form-control bg-dark text-light", placeholder toText.box1, onInput Input, style "margin-right" "10px" ] [] ]
             ]
-        , div [ class "row", style "margin-left" "5px" ] [ div [ class "col-md-4" ] [ span [ class "h6 text-light" ] [ text <| "Caractéres: " ++ String.fromInt toText.output.c ] ], div [ class "col-md-8" ] [ span [ class "h6 text-light" ] [ text <| "Caractéres sem espaço: " ++ String.fromInt toText.output.cse ] ] ]
-        , div [ class "row", style "margin-left" "5px" ] [ div [ class "col-md-4" ] [ span [ class "h6 text-light" ] [ text <| "Espaços: " ++ String.fromInt toText.output.e ] ], div [ class "col-md-8" ] [ span [ class "h6 text-light" ] [ text <| "Linhas: " ++ String.fromInt toText.output.l ] ] ]
-        , div [ class "row mb-3", style "margin-left" "5px" ] [ div [ class "col-md-4" ] [ span [ class "h6 text-light" ] [ text <| "Vogais: " ++ String.fromInt toText.output.v ] ], div [ class "col-md-5" ] [ span [ class "h6 text-light" ] [ text <| "Consoantes: " ++ String.fromInt toText.output.con ] ], div [ class "col-md-3" ] [ span [ class "h6 text-light" ] [ text <| "Números: " ++ String.fromInt toText.output.n ] ] ]
+        , div [ class "row", style "margin-left" "5px" ] [ div [ class "col-md-4 col-sm-12" ] [ span [ class "h6 text-light" ] [ text <| "Caractéres: " ++ String.fromInt toText.output.c ] ], div [ class "col-md-8" ] [ span [ class "h6 text-light" ] [ text <| "Caractéres sem espaço: " ++ String.fromInt toText.output.cse ] ] ]
+        , div [ class "row", style "margin-left" "5px" ] [ div [ class "col-md-4 col-sm-12" ] [ span [ class "h6 text-light" ] [ text <| "Espaços: " ++ String.fromInt toText.output.e ] ], div [ class "col-md-8" ] [ span [ class "h6 text-light" ] [ text <| "Linhas: " ++ String.fromInt toText.output.l ] ] ]
+        , div [ class "row mb-3", style "margin-left" "5px" ] [ div [ class "col-md-4 col-sm-12" ] [ span [ class "h6 text-light" ] [ text <| "Vogais: " ++ String.fromInt toText.output.v ] ], div [ class "col-md-5" ] [ span [ class "h6 text-light" ] [ text <| "Consoantes: " ++ String.fromInt toText.output.con ] ], div [ class "col-md-3" ] [ span [ class "h6 text-light" ] [ text <| "Números: " ++ String.fromInt toText.output.n ] ] ]
         ]

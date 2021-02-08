@@ -45,7 +45,7 @@ view model =
   let
     toText = {output = substituirLinha model.i1 model.i2, title = "Substituir Quebra de Linha", box1 = "Texto Original", box2 = "Texto Substituto"}
   in
-    div [ class "card col-md-4 bg-dark" ]
+    div [ class "card col-md-4 col-sm-12 bg-dark" ]
         [ div [ class "card-body bg-dark text-light" ]
             [ h5 [ class "card-title" ] [ text toText.title ]
             , div []

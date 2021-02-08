@@ -41,7 +41,7 @@ view model =
   let
     toText = {output = areaTrapezio model.i1 model.i2 model.i3, title = "Calcular Área do Trapézio", box1 = "Base maior", box2 = "Base menor", box3 = "Altura"}
   in
-    div [ class "card col-md-4 bg-dark" ]
+    div [ class "card col-md-4 col-sm-12 bg-dark" ]
         [ div [ class "card-body bg-dark text-light" ]
             [ h5 [ class "card-title" ] [ text toText.title ]
             , div []

@@ -89,15 +89,13 @@ update msg model =
 view : Model -> Html Msg
 view model =
     div
-        [ class "card col-md-4 bg-dark" ]
+        [ class "card col-md-4 col-sm-12 bg-dark" ]
         [ div [ class "card-body bg-dark text-light" ]
             [ h5 [ class "card-title" ] [ text "Validador de CPF" ]
-            , div []
-                [ div [ class "row" ]
-                    [ input [class "form-control bg-dark text-light", type_ "text", placeholder "CPF", value model.inputCPF, onInput CPF ] []
-                    , button [class "btn btn-outline-light mt-2", onClick Submit, style "margin-right" "10px" ] [ text "Validar" ]
-                    ,text "Resultado: ", text model.outputCPF
-                    ]
+            , div [ class "row" ]
+                [ input [ class "form-control bg-dark text-light", type_ "text", placeholder "CPF", value model.inputCPF, onInput CPF ] []
+                , button [ class "btn btn-outline-light mt-2", onClick Submit ] [ text "Validar" ]
                 ]
+            , span [ class "h6" ] [ text "Resultado: ", text model.outputCPF ]
             ]
         ]

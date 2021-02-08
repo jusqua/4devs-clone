@@ -40,7 +40,7 @@ view model =
   let
     toText = {output = areaSetorCircular model.i1 model.i2, title = "Calcular Área da Setor Circular", box1 = "Raio", box2 = "Ângulo"}
   in
-    div [ class "card col-md-4 bg-dark" ]
+    div [ class "card col-md-4 col-sm-12 bg-dark" ]
         [ div [ class "card-body bg-dark text-light" ]
             [ h5 [ class "card-title" ] [ text toText.title ]
             , div []

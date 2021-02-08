@@ -5528,8 +5528,7 @@ var $elm$html$Html$Events$onInput = function (tagger) {
 			A2($elm$json$Json$Decode$map, tagger, $elm$html$Html$Events$targetValue)));
 };
 var $elm$html$Html$Attributes$placeholder = $elm$html$Html$Attributes$stringProperty('placeholder');
-var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
-var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
+var $elm$html$Html$span = _VirtualDom_node('span');
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
 var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
@@ -5563,43 +5562,45 @@ var $author$project$ValidadorCPF$view = function (model) {
 							])),
 						A2(
 						$elm$html$Html$div,
-						_List_Nil,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class('row')
+							]),
 						_List_fromArray(
 							[
 								A2(
-								$elm$html$Html$div,
+								$elm$html$Html$input,
 								_List_fromArray(
 									[
-										$elm$html$Html$Attributes$class('row')
+										$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
+										$elm$html$Html$Attributes$type_('text'),
+										$elm$html$Html$Attributes$placeholder('CPF'),
+										$elm$html$Html$Attributes$value(model.inputCPF),
+										$elm$html$Html$Events$onInput($author$project$ValidadorCPF$CPF)
+									]),
+								_List_Nil),
+								A2(
+								$elm$html$Html$button,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$class('btn btn-outline-light mt-2'),
+										$elm$html$Html$Events$onClick($author$project$ValidadorCPF$Submit)
 									]),
 								_List_fromArray(
 									[
-										A2(
-										$elm$html$Html$input,
-										_List_fromArray(
-											[
-												$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
-												$elm$html$Html$Attributes$type_('text'),
-												$elm$html$Html$Attributes$placeholder('CPF'),
-												$elm$html$Html$Attributes$value(model.inputCPF),
-												$elm$html$Html$Events$onInput($author$project$ValidadorCPF$CPF)
-											]),
-										_List_Nil),
-										A2(
-										$elm$html$Html$button,
-										_List_fromArray(
-											[
-												$elm$html$Html$Attributes$class('btn btn-outline-light mt-2'),
-												$elm$html$Html$Events$onClick($author$project$ValidadorCPF$Submit),
-												A2($elm$html$Html$Attributes$style, 'margin-right', '10px')
-											]),
-										_List_fromArray(
-											[
-												$elm$html$Html$text('Validar')
-											])),
-										$elm$html$Html$text('Resultado: '),
-										$elm$html$Html$text(model.outputCPF)
+										$elm$html$Html$text('Validar')
 									]))
+							])),
+						A2(
+						$elm$html$Html$span,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class('h6')
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text('Resultado: '),
+								$elm$html$Html$text(model.outputCPF)
 							]))
 					]))
 			]));

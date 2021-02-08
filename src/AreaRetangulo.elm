@@ -40,7 +40,7 @@ view model =
   let
     toText = {output = areaRetangulo model.i1 model.i2, title = "Calcular Área do Retângulo", box1 = "Base", box2 = "Altura"}
   in
-    div [ class "card col-md-4 bg-dark" ]
+    div [ class "card col-md-4 col-sm-12 bg-dark" ]
         [ div [ class "card-body bg-dark text-light" ]
             [ h5 [ class "card-title" ] [ text toText.title ]
             , div []

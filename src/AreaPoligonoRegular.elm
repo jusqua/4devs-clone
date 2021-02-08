@@ -40,7 +40,7 @@ view model =
   let
     toText = {output = areaPoligonoRegular model.i1 model.i2, title = "Calcular Área de um Poligono Regular", box1 = "Quantidade de Lados", box2 = "Valor de um lado"}
   in
-    div [ class "card col-md-4 bg-dark" ]
+    div [ class "card col-md-4 col-sm-12 bg-dark" ]
         [ div [ class "card-body bg-dark text-light" ]
             [ h5 [ class "card-title" ] [ text toText.title ]
             , div []

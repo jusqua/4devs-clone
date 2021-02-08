@@ -59,7 +59,7 @@ update msg model =
 view : Model -> Html Msg
 view model = 
    div
-        [ class "card col-md-4 bg-dark" ]
+        [ class "card col-md-4 col-sm-12 bg-dark" ]
         [ div [ class "card-body bg-dark text-light" ]
             [ h5 [ class "card-title" ] [ text "Gerador de CNPJ" ]
             , div []

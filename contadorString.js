@@ -5265,7 +5265,6 @@ var $author$project$ContadorString$contadorString = function (str) {
 };
 var $elm$html$Html$div = _VirtualDom_node('div');
 var $elm$html$Html$h5 = _VirtualDom_node('h5');
-var $elm$html$Html$input = _VirtualDom_node('input');
 var $elm$html$Html$Events$alwaysStop = function (x) {
 	return _Utils_Tuple2(x, true);
 };
@@ -5306,6 +5305,7 @@ var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
 var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
+var $elm$html$Html$textarea = _VirtualDom_node('textarea');
 var $author$project$ContadorString$view = function (model) {
 	var toText = {
 		box1: 'Texto',
@@ -5344,7 +5344,7 @@ var $author$project$ContadorString$view = function (model) {
 						_List_fromArray(
 							[
 								A2(
-								$elm$html$Html$input,
+								$elm$html$Html$textarea,
 								_List_fromArray(
 									[
 										$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
