@@ -11,7 +11,7 @@ validarCPF : String -> String
 validarCPF input =
     let
         cpf =
-            cpfncnpjTrait input
+            cpfncnpjTrait input True
     in
     if List.length cpf == 11 then
         let

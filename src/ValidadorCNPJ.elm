@@ -11,7 +11,7 @@ validarCNPJ : String -> String
 validarCNPJ input =
     let
         cnpj =
-            cpfncnpjTrait input
+            cpfncnpjTrait input False
     in
     if List.length cnpj == 14 then
         let
