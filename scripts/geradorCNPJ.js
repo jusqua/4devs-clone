@@ -5227,8 +5227,8 @@ var $elm$core$Task$perform = F2(
 				A2($elm$core$Task$map, toMessage, task)));
 	});
 var $elm$browser$Browser$element = _Browser_element;
-var $author$project$GeradorCNPJ$Model = function (genCNPJ) {
-	return {genCNPJ: genCNPJ};
+var $author$project$GeradorCNPJ$Model = function (o) {
+	return {o: o};
 };
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
@@ -5239,11 +5239,11 @@ var $author$project$GeradorCNPJ$init = function (_v0) {
 };
 var $elm$core$Platform$Sub$batch = _Platform_batch;
 var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
-var $author$project$GeradorCNPJ$CNPJ = function (a) {
-	return {$: 'CNPJ', a: a};
-};
 var $author$project$GeradorCNPJ$Calc = function (a) {
 	return {$: 'Calc', a: a};
+};
+var $author$project$GeradorCNPJ$Output = function (a) {
+	return {$: 'Output', a: a};
 };
 var $elm$random$Random$Generate = function (a) {
 	return {$: 'Generate', a: a};
@@ -5397,7 +5397,7 @@ var $elm$random$Random$int = F2(
 var $author$project$GeradorCNPJ$update = F2(
 	function (msg, model) {
 		switch (msg.$) {
-			case 'Gen':
+			case 'Input':
 				return _Utils_Tuple2(
 					model,
 					A2(
@@ -5411,19 +5411,19 @@ var $author$project$GeradorCNPJ$update = F2(
 						$elm$core$String$fromInt(n)),
 					A2(
 						$elm$random$Random$generate,
-						$author$project$GeradorCNPJ$CNPJ,
+						$author$project$GeradorCNPJ$Output,
 						A2($elm$random$Random$int, 10000, 999999)));
 			default:
 				var s = msg.a;
 				return _Utils_Tuple2(
 					$author$project$GeradorCNPJ$Model(
 						_Utils_ap(
-							model.genCNPJ,
+							model.o,
 							$elm$core$String$fromInt(s))),
 					$elm$core$Platform$Cmd$none);
 		}
 	});
-var $author$project$GeradorCNPJ$Gen = {$: 'Gen'};
+var $author$project$GeradorCNPJ$Input = {$: 'Input'};
 var $elm$html$Html$button = _VirtualDom_node('button');
 var $elm$json$Json$Encode$string = _Json_wrap;
 var $elm$html$Html$Attributes$stringProperty = F2(
@@ -5696,6 +5696,7 @@ var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
 var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
+var $author$project$GeradorCNPJ$toText = {btn: 'Gerar', title: 'Gerador de CPF'};
 var $author$project$GeradorCNPJ$view = function (model) {
 	return A2(
 		$elm$html$Html$div,
@@ -5721,7 +5722,7 @@ var $author$project$GeradorCNPJ$view = function (model) {
 							]),
 						_List_fromArray(
 							[
-								$elm$html$Html$text('Gerador de CNPJ')
+								$elm$html$Html$text($author$project$GeradorCNPJ$toText.title)
 							])),
 						A2(
 						$elm$html$Html$div,
@@ -5746,12 +5747,12 @@ var $author$project$GeradorCNPJ$view = function (model) {
 												_List_fromArray(
 													[
 														$elm$html$Html$Attributes$class('btn btn-outline-light'),
-														$elm$html$Html$Events$onClick($author$project$GeradorCNPJ$Gen),
+														$elm$html$Html$Events$onClick($author$project$GeradorCNPJ$Input),
 														A2($elm$html$Html$Attributes$style, 'margin-right', '10px')
 													]),
 												_List_fromArray(
 													[
-														$elm$html$Html$text('Gerar')
+														$elm$html$Html$text($author$project$GeradorCNPJ$toText.btn)
 													])),
 												A2(
 												$elm$html$Html$span,
@@ -5764,7 +5765,7 @@ var $author$project$GeradorCNPJ$view = function (model) {
 														$elm$html$Html$text('Resultado: ')
 													])),
 												$elm$html$Html$text(
-												$author$project$GeradorCNPJ$gerarCNPJ(model.genCNPJ))
+												$author$project$GeradorCNPJ$gerarCNPJ(model.o))
 											]))
 									]))
 							]))
@@ -5774,7 +5775,7 @@ var $author$project$GeradorCNPJ$view = function (model) {
 var $author$project$GeradorCNPJ$main = $elm$browser$Browser$element(
 	{
 		init: $author$project$GeradorCNPJ$init,
-		subscriptions: function (model) {
+		subscriptions: function (_v0) {
 			return $elm$core$Platform$Sub$none;
 		},
 		update: $author$project$GeradorCNPJ$update,

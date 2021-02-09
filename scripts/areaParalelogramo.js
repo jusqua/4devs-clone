@@ -5177,10 +5177,10 @@ var $author$project$AreaParalelogramo$update = F2(
 				model,
 				{i1: n});
 		} else {
-			var m = msg.a;
+			var n = msg.a;
 			return _Utils_update(
 				model,
-				{i2: m});
+				{i2: n});
 		}
 	});
 var $author$project$AreaParalelogramo$Input1 = function (a) {
@@ -5189,17 +5189,22 @@ var $author$project$AreaParalelogramo$Input1 = function (a) {
 var $author$project$AreaParalelogramo$Input2 = function (a) {
 	return {$: 'Input2', a: a};
 };
+var $author$project$AreaParalelogramo$calc = F2(
+	function (n, m) {
+		return n * m;
+	});
 var $elm$core$String$fromFloat = _String_fromNumber;
 var $elm$core$String$toFloat = _String_toFloat;
-var $author$project$AreaParalelogramo$areaParalelogramo = F2(
-	function (b, h) {
+var $author$project$Auxiliar$calc2 = F4(
+	function (calc, trait, p1, p2) {
 		var _v0 = _Utils_Tuple2(
-			$elm$core$String$toFloat(b),
-			$elm$core$String$toFloat(h));
+			$elm$core$String$toFloat(p1),
+			$elm$core$String$toFloat(p2));
 		if ((_v0.a.$ === 'Just') && (_v0.b.$ === 'Just')) {
 			var n = _v0.a.a;
 			var m = _v0.b.a;
-			return (n > 0) ? ($elm$core$String$fromFloat(n * m) + ' u²') : 'Indeterminado';
+			return A2(trait, n, m) ? $elm$core$String$fromFloat(
+				A2(calc, n, m)) : 'Indeterminado';
 		} else {
 			return 'Indeterminado';
 		}
@@ -5254,14 +5259,15 @@ var $elm$html$Html$Attributes$placeholder = $elm$html$Html$Attributes$stringProp
 var $elm$html$Html$span = _VirtualDom_node('span');
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
+var $author$project$AreaParalelogramo$toText = {box1: 'Base', box2: 'Altura', title: 'Calcular Área do Paralelogramo'};
+var $elm$core$Basics$ge = _Utils_ge;
+var $author$project$Auxiliar$basicTrait2 = F2(
+	function (n, m) {
+		return (n >= 0) && (m >= 0);
+	});
+var $author$project$AreaParalelogramo$trait = $author$project$Auxiliar$basicTrait2;
 var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
 var $author$project$AreaParalelogramo$view = function (model) {
-	var toText = {
-		box1: 'Base',
-		box2: 'Altura',
-		output: A2($author$project$AreaParalelogramo$areaParalelogramo, model.i1, model.i2),
-		title: 'Calcular Área do Paralelogramo'
-	};
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
@@ -5286,7 +5292,7 @@ var $author$project$AreaParalelogramo$view = function (model) {
 							]),
 						_List_fromArray(
 							[
-								$elm$html$Html$text(toText.title)
+								$elm$html$Html$text($author$project$AreaParalelogramo$toText.title)
 							])),
 						A2(
 						$elm$html$Html$div,
@@ -5314,7 +5320,7 @@ var $author$project$AreaParalelogramo$view = function (model) {
 												_List_fromArray(
 													[
 														$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
-														$elm$html$Html$Attributes$placeholder(toText.box1),
+														$elm$html$Html$Attributes$placeholder($author$project$AreaParalelogramo$toText.box1),
 														$elm$html$Html$Attributes$type_('number'),
 														$elm$html$Html$Events$onInput($author$project$AreaParalelogramo$Input1)
 													]),
@@ -5333,7 +5339,7 @@ var $author$project$AreaParalelogramo$view = function (model) {
 												_List_fromArray(
 													[
 														$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
-														$elm$html$Html$Attributes$placeholder(toText.box2),
+														$elm$html$Html$Attributes$placeholder($author$project$AreaParalelogramo$toText.box2),
 														$elm$html$Html$Attributes$type_('number'),
 														$elm$html$Html$Events$onInput($author$project$AreaParalelogramo$Input2)
 													]),
@@ -5366,7 +5372,8 @@ var $author$project$AreaParalelogramo$view = function (model) {
 													[
 														$elm$html$Html$text('Resultado: ')
 													])),
-												$elm$html$Html$text(toText.output)
+												$elm$html$Html$text(
+												A4($author$project$Auxiliar$calc2, $author$project$AreaParalelogramo$calc, $author$project$AreaParalelogramo$trait, model.i1, model.i2))
 											]))
 									]))
 							]))

@@ -5177,10 +5177,10 @@ var $author$project$SubstituirLinha$update = F2(
 				model,
 				{i1: n});
 		} else {
-			var m = msg.a;
+			var n = msg.a;
 			return _Utils_update(
 				model,
-				{i2: m});
+				{i2: n});
 		}
 	});
 var $author$project$SubstituirLinha$Input1 = function (a) {
@@ -5281,14 +5281,8 @@ var $author$project$SubstituirLinha$substituirLinha = F2(
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
 var $elm$html$Html$textarea = _VirtualDom_node('textarea');
-var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
+var $author$project$SubstituirLinha$toText = {box1: 'Texto Original', box2: 'Texto pelo qual será substituido', title: 'Substituir Quebra de Linha'};
 var $author$project$SubstituirLinha$view = function (model) {
-	var toText = {
-		box1: 'Texto Original',
-		box2: 'Texto Substituto',
-		output: A2($author$project$SubstituirLinha$substituirLinha, model.i1, model.i2),
-		title: 'Substituir Quebra de Linha'
-	};
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
@@ -5313,7 +5307,7 @@ var $author$project$SubstituirLinha$view = function (model) {
 							]),
 						_List_fromArray(
 							[
-								$elm$html$Html$text(toText.title)
+								$elm$html$Html$text($author$project$SubstituirLinha$toText.title)
 							])),
 						A2(
 						$elm$html$Html$div,
@@ -5341,9 +5335,9 @@ var $author$project$SubstituirLinha$view = function (model) {
 												_List_fromArray(
 													[
 														$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
-														$elm$html$Html$Attributes$placeholder(toText.box1),
+														$elm$html$Html$Attributes$placeholder($author$project$SubstituirLinha$toText.box1),
 														$elm$html$Html$Events$onInput($author$project$SubstituirLinha$Input1),
-														A2($elm$html$Html$Attributes$style, 'margin-right', '10px')
+														A2($elm$html$Html$Attributes$style, 'resize', 'none')
 													]),
 												_List_Nil)
 											]))
@@ -5361,8 +5355,7 @@ var $author$project$SubstituirLinha$view = function (model) {
 										_List_fromArray(
 											[
 												$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
-												$elm$html$Html$Attributes$placeholder(toText.box2),
-												$elm$html$Html$Attributes$type_('text'),
+												$elm$html$Html$Attributes$placeholder($author$project$SubstituirLinha$toText.box2),
 												$elm$html$Html$Events$onInput($author$project$SubstituirLinha$Input2)
 											]),
 										_List_Nil)
@@ -5394,7 +5387,8 @@ var $author$project$SubstituirLinha$view = function (model) {
 											[
 												$elm$html$Html$text('Resultado: \n')
 											])),
-										$elm$html$Html$text(toText.output)
+										$elm$html$Html$text(
+										A2($author$project$SubstituirLinha$substituirLinha, model.i1, model.i2))
 									]))
 							]))
 					]))

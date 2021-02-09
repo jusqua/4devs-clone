@@ -5215,7 +5215,7 @@ var $author$project$Fatorar$fatorar = function (f) {
 	var _v0 = $elm$core$String$toInt(f);
 	if (_v0.$ === 'Just') {
 		var n = _v0.a;
-		return (!n) ? '0' : ((n > 0) ? A2(aux, n, 2) : ('-(' + (A2(aux, -n, 2) + ')')));
+		return (!n) ? '0' : ((n > 0) ? A2(aux, n, 2) : ('-' + A2(aux, -n, 2)));
 	} else {
 		return 'Indeterminado';
 	}
@@ -5258,17 +5258,11 @@ var $elm$html$Html$Events$onInput = function (tagger) {
 };
 var $elm$html$Html$Attributes$placeholder = $elm$html$Html$Attributes$stringProperty('placeholder');
 var $elm$html$Html$span = _VirtualDom_node('span');
-var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
-var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
+var $author$project$Fatorar$toText = {box: 'Número', title: 'Fatoração Numérica'};
 var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
 var $author$project$Fatorar$view = function (model) {
-	var toText = {
-		box1: 'Número',
-		output: $author$project$Fatorar$fatorar(model.i1),
-		title: 'Fatoração Numérica'
-	};
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
@@ -5293,7 +5287,7 @@ var $author$project$Fatorar$view = function (model) {
 							]),
 						_List_fromArray(
 							[
-								$elm$html$Html$text(toText.title)
+								$elm$html$Html$text($author$project$Fatorar$toText.title)
 							])),
 						A2(
 						$elm$html$Html$div,
@@ -5321,10 +5315,9 @@ var $author$project$Fatorar$view = function (model) {
 												_List_fromArray(
 													[
 														$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
-														$elm$html$Html$Attributes$placeholder(toText.box1),
+														$elm$html$Html$Attributes$placeholder($author$project$Fatorar$toText.box),
 														$elm$html$Html$Attributes$type_('number'),
-														$elm$html$Html$Events$onInput($author$project$Fatorar$Input),
-														A2($elm$html$Html$Attributes$style, 'margin-right', '10px')
+														$elm$html$Html$Events$onInput($author$project$Fatorar$Input)
 													]),
 												_List_Nil)
 											]))
@@ -5355,7 +5348,8 @@ var $author$project$Fatorar$view = function (model) {
 													[
 														$elm$html$Html$text('Resultado: ')
 													])),
-												$elm$html$Html$text(toText.output)
+												$elm$html$Html$text(
+												$author$project$Fatorar$fatorar(model.i1))
 											]))
 									]))
 							]))

@@ -4355,6 +4355,10 @@ function _Browser_load(url)
 		}
 	}));
 }
+var $author$project$ValidadorCPF$Model = F2(
+	function (i, o) {
+		return {i: i, o: o};
+	});
 var $elm$core$Basics$EQ = {$: 'EQ'};
 var $elm$core$Basics$GT = {$: 'GT'};
 var $elm$core$Basics$LT = {$: 'LT'};
@@ -5143,20 +5147,28 @@ var $elm$core$Task$perform = F2(
 			$elm$core$Task$Perform(
 				A2($elm$core$Task$map, toMessage, task)));
 	});
-var $elm$browser$Browser$element = _Browser_element;
-var $author$project$ValidadorCPF$Model = F2(
-	function (inputCPF, outputCPF) {
-		return {inputCPF: inputCPF, outputCPF: outputCPF};
-	});
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
-var $author$project$ValidadorCPF$init = function (_v0) {
-	return _Utils_Tuple2(
-		A2($author$project$ValidadorCPF$Model, '', ''),
-		$elm$core$Platform$Cmd$none);
-};
 var $elm$core$Platform$Sub$batch = _Platform_batch;
 var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
+var $elm$browser$Browser$sandbox = function (impl) {
+	return _Browser_element(
+		{
+			init: function (_v0) {
+				return _Utils_Tuple2(impl.init, $elm$core$Platform$Cmd$none);
+			},
+			subscriptions: function (_v1) {
+				return $elm$core$Platform$Sub$none;
+			},
+			update: F2(
+				function (msg, model) {
+					return _Utils_Tuple2(
+						A2(impl.update, msg, model),
+						$elm$core$Platform$Cmd$none);
+				}),
+			view: impl.view
+		});
+};
 var $elm$core$List$append = F2(
 	function (xs, ys) {
 		if (!ys.b) {
@@ -5609,27 +5621,23 @@ var $author$project$ValidadorCPF$validarCPF = function (input) {
 };
 var $author$project$ValidadorCPF$update = F2(
 	function (msg, model) {
-		if (msg.$ === 'CPF') {
-			var cpf = msg.a;
-			return _Utils_Tuple2(
-				_Utils_update(
-					model,
-					{inputCPF: cpf}),
-				$elm$core$Platform$Cmd$none);
+		if (msg.$ === 'Input') {
+			var n = msg.a;
+			return _Utils_update(
+				model,
+				{i: n});
 		} else {
-			return _Utils_Tuple2(
-				_Utils_update(
-					model,
-					{
-						outputCPF: $author$project$ValidadorCPF$validarCPF(model.inputCPF)
-					}),
-				$elm$core$Platform$Cmd$none);
+			return _Utils_update(
+				model,
+				{
+					o: $author$project$ValidadorCPF$validarCPF(model.i)
+				});
 		}
 	});
-var $author$project$ValidadorCPF$CPF = function (a) {
-	return {$: 'CPF', a: a};
+var $author$project$ValidadorCPF$Input = function (a) {
+	return {$: 'Input', a: a};
 };
-var $author$project$ValidadorCPF$Submit = {$: 'Submit'};
+var $author$project$ValidadorCPF$Output = {$: 'Output'};
 var $elm$html$Html$button = _VirtualDom_node('button');
 var $elm$json$Json$Encode$string = _Json_wrap;
 var $elm$html$Html$Attributes$stringProperty = F2(
@@ -5697,7 +5705,7 @@ var $elm$html$Html$Attributes$placeholder = $elm$html$Html$Attributes$stringProp
 var $elm$html$Html$span = _VirtualDom_node('span');
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
-var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
+var $author$project$ValidadorCPF$toText = {box: 'CPF', btn: 'Validar', title: 'Validador de CPF'};
 var $elm$html$Html$Attributes$value = $elm$html$Html$Attributes$stringProperty('value');
 var $author$project$ValidadorCPF$view = function (model) {
 	return A2(
@@ -5724,59 +5732,70 @@ var $author$project$ValidadorCPF$view = function (model) {
 							]),
 						_List_fromArray(
 							[
-								$elm$html$Html$text('Validador de CPF')
+								$elm$html$Html$text($author$project$ValidadorCPF$toText.title)
 							])),
 						A2(
 						$elm$html$Html$div,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$class('row')
-							]),
+						_List_Nil,
 						_List_fromArray(
 							[
 								A2(
-								$elm$html$Html$input,
+								$elm$html$Html$div,
 								_List_fromArray(
 									[
-										$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
-										$elm$html$Html$Attributes$type_('text'),
-										$elm$html$Html$Attributes$placeholder('CPF'),
-										$elm$html$Html$Attributes$value(model.inputCPF),
-										$elm$html$Html$Events$onInput($author$project$ValidadorCPF$CPF)
+										$elm$html$Html$Attributes$class('row')
 									]),
-								_List_Nil),
+								_List_fromArray(
+									[
+										A2(
+										$elm$html$Html$input,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
+												$elm$html$Html$Attributes$placeholder($author$project$ValidadorCPF$toText.box),
+												$elm$html$Html$Attributes$value(model.i),
+												$elm$html$Html$Events$onInput($author$project$ValidadorCPF$Input)
+											]),
+										_List_Nil),
+										A2(
+										$elm$html$Html$button,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('btn btn-outline-light mt-2'),
+												$elm$html$Html$Events$onClick($author$project$ValidadorCPF$Output)
+											]),
+										_List_fromArray(
+											[
+												$elm$html$Html$text($author$project$ValidadorCPF$toText.btn)
+											]))
+									])),
 								A2(
-								$elm$html$Html$button,
+								$elm$html$Html$div,
 								_List_fromArray(
 									[
-										$elm$html$Html$Attributes$class('btn btn-outline-light mt-2'),
-										$elm$html$Html$Events$onClick($author$project$ValidadorCPF$Submit)
+										$elm$html$Html$Attributes$class('row')
 									]),
 								_List_fromArray(
 									[
-										$elm$html$Html$text('Validar')
+										A2(
+										$elm$html$Html$span,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('h6')
+											]),
+										_List_fromArray(
+											[
+												$elm$html$Html$text('Resultado: '),
+												$elm$html$Html$text(model.o)
+											]))
 									]))
-							])),
-						A2(
-						$elm$html$Html$span,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$class('h6')
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text('Resultado: '),
-								$elm$html$Html$text(model.outputCPF)
 							]))
 					]))
 			]));
 };
-var $author$project$ValidadorCPF$main = $elm$browser$Browser$element(
+var $author$project$ValidadorCPF$main = $elm$browser$Browser$sandbox(
 	{
-		init: $author$project$ValidadorCPF$init,
-		subscriptions: function (model) {
-			return $elm$core$Platform$Sub$none;
-		},
+		init: A2($author$project$ValidadorCPF$Model, '', ''),
 		update: $author$project$ValidadorCPF$update,
 		view: $author$project$ValidadorCPF$view
 	});

@@ -5177,10 +5177,10 @@ var $author$project$AreaPoligonoRegular$update = F2(
 				model,
 				{i1: n});
 		} else {
-			var m = msg.a;
+			var n = msg.a;
 			return _Utils_update(
 				model,
-				{i2: m});
+				{i2: n});
 		}
 	});
 var $author$project$AreaPoligonoRegular$Input1 = function (a) {
@@ -5189,21 +5189,25 @@ var $author$project$AreaPoligonoRegular$Input1 = function (a) {
 var $author$project$AreaPoligonoRegular$Input2 = function (a) {
 	return {$: 'Input2', a: a};
 };
-var $elm$core$String$fromFloat = _String_fromNumber;
 var $elm$core$Basics$pi = _Basics_pi;
 var $elm$core$Basics$pow = _Basics_pow;
 var $elm$core$Basics$tan = _Basics_tan;
+var $author$project$AreaPoligonoRegular$calc = F2(
+	function (n, m) {
+		return (A2($elm$core$Basics$pow, m, 2) * n) / (4 * $elm$core$Basics$tan($elm$core$Basics$pi / n));
+	});
+var $elm$core$String$fromFloat = _String_fromNumber;
 var $elm$core$String$toFloat = _String_toFloat;
-var $author$project$AreaPoligonoRegular$areaPoligonoRegular = F2(
-	function (lq, l) {
+var $author$project$Auxiliar$calc2 = F4(
+	function (calc, trait, p1, p2) {
 		var _v0 = _Utils_Tuple2(
-			$elm$core$String$toFloat(lq),
-			$elm$core$String$toFloat(l));
+			$elm$core$String$toFloat(p1),
+			$elm$core$String$toFloat(p2));
 		if ((_v0.a.$ === 'Just') && (_v0.b.$ === 'Just')) {
 			var n = _v0.a.a;
 			var m = _v0.b.a;
-			return ((n > 2) && (m > 0)) ? ($elm$core$String$fromFloat(
-				(A2($elm$core$Basics$pow, m, 2) * n) / (4 * $elm$core$Basics$tan($elm$core$Basics$pi / n))) + ' u²') : 'Indeterminado';
+			return A2(trait, n, m) ? $elm$core$String$fromFloat(
+				A2(calc, n, m)) : 'Indeterminado';
 		} else {
 			return 'Indeterminado';
 		}
@@ -5258,14 +5262,14 @@ var $elm$html$Html$Attributes$placeholder = $elm$html$Html$Attributes$stringProp
 var $elm$html$Html$span = _VirtualDom_node('span');
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
+var $author$project$AreaPoligonoRegular$toText = {box1: 'Número de Lados', box2: 'Valor do Lado', title: 'Calcular Área do Poligono Regular'};
+var $elm$core$Basics$ge = _Utils_ge;
+var $author$project$AreaPoligonoRegular$trait = F2(
+	function (n, m) {
+		return (n >= 3) && (m >= 0);
+	});
 var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
 var $author$project$AreaPoligonoRegular$view = function (model) {
-	var toText = {
-		box1: 'Quantidade de Lados',
-		box2: 'Valor de um lado',
-		output: A2($author$project$AreaPoligonoRegular$areaPoligonoRegular, model.i1, model.i2),
-		title: 'Calcular Área de um Poligono Regular'
-	};
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
@@ -5290,7 +5294,7 @@ var $author$project$AreaPoligonoRegular$view = function (model) {
 							]),
 						_List_fromArray(
 							[
-								$elm$html$Html$text(toText.title)
+								$elm$html$Html$text($author$project$AreaPoligonoRegular$toText.title)
 							])),
 						A2(
 						$elm$html$Html$div,
@@ -5318,7 +5322,7 @@ var $author$project$AreaPoligonoRegular$view = function (model) {
 												_List_fromArray(
 													[
 														$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
-														$elm$html$Html$Attributes$placeholder(toText.box1),
+														$elm$html$Html$Attributes$placeholder($author$project$AreaPoligonoRegular$toText.box1),
 														$elm$html$Html$Attributes$type_('number'),
 														$elm$html$Html$Events$onInput($author$project$AreaPoligonoRegular$Input1)
 													]),
@@ -5337,7 +5341,7 @@ var $author$project$AreaPoligonoRegular$view = function (model) {
 												_List_fromArray(
 													[
 														$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
-														$elm$html$Html$Attributes$placeholder(toText.box2),
+														$elm$html$Html$Attributes$placeholder($author$project$AreaPoligonoRegular$toText.box2),
 														$elm$html$Html$Attributes$type_('number'),
 														$elm$html$Html$Events$onInput($author$project$AreaPoligonoRegular$Input2)
 													]),
@@ -5370,7 +5374,8 @@ var $author$project$AreaPoligonoRegular$view = function (model) {
 													[
 														$elm$html$Html$text('Resultado: ')
 													])),
-												$elm$html$Html$text(toText.output)
+												$elm$html$Html$text(
+												A4($author$project$Auxiliar$calc2, $author$project$AreaPoligonoRegular$calc, $author$project$AreaPoligonoRegular$trait, model.i1, model.i2))
 											]))
 									]))
 							]))

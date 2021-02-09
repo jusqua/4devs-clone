@@ -5177,10 +5177,10 @@ var $author$project$RestoDivisao$update = F2(
 				model,
 				{i1: n});
 		} else {
-			var m = msg.a;
+			var n = msg.a;
 			return _Utils_update(
 				model,
-				{i2: m});
+				{i2: n});
 		}
 	});
 var $author$project$RestoDivisao$Input1 = function (a) {
@@ -5253,14 +5253,9 @@ var $author$project$RestoDivisao$restoDivisao = F2(
 var $elm$html$Html$span = _VirtualDom_node('span');
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
+var $author$project$RestoDivisao$toText = {box1: 'Numerador', box2: 'Denominador', title: 'Resto da Divisão'};
 var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
 var $author$project$RestoDivisao$view = function (model) {
-	var toText = {
-		box1: 'Numerador',
-		box2: 'Denominador',
-		output: A2($author$project$RestoDivisao$restoDivisao, model.i1, model.i2),
-		title: 'Resto da Divisão'
-	};
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
@@ -5285,7 +5280,7 @@ var $author$project$RestoDivisao$view = function (model) {
 							]),
 						_List_fromArray(
 							[
-								$elm$html$Html$text(toText.title)
+								$elm$html$Html$text($author$project$RestoDivisao$toText.title)
 							])),
 						A2(
 						$elm$html$Html$div,
@@ -5313,7 +5308,7 @@ var $author$project$RestoDivisao$view = function (model) {
 												_List_fromArray(
 													[
 														$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
-														$elm$html$Html$Attributes$placeholder(toText.box1),
+														$elm$html$Html$Attributes$placeholder($author$project$RestoDivisao$toText.box1),
 														$elm$html$Html$Attributes$type_('number'),
 														$elm$html$Html$Events$onInput($author$project$RestoDivisao$Input1)
 													]),
@@ -5332,7 +5327,7 @@ var $author$project$RestoDivisao$view = function (model) {
 												_List_fromArray(
 													[
 														$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
-														$elm$html$Html$Attributes$placeholder(toText.box2),
+														$elm$html$Html$Attributes$placeholder($author$project$RestoDivisao$toText.box2),
 														$elm$html$Html$Attributes$type_('number'),
 														$elm$html$Html$Events$onInput($author$project$RestoDivisao$Input2)
 													]),
@@ -5365,7 +5360,8 @@ var $author$project$RestoDivisao$view = function (model) {
 													[
 														$elm$html$Html$text('Resultado: ')
 													])),
-												$elm$html$Html$text(toText.output)
+												$elm$html$Html$text(
+												A2($author$project$RestoDivisao$restoDivisao, model.i1, model.i2))
 											]))
 									]))
 							]))

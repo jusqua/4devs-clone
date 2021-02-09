@@ -5178,19 +5178,23 @@ var $author$project$AreaQuadrado$update = F2(
 var $author$project$AreaQuadrado$Input = function (a) {
 	return {$: 'Input', a: a};
 };
-var $elm$core$String$fromFloat = _String_fromNumber;
 var $elm$core$Basics$pow = _Basics_pow;
-var $elm$core$String$toFloat = _String_toFloat;
-var $author$project$AreaQuadrado$areaQuadrado = function (l) {
-	var _v0 = $elm$core$String$toFloat(l);
-	if (_v0.$ === 'Just') {
-		var n = _v0.a;
-		return (n > 0.0) ? ($elm$core$String$fromFloat(
-			A2($elm$core$Basics$pow, n, 2)) + ' u²') : 'Indeterminado';
-	} else {
-		return 'Indeterminado';
-	}
+var $author$project$AreaQuadrado$calc = function (n) {
+	return A2($elm$core$Basics$pow, n, 2);
 };
+var $elm$core$String$fromFloat = _String_fromNumber;
+var $elm$core$String$toFloat = _String_toFloat;
+var $author$project$Auxiliar$calc1 = F3(
+	function (calc, trait, p) {
+		var _v0 = $elm$core$String$toFloat(p);
+		if (_v0.$ === 'Just') {
+			var n = _v0.a;
+			return trait(n) ? $elm$core$String$fromFloat(
+				calc(n)) : 'Indeterminado';
+		} else {
+			return 'Indeterminado';
+		}
+	});
 var $elm$json$Json$Encode$string = _Json_wrap;
 var $elm$html$Html$Attributes$stringProperty = F2(
 	function (key, string) {
@@ -5239,17 +5243,16 @@ var $elm$html$Html$Events$onInput = function (tagger) {
 };
 var $elm$html$Html$Attributes$placeholder = $elm$html$Html$Attributes$stringProperty('placeholder');
 var $elm$html$Html$span = _VirtualDom_node('span');
-var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
-var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
+var $author$project$AreaQuadrado$toText = {box: 'Lado', title: 'Calcular Área do Quadrado'};
+var $elm$core$Basics$ge = _Utils_ge;
+var $author$project$Auxiliar$basicTrait = function (n) {
+	return n >= 0;
+};
+var $author$project$AreaQuadrado$trait = $author$project$Auxiliar$basicTrait;
 var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
 var $author$project$AreaQuadrado$view = function (model) {
-	var toText = {
-		box1: 'Lado',
-		output: $author$project$AreaQuadrado$areaQuadrado(model.i1),
-		title: 'Calcular Área do Quadrado'
-	};
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
@@ -5274,7 +5277,7 @@ var $author$project$AreaQuadrado$view = function (model) {
 							]),
 						_List_fromArray(
 							[
-								$elm$html$Html$text(toText.title)
+								$elm$html$Html$text($author$project$AreaQuadrado$toText.title)
 							])),
 						A2(
 						$elm$html$Html$div,
@@ -5302,10 +5305,9 @@ var $author$project$AreaQuadrado$view = function (model) {
 												_List_fromArray(
 													[
 														$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
-														$elm$html$Html$Attributes$placeholder(toText.box1),
+														$elm$html$Html$Attributes$placeholder($author$project$AreaQuadrado$toText.box),
 														$elm$html$Html$Attributes$type_('number'),
-														$elm$html$Html$Events$onInput($author$project$AreaQuadrado$Input),
-														A2($elm$html$Html$Attributes$style, 'margin-right', '10px')
+														$elm$html$Html$Events$onInput($author$project$AreaQuadrado$Input)
 													]),
 												_List_Nil)
 											]))
@@ -5336,7 +5338,8 @@ var $author$project$AreaQuadrado$view = function (model) {
 													[
 														$elm$html$Html$text('Resultado: ')
 													])),
-												$elm$html$Html$text(toText.output)
+												$elm$html$Html$text(
+												A3($author$project$Auxiliar$calc1, $author$project$AreaQuadrado$calc, $author$project$AreaQuadrado$trait, model.i1))
 											]))
 									]))
 							]))

@@ -1,16 +1,23 @@
-module GeradorNumero exposing (..)
-
+module GeradorNumero exposing (main)
 import Browser exposing (element)
-import Html exposing (..)
-import Html.Attributes exposing (..)
+import Html exposing (Html, div, text, h5, span, button, input)
+import Html.Attributes exposing (class, style, placeholder, type_)
 import Html.Events exposing (onClick, onInput)
 import Random
 
-toText = {title = "Gerador de Números", box = "Valor", btn = "Gerar"}
-
+-- Types
 type alias Model = {o : String, i1 : String, i2 : String}
 type Msg = Output Int | Input1 String | Input2 String | Button
 
+-- Variables
+toText = 
+  {
+    title = "Gerador de Números",
+    box = "Valor",
+    btn = "Gerar"
+  }
+
+-- Element
 main = 
   element 
   {
