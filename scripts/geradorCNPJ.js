@@ -5696,7 +5696,7 @@ var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
 var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
-var $author$project$GeradorCNPJ$toText = {btn: 'Gerar', title: 'Gerador de CPF'};
+var $author$project$GeradorCNPJ$toText = {btn: 'Gerar', title: 'Gerador de CNPJ'};
 var $author$project$GeradorCNPJ$view = function (model) {
 	return A2(
 		$elm$html$Html$div,
