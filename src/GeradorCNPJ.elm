@@ -34,7 +34,7 @@ gerarCNPJ gen =
 -- Variables
 toText =
   {
-    title = "Gerador de CPF",
+    title = "Gerador de CNPJ",
     btn = "Gerar"
   }
 
