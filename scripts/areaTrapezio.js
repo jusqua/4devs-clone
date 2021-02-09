@@ -5178,15 +5178,15 @@ var $author$project$AreaTrapezio$update = F2(
 					model,
 					{i1: n});
 			case 'Input2':
-				var m = msg.a;
+				var n = msg.a;
 				return _Utils_update(
 					model,
-					{i2: m});
+					{i2: n});
 			default:
-				var p = msg.a;
+				var n = msg.a;
 				return _Utils_update(
 					model,
-					{i3: p});
+					{i3: n});
 		}
 	});
 var $author$project$AreaTrapezio$Input1 = function (a) {
@@ -5198,19 +5198,24 @@ var $author$project$AreaTrapezio$Input2 = function (a) {
 var $author$project$AreaTrapezio$Input3 = function (a) {
 	return {$: 'Input3', a: a};
 };
+var $author$project$AreaTrapezio$calc = F3(
+	function (n, m, p) {
+		return ((n + m) * p) / 2;
+	});
 var $elm$core$String$fromFloat = _String_fromNumber;
 var $elm$core$String$toFloat = _String_toFloat;
-var $author$project$AreaTrapezio$areaTrapezio = F3(
-	function (bM, bm, h) {
+var $author$project$Auxiliar$calc3 = F5(
+	function (calc, trait, p1, p2, p3) {
 		var _v0 = _Utils_Tuple3(
-			$elm$core$String$toFloat(bM),
-			$elm$core$String$toFloat(bm),
-			$elm$core$String$toFloat(h));
+			$elm$core$String$toFloat(p1),
+			$elm$core$String$toFloat(p2),
+			$elm$core$String$toFloat(p3));
 		if (((_v0.a.$ === 'Just') && (_v0.b.$ === 'Just')) && (_v0.c.$ === 'Just')) {
 			var n = _v0.a.a;
 			var m = _v0.b.a;
 			var p = _v0.c.a;
-			return ((n > 0) && ((m > 0) && (p > 0))) ? ($elm$core$String$fromFloat(((n + m) * p) / 2) + ' u²') : 'Indeterminado';
+			return A3(trait, n, m, p) ? $elm$core$String$fromFloat(
+				A3(calc, n, m, p)) : 'Indeterminado';
 		} else {
 			return 'Indeterminado';
 		}
@@ -5265,15 +5270,14 @@ var $elm$html$Html$Attributes$placeholder = $elm$html$Html$Attributes$stringProp
 var $elm$html$Html$span = _VirtualDom_node('span');
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
+var $author$project$AreaTrapezio$toText = {box1: 'Base', box2: 'Base', box3: 'Altura', title: 'Calcular Área do Trapézio'};
+var $author$project$Auxiliar$basicTrait3 = F3(
+	function (n, m, p) {
+		return (n > 0) && ((m > 0) && (p > 0));
+	});
+var $author$project$AreaTrapezio$trait = $author$project$Auxiliar$basicTrait3;
 var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
 var $author$project$AreaTrapezio$view = function (model) {
-	var toText = {
-		box1: 'Base maior',
-		box2: 'Base menor',
-		box3: 'Altura',
-		output: A3($author$project$AreaTrapezio$areaTrapezio, model.i1, model.i2, model.i3),
-		title: 'Calcular Área do Trapézio'
-	};
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
@@ -5298,7 +5302,7 @@ var $author$project$AreaTrapezio$view = function (model) {
 							]),
 						_List_fromArray(
 							[
-								$elm$html$Html$text(toText.title)
+								$elm$html$Html$text($author$project$AreaTrapezio$toText.title)
 							])),
 						A2(
 						$elm$html$Html$div,
@@ -5326,7 +5330,7 @@ var $author$project$AreaTrapezio$view = function (model) {
 												_List_fromArray(
 													[
 														$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
-														$elm$html$Html$Attributes$placeholder(toText.box1),
+														$elm$html$Html$Attributes$placeholder($author$project$AreaTrapezio$toText.box1),
 														$elm$html$Html$Attributes$type_('number'),
 														$elm$html$Html$Events$onInput($author$project$AreaTrapezio$Input1)
 													]),
@@ -5345,7 +5349,7 @@ var $author$project$AreaTrapezio$view = function (model) {
 												_List_fromArray(
 													[
 														$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
-														$elm$html$Html$Attributes$placeholder(toText.box2),
+														$elm$html$Html$Attributes$placeholder($author$project$AreaTrapezio$toText.box2),
 														$elm$html$Html$Attributes$type_('number'),
 														$elm$html$Html$Events$onInput($author$project$AreaTrapezio$Input2)
 													]),
@@ -5364,7 +5368,7 @@ var $author$project$AreaTrapezio$view = function (model) {
 												_List_fromArray(
 													[
 														$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
-														$elm$html$Html$Attributes$placeholder(toText.box3),
+														$elm$html$Html$Attributes$placeholder($author$project$AreaTrapezio$toText.box3),
 														$elm$html$Html$Attributes$type_('number'),
 														$elm$html$Html$Events$onInput($author$project$AreaTrapezio$Input3)
 													]),
@@ -5397,7 +5401,8 @@ var $author$project$AreaTrapezio$view = function (model) {
 													[
 														$elm$html$Html$text('Resultado: ')
 													])),
-												$elm$html$Html$text(toText.output)
+												$elm$html$Html$text(
+												A5($author$project$Auxiliar$calc3, $author$project$AreaTrapezio$calc, $author$project$AreaTrapezio$trait, model.i1, model.i2, model.i3))
 											]))
 									]))
 							]))

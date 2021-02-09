@@ -5177,10 +5177,10 @@ var $author$project$AreaElipse$update = F2(
 				model,
 				{i1: n});
 		} else {
-			var m = msg.a;
+			var n = msg.a;
 			return _Utils_update(
 				model,
-				{i2: m});
+				{i2: n});
 		}
 	});
 var $author$project$AreaElipse$Input1 = function (a) {
@@ -5189,18 +5189,23 @@ var $author$project$AreaElipse$Input1 = function (a) {
 var $author$project$AreaElipse$Input2 = function (a) {
 	return {$: 'Input2', a: a};
 };
-var $elm$core$String$fromFloat = _String_fromNumber;
 var $elm$core$Basics$pi = _Basics_pi;
+var $author$project$AreaElipse$calc = F2(
+	function (n, m) {
+		return ($elm$core$Basics$pi * n) * m;
+	});
+var $elm$core$String$fromFloat = _String_fromNumber;
 var $elm$core$String$toFloat = _String_toFloat;
-var $author$project$AreaElipse$areaElipse = F2(
-	function (seM, sem) {
+var $author$project$Auxiliar$calc2 = F4(
+	function (calc, trait, p1, p2) {
 		var _v0 = _Utils_Tuple2(
-			$elm$core$String$toFloat(seM),
-			$elm$core$String$toFloat(sem));
+			$elm$core$String$toFloat(p1),
+			$elm$core$String$toFloat(p2));
 		if ((_v0.a.$ === 'Just') && (_v0.b.$ === 'Just')) {
 			var n = _v0.a.a;
 			var m = _v0.b.a;
-			return ((n > 0) && (m > 0)) ? ($elm$core$String$fromFloat(($elm$core$Basics$pi * n) * m) + ' u²') : 'Indeterminado';
+			return A2(trait, n, m) ? $elm$core$String$fromFloat(
+				A2(calc, n, m)) : 'Indeterminado';
 		} else {
 			return 'Indeterminado';
 		}
@@ -5255,14 +5260,15 @@ var $elm$html$Html$Attributes$placeholder = $elm$html$Html$Attributes$stringProp
 var $elm$html$Html$span = _VirtualDom_node('span');
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
+var $author$project$AreaElipse$toText = {box1: 'Semi Eixo', box2: 'Semi Eixo', title: 'Calcular Área da Elipse'};
+var $elm$core$Basics$ge = _Utils_ge;
+var $author$project$Auxiliar$basicTrait2 = F2(
+	function (n, m) {
+		return (n >= 0) && (m >= 0);
+	});
+var $author$project$AreaElipse$trait = $author$project$Auxiliar$basicTrait2;
 var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
 var $author$project$AreaElipse$view = function (model) {
-	var toText = {
-		box1: 'Semi Eixo Maior',
-		box2: 'Semi Eixo Menor',
-		output: A2($author$project$AreaElipse$areaElipse, model.i1, model.i2),
-		title: 'Calcular Área da Elipse'
-	};
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
@@ -5287,7 +5293,7 @@ var $author$project$AreaElipse$view = function (model) {
 							]),
 						_List_fromArray(
 							[
-								$elm$html$Html$text(toText.title)
+								$elm$html$Html$text($author$project$AreaElipse$toText.title)
 							])),
 						A2(
 						$elm$html$Html$div,
@@ -5315,7 +5321,7 @@ var $author$project$AreaElipse$view = function (model) {
 												_List_fromArray(
 													[
 														$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
-														$elm$html$Html$Attributes$placeholder(toText.box1),
+														$elm$html$Html$Attributes$placeholder($author$project$AreaElipse$toText.box1),
 														$elm$html$Html$Attributes$type_('number'),
 														$elm$html$Html$Events$onInput($author$project$AreaElipse$Input1)
 													]),
@@ -5334,7 +5340,7 @@ var $author$project$AreaElipse$view = function (model) {
 												_List_fromArray(
 													[
 														$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
-														$elm$html$Html$Attributes$placeholder(toText.box2),
+														$elm$html$Html$Attributes$placeholder($author$project$AreaElipse$toText.box2),
 														$elm$html$Html$Attributes$type_('number'),
 														$elm$html$Html$Events$onInput($author$project$AreaElipse$Input2)
 													]),
@@ -5367,7 +5373,8 @@ var $author$project$AreaElipse$view = function (model) {
 													[
 														$elm$html$Html$text('Resultado: ')
 													])),
-												$elm$html$Html$text(toText.output)
+												$elm$html$Html$text(
+												A4($author$project$Auxiliar$calc2, $author$project$AreaElipse$calc, $author$project$AreaElipse$trait, model.i1, model.i2))
 											]))
 									]))
 							]))

@@ -5177,10 +5177,10 @@ var $author$project$AreaTriangulo$update = F2(
 				model,
 				{i1: n});
 		} else {
-			var m = msg.a;
+			var n = msg.a;
 			return _Utils_update(
 				model,
-				{i2: m});
+				{i2: n});
 		}
 	});
 var $author$project$AreaTriangulo$Input1 = function (a) {
@@ -5189,17 +5189,22 @@ var $author$project$AreaTriangulo$Input1 = function (a) {
 var $author$project$AreaTriangulo$Input2 = function (a) {
 	return {$: 'Input2', a: a};
 };
+var $author$project$AreaTriangulo$calc = F2(
+	function (n, m) {
+		return (n * m) / 2;
+	});
 var $elm$core$String$fromFloat = _String_fromNumber;
 var $elm$core$String$toFloat = _String_toFloat;
-var $author$project$AreaTriangulo$areaTriangulo = F2(
-	function (b, h) {
+var $author$project$Auxiliar$calc2 = F4(
+	function (calc, trait, p1, p2) {
 		var _v0 = _Utils_Tuple2(
-			$elm$core$String$toFloat(b),
-			$elm$core$String$toFloat(h));
+			$elm$core$String$toFloat(p1),
+			$elm$core$String$toFloat(p2));
 		if ((_v0.a.$ === 'Just') && (_v0.b.$ === 'Just')) {
 			var n = _v0.a.a;
 			var m = _v0.b.a;
-			return ((n > 0) && (m > 0)) ? ($elm$core$String$fromFloat((n * m) / 2) + ' u²') : 'Indeterminado';
+			return A2(trait, n, m) ? $elm$core$String$fromFloat(
+				A2(calc, n, m)) : 'Indeterminado';
 		} else {
 			return 'Indeterminado';
 		}
@@ -5254,14 +5259,15 @@ var $elm$html$Html$Attributes$placeholder = $elm$html$Html$Attributes$stringProp
 var $elm$html$Html$span = _VirtualDom_node('span');
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
+var $author$project$AreaTriangulo$toText = {box1: 'Base', box2: 'Altura', title: 'Calcular Área do Triângulo'};
+var $elm$core$Basics$ge = _Utils_ge;
+var $author$project$Auxiliar$basicTrait2 = F2(
+	function (n, m) {
+		return (n >= 0) && (m >= 0);
+	});
+var $author$project$AreaTriangulo$trait = $author$project$Auxiliar$basicTrait2;
 var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
 var $author$project$AreaTriangulo$view = function (model) {
-	var toText = {
-		box1: 'Base',
-		box2: 'Altura',
-		output: A2($author$project$AreaTriangulo$areaTriangulo, model.i1, model.i2),
-		title: 'Calcular Área do Triângulo'
-	};
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
@@ -5286,7 +5292,7 @@ var $author$project$AreaTriangulo$view = function (model) {
 							]),
 						_List_fromArray(
 							[
-								$elm$html$Html$text(toText.title)
+								$elm$html$Html$text($author$project$AreaTriangulo$toText.title)
 							])),
 						A2(
 						$elm$html$Html$div,
@@ -5314,7 +5320,7 @@ var $author$project$AreaTriangulo$view = function (model) {
 												_List_fromArray(
 													[
 														$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
-														$elm$html$Html$Attributes$placeholder(toText.box1),
+														$elm$html$Html$Attributes$placeholder($author$project$AreaTriangulo$toText.box1),
 														$elm$html$Html$Attributes$type_('number'),
 														$elm$html$Html$Events$onInput($author$project$AreaTriangulo$Input1)
 													]),
@@ -5333,7 +5339,7 @@ var $author$project$AreaTriangulo$view = function (model) {
 												_List_fromArray(
 													[
 														$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
-														$elm$html$Html$Attributes$placeholder(toText.box2),
+														$elm$html$Html$Attributes$placeholder($author$project$AreaTriangulo$toText.box2),
 														$elm$html$Html$Attributes$type_('number'),
 														$elm$html$Html$Events$onInput($author$project$AreaTriangulo$Input2)
 													]),
@@ -5366,7 +5372,8 @@ var $author$project$AreaTriangulo$view = function (model) {
 													[
 														$elm$html$Html$text('Resultado: ')
 													])),
-												$elm$html$Html$text(toText.output)
+												$elm$html$Html$text(
+												A4($author$project$Auxiliar$calc2, $author$project$AreaTriangulo$calc, $author$project$AreaTriangulo$trait, model.i1, model.i2))
 											]))
 									]))
 							]))

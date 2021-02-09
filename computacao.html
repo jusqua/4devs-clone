@@ -2,7 +2,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="img/code-512.png">
+    <link rel="icon" href="img/favicon.png">
     <title>PF | Computação</title>
 
     <script src="scripts/reverterString.js"></script>
@@ -10,8 +10,10 @@
     <script src="scripts/substituirLinha.js"></script>
     <script src="scripts/geradorCPF.js"></script>
     <script src="scripts/geradorCNPJ.js"></script>
+    <script src="scripts/geradorNumero.js"></script>
     <script src="scripts/validadorCPF.js"></script>
     <script src="scripts/validadorCNPJ.js"></script>
+    
 
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
         integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
@@ -86,7 +88,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-2 col-3">
-                    <a href="http://ufs.br"><img src="img/ufs_principal_positiva (1).png" class="mt-3 mb-3"
+                    <a href="http://ufs.br"><img src="img/ufs_logo.png" class="mt-3 mb-3"
                             width="100px"></a>
                 </div>
                 <div class="col-md-10 mt-4 col-9">
@@ -126,7 +128,7 @@
         });
     </script>
     <script>
-        var app = Elm.Nothing.init({
+        var app = Elm.GeradorNumero.init({
             node: document.getElementById('myapp6')
         });
     </script>

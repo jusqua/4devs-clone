@@ -4355,10 +4355,89 @@ function _Browser_load(url)
 		}
 	}));
 }
-var $author$project$SubstituirLinha$Model = F2(
-	function (i1, i2) {
-		return {i1: i1, i2: i2};
+
+
+
+var _Bitwise_and = F2(function(a, b)
+{
+	return a & b;
+});
+
+var _Bitwise_or = F2(function(a, b)
+{
+	return a | b;
+});
+
+var _Bitwise_xor = F2(function(a, b)
+{
+	return a ^ b;
+});
+
+function _Bitwise_complement(a)
+{
+	return ~a;
+};
+
+var _Bitwise_shiftLeftBy = F2(function(offset, a)
+{
+	return a << offset;
+});
+
+var _Bitwise_shiftRightBy = F2(function(offset, a)
+{
+	return a >> offset;
+});
+
+var _Bitwise_shiftRightZfBy = F2(function(offset, a)
+{
+	return a >>> offset;
+});
+
+
+
+function _Time_now(millisToPosix)
+{
+	return _Scheduler_binding(function(callback)
+	{
+		callback(_Scheduler_succeed(millisToPosix(Date.now())));
 	});
+}
+
+var _Time_setInterval = F2(function(interval, task)
+{
+	return _Scheduler_binding(function(callback)
+	{
+		var id = setInterval(function() { _Scheduler_rawSpawn(task); }, interval);
+		return function() { clearInterval(id); };
+	});
+});
+
+function _Time_here()
+{
+	return _Scheduler_binding(function(callback)
+	{
+		callback(_Scheduler_succeed(
+			A2($elm$time$Time$customZone, -(new Date().getTimezoneOffset()), _List_Nil)
+		));
+	});
+}
+
+
+function _Time_getZoneName()
+{
+	return _Scheduler_binding(function(callback)
+	{
+		try
+		{
+			var name = $elm$time$Time$Name(Intl.DateTimeFormat().resolvedOptions().timeZone);
+		}
+		catch (e)
+		{
+			var name = $elm$time$Time$Offset(new Date().getTimezoneOffset());
+		}
+		callback(_Scheduler_succeed(name));
+	});
+}
 var $elm$core$Basics$EQ = {$: 'EQ'};
 var $elm$core$Basics$GT = {$: 'GT'};
 var $elm$core$Basics$LT = {$: 'LT'};
@@ -5147,48 +5226,224 @@ var $elm$core$Task$perform = F2(
 			$elm$core$Task$Perform(
 				A2($elm$core$Task$map, toMessage, task)));
 	});
+var $elm$browser$Browser$element = _Browser_element;
+var $author$project$GeradorNumero$Model = F3(
+	function (o, i1, i2) {
+		return {i1: i1, i2: i2, o: o};
+	});
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
+var $author$project$GeradorNumero$init = function (_v0) {
+	return _Utils_Tuple2(
+		A3($author$project$GeradorNumero$Model, '', '', ''),
+		$elm$core$Platform$Cmd$none);
+};
 var $elm$core$Platform$Sub$batch = _Platform_batch;
 var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
-var $elm$browser$Browser$sandbox = function (impl) {
-	return _Browser_element(
-		{
-			init: function (_v0) {
-				return _Utils_Tuple2(impl.init, $elm$core$Platform$Cmd$none);
-			},
-			subscriptions: function (_v1) {
-				return $elm$core$Platform$Sub$none;
-			},
-			update: F2(
-				function (msg, model) {
-					return _Utils_Tuple2(
-						A2(impl.update, msg, model),
-						$elm$core$Platform$Cmd$none);
-				}),
-			view: impl.view
-		});
+var $author$project$GeradorNumero$Output = function (a) {
+	return {$: 'Output', a: a};
 };
-var $author$project$SubstituirLinha$update = F2(
-	function (msg, model) {
-		if (msg.$ === 'Input1') {
-			var n = msg.a;
-			return _Utils_update(
-				model,
-				{i1: n});
+var $elm$random$Random$Generate = function (a) {
+	return {$: 'Generate', a: a};
+};
+var $elm$random$Random$Seed = F2(
+	function (a, b) {
+		return {$: 'Seed', a: a, b: b};
+	});
+var $elm$core$Bitwise$shiftRightZfBy = _Bitwise_shiftRightZfBy;
+var $elm$random$Random$next = function (_v0) {
+	var state0 = _v0.a;
+	var incr = _v0.b;
+	return A2($elm$random$Random$Seed, ((state0 * 1664525) + incr) >>> 0, incr);
+};
+var $elm$random$Random$initialSeed = function (x) {
+	var _v0 = $elm$random$Random$next(
+		A2($elm$random$Random$Seed, 0, 1013904223));
+	var state1 = _v0.a;
+	var incr = _v0.b;
+	var state2 = (state1 + x) >>> 0;
+	return $elm$random$Random$next(
+		A2($elm$random$Random$Seed, state2, incr));
+};
+var $elm$time$Time$Name = function (a) {
+	return {$: 'Name', a: a};
+};
+var $elm$time$Time$Offset = function (a) {
+	return {$: 'Offset', a: a};
+};
+var $elm$time$Time$Zone = F2(
+	function (a, b) {
+		return {$: 'Zone', a: a, b: b};
+	});
+var $elm$time$Time$customZone = $elm$time$Time$Zone;
+var $elm$time$Time$Posix = function (a) {
+	return {$: 'Posix', a: a};
+};
+var $elm$time$Time$millisToPosix = $elm$time$Time$Posix;
+var $elm$time$Time$now = _Time_now($elm$time$Time$millisToPosix);
+var $elm$time$Time$posixToMillis = function (_v0) {
+	var millis = _v0.a;
+	return millis;
+};
+var $elm$random$Random$init = A2(
+	$elm$core$Task$andThen,
+	function (time) {
+		return $elm$core$Task$succeed(
+			$elm$random$Random$initialSeed(
+				$elm$time$Time$posixToMillis(time)));
+	},
+	$elm$time$Time$now);
+var $elm$random$Random$step = F2(
+	function (_v0, seed) {
+		var generator = _v0.a;
+		return generator(seed);
+	});
+var $elm$random$Random$onEffects = F3(
+	function (router, commands, seed) {
+		if (!commands.b) {
+			return $elm$core$Task$succeed(seed);
 		} else {
-			var n = msg.a;
-			return _Utils_update(
-				model,
-				{i2: n});
+			var generator = commands.a.a;
+			var rest = commands.b;
+			var _v1 = A2($elm$random$Random$step, generator, seed);
+			var value = _v1.a;
+			var newSeed = _v1.b;
+			return A2(
+				$elm$core$Task$andThen,
+				function (_v2) {
+					return A3($elm$random$Random$onEffects, router, rest, newSeed);
+				},
+				A2($elm$core$Platform$sendToApp, router, value));
 		}
 	});
-var $author$project$SubstituirLinha$Input1 = function (a) {
+var $elm$random$Random$onSelfMsg = F3(
+	function (_v0, _v1, seed) {
+		return $elm$core$Task$succeed(seed);
+	});
+var $elm$random$Random$Generator = function (a) {
+	return {$: 'Generator', a: a};
+};
+var $elm$random$Random$map = F2(
+	function (func, _v0) {
+		var genA = _v0.a;
+		return $elm$random$Random$Generator(
+			function (seed0) {
+				var _v1 = genA(seed0);
+				var a = _v1.a;
+				var seed1 = _v1.b;
+				return _Utils_Tuple2(
+					func(a),
+					seed1);
+			});
+	});
+var $elm$random$Random$cmdMap = F2(
+	function (func, _v0) {
+		var generator = _v0.a;
+		return $elm$random$Random$Generate(
+			A2($elm$random$Random$map, func, generator));
+	});
+_Platform_effectManagers['Random'] = _Platform_createManager($elm$random$Random$init, $elm$random$Random$onEffects, $elm$random$Random$onSelfMsg, $elm$random$Random$cmdMap);
+var $elm$random$Random$command = _Platform_leaf('Random');
+var $elm$random$Random$generate = F2(
+	function (tagger, generator) {
+		return $elm$random$Random$command(
+			$elm$random$Random$Generate(
+				A2($elm$random$Random$map, tagger, generator)));
+	});
+var $elm$core$Bitwise$and = _Bitwise_and;
+var $elm$core$Basics$negate = function (n) {
+	return -n;
+};
+var $elm$core$Bitwise$xor = _Bitwise_xor;
+var $elm$random$Random$peel = function (_v0) {
+	var state = _v0.a;
+	var word = (state ^ (state >>> ((state >>> 28) + 4))) * 277803737;
+	return ((word >>> 22) ^ word) >>> 0;
+};
+var $elm$random$Random$int = F2(
+	function (a, b) {
+		return $elm$random$Random$Generator(
+			function (seed0) {
+				var _v0 = (_Utils_cmp(a, b) < 0) ? _Utils_Tuple2(a, b) : _Utils_Tuple2(b, a);
+				var lo = _v0.a;
+				var hi = _v0.b;
+				var range = (hi - lo) + 1;
+				if (!((range - 1) & range)) {
+					return _Utils_Tuple2(
+						(((range - 1) & $elm$random$Random$peel(seed0)) >>> 0) + lo,
+						$elm$random$Random$next(seed0));
+				} else {
+					var threshhold = (((-range) >>> 0) % range) >>> 0;
+					var accountForBias = function (seed) {
+						accountForBias:
+						while (true) {
+							var x = $elm$random$Random$peel(seed);
+							var seedN = $elm$random$Random$next(seed);
+							if (_Utils_cmp(x, threshhold) < 0) {
+								var $temp$seed = seedN;
+								seed = $temp$seed;
+								continue accountForBias;
+							} else {
+								return _Utils_Tuple2((x % range) + lo, seedN);
+							}
+						}
+					};
+					return accountForBias(seed0);
+				}
+			});
+	});
+var $author$project$GeradorNumero$update = F2(
+	function (msg, model) {
+		switch (msg.$) {
+			case 'Input1':
+				var u = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{i1: u}),
+					$elm$core$Platform$Cmd$none);
+			case 'Input2':
+				var u = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{i2: u}),
+					$elm$core$Platform$Cmd$none);
+			case 'Button':
+				var _v1 = _Utils_Tuple2(
+					$elm$core$String$toInt(model.i1),
+					$elm$core$String$toInt(model.i2));
+				if ((_v1.a.$ === 'Just') && (_v1.b.$ === 'Just')) {
+					var x = _v1.a.a;
+					var y = _v1.b.a;
+					return _Utils_Tuple2(
+						model,
+						A2(
+							$elm$random$Random$generate,
+							$author$project$GeradorNumero$Output,
+							A2($elm$random$Random$int, x, y)));
+				} else {
+					return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+				}
+			default:
+				var u = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{
+							o: $elm$core$String$fromInt(u)
+						}),
+					$elm$core$Platform$Cmd$none);
+		}
+	});
+var $author$project$GeradorNumero$Button = {$: 'Button'};
+var $author$project$GeradorNumero$Input1 = function (a) {
 	return {$: 'Input1', a: a};
 };
-var $author$project$SubstituirLinha$Input2 = function (a) {
+var $author$project$GeradorNumero$Input2 = function (a) {
 	return {$: 'Input2', a: a};
 };
+var $elm$html$Html$button = _VirtualDom_node('button');
 var $elm$json$Json$Encode$string = _Json_wrap;
 var $elm$html$Html$Attributes$stringProperty = F2(
 	function (key, string) {
@@ -5201,13 +5456,29 @@ var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('
 var $elm$html$Html$div = _VirtualDom_node('div');
 var $elm$html$Html$h5 = _VirtualDom_node('h5');
 var $elm$html$Html$input = _VirtualDom_node('input');
+var $elm$virtual_dom$VirtualDom$Normal = function (a) {
+	return {$: 'Normal', a: a};
+};
+var $elm$virtual_dom$VirtualDom$on = _VirtualDom_on;
+var $elm$html$Html$Events$on = F2(
+	function (event, decoder) {
+		return A2(
+			$elm$virtual_dom$VirtualDom$on,
+			event,
+			$elm$virtual_dom$VirtualDom$Normal(decoder));
+	});
+var $elm$html$Html$Events$onClick = function (msg) {
+	return A2(
+		$elm$html$Html$Events$on,
+		'click',
+		$elm$json$Json$Decode$succeed(msg));
+};
 var $elm$html$Html$Events$alwaysStop = function (x) {
 	return _Utils_Tuple2(x, true);
 };
 var $elm$virtual_dom$VirtualDom$MayStopPropagation = function (a) {
 	return {$: 'MayStopPropagation', a: a};
 };
-var $elm$virtual_dom$VirtualDom$on = _VirtualDom_on;
 var $elm$html$Html$Events$stopPropagationOn = F2(
 	function (event, decoder) {
 		return A2(
@@ -5239,50 +5510,11 @@ var $elm$html$Html$Attributes$placeholder = $elm$html$Html$Attributes$stringProp
 var $elm$html$Html$span = _VirtualDom_node('span');
 var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
 var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
-var $elm$core$List$append = F2(
-	function (xs, ys) {
-		if (!ys.b) {
-			return xs;
-		} else {
-			return A3($elm$core$List$foldr, $elm$core$List$cons, ys, xs);
-		}
-	});
-var $elm$core$String$fromList = _String_fromList;
-var $elm$core$String$foldr = _String_foldr;
-var $elm$core$String$toList = function (string) {
-	return A3($elm$core$String$foldr, $elm$core$List$cons, _List_Nil, string);
-};
-var $author$project$SubstituirLinha$substituirLinha = F2(
-	function (text, ntext) {
-		var aux = F2(
-			function (ls, ts) {
-				if (!ls.b) {
-					return _List_Nil;
-				} else {
-					var x = ls.a;
-					var xs = ls.b;
-					return _Utils_eq(
-						x,
-						_Utils_chr('\n')) ? A2(
-						$elm$core$List$append,
-						ts,
-						A2(aux, xs, ts)) : A2(
-						$elm$core$List$cons,
-						x,
-						A2(aux, xs, ts));
-				}
-			});
-		return $elm$core$String$fromList(
-			A2(
-				aux,
-				$elm$core$String$toList(text),
-				$elm$core$String$toList(ntext)));
-	});
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
-var $elm$html$Html$textarea = _VirtualDom_node('textarea');
-var $author$project$SubstituirLinha$toText = {box1: 'Texto Original', box2: 'Texto pelo qual será substituido', title: 'Substituir Quebra de Linha'};
-var $author$project$SubstituirLinha$view = function (model) {
+var $author$project$GeradorNumero$toText = {box: 'Valor', btn: 'Gerar', title: 'Gerador de Números'};
+var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
+var $author$project$GeradorNumero$view = function (model) {
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
@@ -5307,7 +5539,7 @@ var $author$project$SubstituirLinha$view = function (model) {
 							]),
 						_List_fromArray(
 							[
-								$elm$html$Html$text($author$project$SubstituirLinha$toText.title)
+								$elm$html$Html$text($author$project$GeradorNumero$toText.title)
 							])),
 						A2(
 						$elm$html$Html$div,
@@ -5326,79 +5558,76 @@ var $author$project$SubstituirLinha$view = function (model) {
 										$elm$html$Html$div,
 										_List_fromArray(
 											[
-												$elm$html$Html$Attributes$class('col-md-12')
+												$elm$html$Html$Attributes$class('col-md-6')
 											]),
 										_List_fromArray(
 											[
 												A2(
-												$elm$html$Html$textarea,
+												$elm$html$Html$input,
 												_List_fromArray(
 													[
 														$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
-														$elm$html$Html$Attributes$placeholder($author$project$SubstituirLinha$toText.box1),
-														$elm$html$Html$Events$onInput($author$project$SubstituirLinha$Input1),
-														A2($elm$html$Html$Attributes$style, 'resize', 'none')
+														$elm$html$Html$Attributes$placeholder($author$project$GeradorNumero$toText.box),
+														$elm$html$Html$Attributes$type_('number'),
+														$elm$html$Html$Events$onInput($author$project$GeradorNumero$Input1)
 													]),
 												_List_Nil)
+											])),
+										A2(
+										$elm$html$Html$div,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('col-md-6')
+											]),
+										_List_fromArray(
+											[
+												A2(
+												$elm$html$Html$input,
+												_List_fromArray(
+													[
+														$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
+														$elm$html$Html$Attributes$placeholder($author$project$GeradorNumero$toText.box),
+														$elm$html$Html$Attributes$type_('number'),
+														$elm$html$Html$Events$onInput($author$project$GeradorNumero$Input2)
+													]),
+												_List_Nil)
+											])),
+										A2(
+										$elm$html$Html$button,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('btn btn-outline-light mt-2'),
+												$elm$html$Html$Events$onClick($author$project$GeradorNumero$Button),
+												A2($elm$html$Html$Attributes$style, 'margin-top', '10px')
+											]),
+										_List_fromArray(
+											[
+												$elm$html$Html$text($author$project$GeradorNumero$toText.btn)
 											]))
 									])),
 								A2(
-								$elm$html$Html$div,
+								$elm$html$Html$span,
 								_List_fromArray(
 									[
-										$elm$html$Html$Attributes$class('col-md-12 mt-2')
+										$elm$html$Html$Attributes$class('h6')
 									]),
 								_List_fromArray(
 									[
-										A2(
-										$elm$html$Html$input,
-										_List_fromArray(
-											[
-												$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
-												$elm$html$Html$Attributes$placeholder($author$project$SubstituirLinha$toText.box2),
-												$elm$html$Html$Events$onInput($author$project$SubstituirLinha$Input2)
-											]),
-										_List_Nil)
-									]))
-							])),
-						A2(
-						$elm$html$Html$div,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$class('row')
-							]),
-						_List_fromArray(
-							[
-								A2(
-								$elm$html$Html$div,
-								_List_fromArray(
-									[
-										$elm$html$Html$Attributes$class('col-md-12')
-									]),
-								_List_fromArray(
-									[
-										A2(
-										$elm$html$Html$span,
-										_List_fromArray(
-											[
-												$elm$html$Html$Attributes$class('h6')
-											]),
-										_List_fromArray(
-											[
-												$elm$html$Html$text('Resultado: \n')
-											])),
-										$elm$html$Html$text(
-										A2($author$project$SubstituirLinha$substituirLinha, model.i1, model.i2))
-									]))
+										$elm$html$Html$text('Resultado: ')
+									])),
+								$elm$html$Html$text(model.o)
 							]))
 					]))
 			]));
 };
-var $author$project$SubstituirLinha$main = $elm$browser$Browser$sandbox(
+var $author$project$GeradorNumero$main = $elm$browser$Browser$element(
 	{
-		init: A2($author$project$SubstituirLinha$Model, '', ''),
-		update: $author$project$SubstituirLinha$update,
-		view: $author$project$SubstituirLinha$view
+		init: $author$project$GeradorNumero$init,
+		subscriptions: function (_v0) {
+			return $elm$core$Platform$Sub$none;
+		},
+		update: $author$project$GeradorNumero$update,
+		view: $author$project$GeradorNumero$view
 	});
-_Platform_export({'SubstituirLinha':{'init':$author$project$SubstituirLinha$main(
+_Platform_export({'GeradorNumero':{'init':$author$project$GeradorNumero$main(
 	$elm$json$Json$Decode$succeed(_Utils_Tuple0))(0)}});}(this));

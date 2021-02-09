@@ -5227,20 +5227,20 @@ var $elm$core$Task$perform = F2(
 				A2($elm$core$Task$map, toMessage, task)));
 	});
 var $elm$browser$Browser$element = _Browser_element;
-var $author$project$GeradorCPF$Model = function (genCPF) {
-	return {genCPF: genCPF};
+var $author$project$GeradorCPF$Model = function (o) {
+	return {o: o};
 };
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
 var $author$project$GeradorCPF$init = function (_v0) {
 	return _Utils_Tuple2(
-		$author$project$GeradorCPF$Model(0),
+		$author$project$GeradorCPF$Model(''),
 		$elm$core$Platform$Cmd$none);
 };
 var $elm$core$Platform$Sub$batch = _Platform_batch;
 var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
-var $author$project$GeradorCPF$CPF = function (a) {
-	return {$: 'CPF', a: a};
+var $author$project$GeradorCPF$Output = function (a) {
+	return {$: 'Output', a: a};
 };
 var $elm$random$Random$Generate = function (a) {
 	return {$: 'Generate', a: a};
@@ -5393,21 +5393,22 @@ var $elm$random$Random$int = F2(
 	});
 var $author$project$GeradorCPF$update = F2(
 	function (msg, model) {
-		if (msg.$ === 'Gen') {
+		if (msg.$ === 'Input') {
 			return _Utils_Tuple2(
 				model,
 				A2(
 					$elm$random$Random$generate,
-					$author$project$GeradorCPF$CPF,
+					$author$project$GeradorCPF$Output,
 					A2($elm$random$Random$int, 10000000, 999999999)));
 		} else {
 			var n = msg.a;
 			return _Utils_Tuple2(
-				$author$project$GeradorCPF$Model(n),
+				$author$project$GeradorCPF$Model(
+					$elm$core$String$fromInt(n)),
 				$elm$core$Platform$Cmd$none);
 		}
 	});
-var $author$project$GeradorCPF$Gen = {$: 'Gen'};
+var $author$project$GeradorCPF$Input = {$: 'Input'};
 var $elm$html$Html$button = _VirtualDom_node('button');
 var $elm$json$Json$Encode$string = _Json_wrap;
 var $elm$html$Html$Attributes$stringProperty = F2(
@@ -5521,8 +5522,7 @@ var $elm$core$String$toList = function (string) {
 	return A3($elm$core$String$foldr, $elm$core$List$cons, _List_Nil, string);
 };
 var $author$project$GeradorCPF$gerarCPF = function (gen) {
-	var cpfl = $elm$core$String$toList(
-		$elm$core$String$fromInt(gen));
+	var cpfl = $elm$core$String$toList(gen);
 	var cpfl2 = ($elm$core$List$length(cpfl) === 9) ? A2($elm$core$List$map, $author$project$Auxiliar$charToInt, cpfl) : A2(
 		$elm$core$List$map,
 		$author$project$Auxiliar$charToInt,
@@ -5648,6 +5648,7 @@ var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
 var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
+var $author$project$GeradorCPF$toText = {btn: 'Gerar', title: 'Gerador de CPF'};
 var $author$project$GeradorCPF$view = function (model) {
 	return A2(
 		$elm$html$Html$div,
@@ -5673,7 +5674,7 @@ var $author$project$GeradorCPF$view = function (model) {
 							]),
 						_List_fromArray(
 							[
-								$elm$html$Html$text('Gerador de CPF')
+								$elm$html$Html$text($author$project$GeradorCPF$toText.title)
 							])),
 						A2(
 						$elm$html$Html$div,
@@ -5698,12 +5699,12 @@ var $author$project$GeradorCPF$view = function (model) {
 												_List_fromArray(
 													[
 														$elm$html$Html$Attributes$class('btn btn-outline-light'),
-														$elm$html$Html$Events$onClick($author$project$GeradorCPF$Gen),
+														$elm$html$Html$Events$onClick($author$project$GeradorCPF$Input),
 														A2($elm$html$Html$Attributes$style, 'margin-right', '10px')
 													]),
 												_List_fromArray(
 													[
-														$elm$html$Html$text('Gerar')
+														$elm$html$Html$text($author$project$GeradorCPF$toText.btn)
 													])),
 												A2(
 												$elm$html$Html$span,
@@ -5716,7 +5717,7 @@ var $author$project$GeradorCPF$view = function (model) {
 														$elm$html$Html$text('Resultado: ')
 													])),
 												$elm$html$Html$text(
-												$author$project$GeradorCPF$gerarCPF(model.genCPF))
+												$author$project$GeradorCPF$gerarCPF(model.o))
 											]))
 									]))
 							]))
@@ -5726,7 +5727,7 @@ var $author$project$GeradorCPF$view = function (model) {
 var $author$project$GeradorCPF$main = $elm$browser$Browser$element(
 	{
 		init: $author$project$GeradorCPF$init,
-		subscriptions: function (model) {
+		subscriptions: function (_v0) {
 			return $elm$core$Platform$Sub$none;
 		},
 		update: $author$project$GeradorCPF$update,

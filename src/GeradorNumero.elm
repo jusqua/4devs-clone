@@ -1,16 +1,23 @@
-module GeradorNumero exposing (..)
-
+module GeradorNumero exposing (main)
 import Browser exposing (element)
-import Html exposing (..)
-import Html.Attributes exposing (..)
+import Html exposing (Html, div, text, h5, span, button, input)
+import Html.Attributes exposing (class, style, placeholder, type_)
 import Html.Events exposing (onClick, onInput)
 import Random
 
-toText = {title = "Gerador de Números", box = "Valor", btn = "Gerar"}
-
+-- Types
 type alias Model = {o : String, i1 : String, i2 : String}
 type Msg = Output Int | Input1 String | Input2 String | Button
 
+-- Variables
+toText = 
+  {
+    title = "Gerador de Números",
+    box = "Valor",
+    btn = "Gerar"
+  }
+
+-- Element
 main = 
   element 
   {
@@ -42,9 +49,9 @@ view : Model -> Html Msg
 view model =
   div [ class "card col-md-4 col-sm-12 bg-dark" ]
     [ div [ class "card-body bg-dark text-light" ]
-      [ h5 [ class "card-title" ] [ text toText.title ]
-      , div [] [ div [ class "row" ]
-        [ div [ class "col-md-6" ] [ input [ class "form-control bg-dark text-light", placeholder toText.box, type_ "number", onInput Input1 ] [] ]
-        , div [ class "col-md-6" ] [ input [ class "form-control bg-dark text-light", placeholder toText.box, type_ "number", onInput Input2 ] [] ]
-        , button [ class "btn btn-outline-light", onClick Button, style "margin-right" "10px" ] [ text toText.btn ]]
-        , span [class "h6"] [text "Resultado: "] , text model.o ] ] ]
+      [ h5 [ class "card-title" ] [ text toText.title ],
+        div [] [ div [ class "row" ]
+        [ div [ class "col-md-6" ] [ input [ class "form-control bg-dark text-light", placeholder toText.box, type_ "number", onInput Input1 ] [] ],
+          div [ class "col-md-6" ] [ input [ class "form-control bg-dark text-light", placeholder toText.box, type_ "number", onInput Input2 ] [] ],
+          button [ class "btn btn-outline-light mt-2", onClick Button, style "margin-top" "10px" ] [ text toText.btn ]],
+          span [class "h6"] [text "Resultado: "] , text model.o ] ] ]

@@ -1,11 +1,16 @@
-module GeradorCNPJ exposing (..)
-import Auxiliar exposing (digv, cnpjc, charToInt, intToChar)
-import Html exposing (..)
-import Html.Attributes exposing (..)
-import Html.Events exposing (..)
+module GeradorCNPJ exposing (main)
+import Auxiliar exposing (charToInt, cnpjc, digv, intToChar)
+import Browser exposing (element)
+import Html exposing (Html, div, text, h5, span, button)
+import Html.Attributes exposing (class, style)
+import Html.Events exposing (onClick)
 import Random
-import Browser
 
+-- Types
+type alias Model = {o : String}
+type Msg = Input | Calc Int | Output Int
+
+-- Function
 gerarCNPJ : String -> String
 gerarCNPJ gen =
   let
@@ -26,49 +31,41 @@ gerarCNPJ gen =
         |> String.fromList
       _ -> ""
 
--- MAIN
-main =
-  Browser.element
+-- Variables
+toText =
   {
-    init = init,
-    update = update,
-    subscriptions = \model -> Sub.none,
-    view = view
+    title = "Gerador de CPF",
+    btn = "Gerar"
   }
 
--- MODEL
-type alias Model = {genCNPJ : String}
+-- Element
+main =
+  element
+    {
+      init = init,
+      update = update,
+      subscriptions = \_ -> Sub.none,
+      view = view
+    }
 
-init : () -> (Model, Cmd Msg)
-init _ = (Model "", Cmd.none)
+init : () -> ( Model, Cmd Msg )
+init _ = ( Model "", Cmd.none )
 
--- UPDATE
-type Msg = Gen | Calc Int | CNPJ Int
-
-update : Msg -> Model -> (Model, Cmd Msg)
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
   case msg of
-    Gen ->
+    Input ->
       (model,Random.generate Calc <| Random.int 100000 999999)
     Calc n ->
-      (Model (String.fromInt n),Random.generate CNPJ <| Random.int 10000 999999)
-    CNPJ s ->
-      (Model (model.genCNPJ ++ (String.fromInt s)), Cmd.none)
+      (Model (String.fromInt n),Random.generate Output <| Random.int 10000 999999)
+    Output s ->
+      (Model (model.o ++ (String.fromInt s)), Cmd.none)
 
--- VIEW
 view : Model -> Html Msg
-view model = 
-   div
-        [ class "card col-md-4 col-sm-12 bg-dark" ]
-        [ div [ class "card-body bg-dark text-light" ]
-            [ h5 [ class "card-title" ] [ text "Gerador de CNPJ" ]
-            , div []
-                [ div [ class "row" ]
-                    [ div []
-                        [ button [ class "btn btn-outline-light", onClick Gen, style "margin-right" "10px" ] [ text "Gerar" ],
-                        span [class "h6"] [text "Resultado: "] , text <| gerarCNPJ model.genCNPJ
-                        ]
-                    ]
-                ]
-            ]
-        ]
+view model =
+  div [ class "card col-md-4 col-sm-12 bg-dark" ]
+    [ div [ class "card-body bg-dark text-light" ]
+      [ h5 [ class "card-title" ] [ text toText.title ],
+        div [] [ div [ class "row" ]
+          [ div [] [ button [ class "btn btn-outline-light", onClick Input, style "margin-right" "10px" ] [ text toText.btn ],
+            span [class "h6"] [text "Resultado: "] , text <| gerarCNPJ model.o ] ] ] ] ]

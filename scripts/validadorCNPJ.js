@@ -4355,6 +4355,10 @@ function _Browser_load(url)
 		}
 	}));
 }
+var $author$project$ValidadorCNPJ$Model = F2(
+	function (i, o) {
+		return {i: i, o: o};
+	});
 var $elm$core$Basics$EQ = {$: 'EQ'};
 var $elm$core$Basics$GT = {$: 'GT'};
 var $elm$core$Basics$LT = {$: 'LT'};
@@ -5143,20 +5147,28 @@ var $elm$core$Task$perform = F2(
 			$elm$core$Task$Perform(
 				A2($elm$core$Task$map, toMessage, task)));
 	});
-var $elm$browser$Browser$element = _Browser_element;
-var $author$project$ValidadorCNPJ$Model = F2(
-	function (inputCNPJ, outputCNPJ) {
-		return {inputCNPJ: inputCNPJ, outputCNPJ: outputCNPJ};
-	});
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
-var $author$project$ValidadorCNPJ$init = function (_v0) {
-	return _Utils_Tuple2(
-		A2($author$project$ValidadorCNPJ$Model, '', ''),
-		$elm$core$Platform$Cmd$none);
-};
 var $elm$core$Platform$Sub$batch = _Platform_batch;
 var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
+var $elm$browser$Browser$sandbox = function (impl) {
+	return _Browser_element(
+		{
+			init: function (_v0) {
+				return _Utils_Tuple2(impl.init, $elm$core$Platform$Cmd$none);
+			},
+			subscriptions: function (_v1) {
+				return $elm$core$Platform$Sub$none;
+			},
+			update: F2(
+				function (msg, model) {
+					return _Utils_Tuple2(
+						A2(impl.update, msg, model),
+						$elm$core$Platform$Cmd$none);
+				}),
+			view: impl.view
+		});
+};
 var $elm$core$List$append = F2(
 	function (xs, ys) {
 		if (!ys.b) {
@@ -5624,27 +5636,23 @@ var $author$project$ValidadorCNPJ$validarCNPJ = function (input) {
 };
 var $author$project$ValidadorCNPJ$update = F2(
 	function (msg, model) {
-		if (msg.$ === 'CNPJ') {
-			var cnpj = msg.a;
-			return _Utils_Tuple2(
-				_Utils_update(
-					model,
-					{inputCNPJ: cnpj}),
-				$elm$core$Platform$Cmd$none);
+		if (msg.$ === 'Input') {
+			var n = msg.a;
+			return _Utils_update(
+				model,
+				{i: n});
 		} else {
-			return _Utils_Tuple2(
-				_Utils_update(
-					model,
-					{
-						outputCNPJ: $author$project$ValidadorCNPJ$validarCNPJ(model.inputCNPJ)
-					}),
-				$elm$core$Platform$Cmd$none);
+			return _Utils_update(
+				model,
+				{
+					o: $author$project$ValidadorCNPJ$validarCNPJ(model.i)
+				});
 		}
 	});
-var $author$project$ValidadorCNPJ$CNPJ = function (a) {
-	return {$: 'CNPJ', a: a};
+var $author$project$ValidadorCNPJ$Input = function (a) {
+	return {$: 'Input', a: a};
 };
-var $author$project$ValidadorCNPJ$Submit = {$: 'Submit'};
+var $author$project$ValidadorCNPJ$Output = {$: 'Output'};
 var $elm$html$Html$button = _VirtualDom_node('button');
 var $elm$json$Json$Encode$string = _Json_wrap;
 var $elm$html$Html$Attributes$stringProperty = F2(
@@ -5712,7 +5720,7 @@ var $elm$html$Html$Attributes$placeholder = $elm$html$Html$Attributes$stringProp
 var $elm$html$Html$span = _VirtualDom_node('span');
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
-var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
+var $author$project$ValidadorCNPJ$toText = {box: 'CNPJ', btn: 'Validar', title: 'Validador de CNPJ'};
 var $elm$html$Html$Attributes$value = $elm$html$Html$Attributes$stringProperty('value');
 var $author$project$ValidadorCNPJ$view = function (model) {
 	return A2(
@@ -5739,7 +5747,7 @@ var $author$project$ValidadorCNPJ$view = function (model) {
 							]),
 						_List_fromArray(
 							[
-								$elm$html$Html$text('Validador de CNPJ')
+								$elm$html$Html$text($author$project$ValidadorCNPJ$toText.title)
 							])),
 						A2(
 						$elm$html$Html$div,
@@ -5759,10 +5767,9 @@ var $author$project$ValidadorCNPJ$view = function (model) {
 										_List_fromArray(
 											[
 												$elm$html$Html$Attributes$class('form-control bg-dark text-light'),
-												$elm$html$Html$Attributes$type_('text'),
-												$elm$html$Html$Attributes$placeholder('CNPJ'),
-												$elm$html$Html$Attributes$value(model.inputCNPJ),
-												$elm$html$Html$Events$onInput($author$project$ValidadorCNPJ$CNPJ)
+												$elm$html$Html$Attributes$placeholder($author$project$ValidadorCNPJ$toText.box),
+												$elm$html$Html$Attributes$value(model.i),
+												$elm$html$Html$Events$onInput($author$project$ValidadorCNPJ$Input)
 											]),
 										_List_Nil),
 										A2(
@@ -5770,11 +5777,11 @@ var $author$project$ValidadorCNPJ$view = function (model) {
 										_List_fromArray(
 											[
 												$elm$html$Html$Attributes$class('btn btn-outline-light mt-2'),
-												$elm$html$Html$Events$onClick($author$project$ValidadorCNPJ$Submit)
+												$elm$html$Html$Events$onClick($author$project$ValidadorCNPJ$Output)
 											]),
 										_List_fromArray(
 											[
-												$elm$html$Html$text('Validar')
+												$elm$html$Html$text($author$project$ValidadorCNPJ$toText.btn)
 											]))
 									])),
 								A2(
@@ -5794,19 +5801,16 @@ var $author$project$ValidadorCNPJ$view = function (model) {
 										_List_fromArray(
 											[
 												$elm$html$Html$text('Resultado: '),
-												$elm$html$Html$text(model.outputCNPJ)
+												$elm$html$Html$text(model.o)
 											]))
 									]))
 							]))
 					]))
 			]));
 };
-var $author$project$ValidadorCNPJ$main = $elm$browser$Browser$element(
+var $author$project$ValidadorCNPJ$main = $elm$browser$Browser$sandbox(
 	{
-		init: $author$project$ValidadorCNPJ$init,
-		subscriptions: function (model) {
-			return $elm$core$Platform$Sub$none;
-		},
+		init: A2($author$project$ValidadorCNPJ$Model, '', ''),
 		update: $author$project$ValidadorCNPJ$update,
 		view: $author$project$ValidadorCNPJ$view
 	});
