@@ -43,8 +43,9 @@ view model =
   div [ class "card col-md-4 col-sm-12 bg-dark" ]
     [ div [ class "card-body bg-dark text-light" ]
       [ h5 [ class "card-title" ] [ text toText.title ]
-      , div [] [ div [ class "row" ]
-        [ div [ class "col-md-6" ] [ input [ class "form-control bg-dark text-light", placeholder toText.box, type_ "number", onInput Input1 ] [] ]
-        , div [ class "col-md-6" ] [ input [ class "form-control bg-dark text-light", placeholder toText.box, type_ "number", onInput Input2 ] [] ]
-        , button [ class "btn btn-outline-light", onClick Button, style "margin-right" "10px" ] [ text toText.btn ]]
-        , span [class "h6"] [text "Resultado: "] , text model.o ] ] ]
+      , div [ class "row"] [ 
+         div [ class "col-md-6" ] [ input [ class "form-control bg-dark text-light", placeholder toText.box, type_ "number", onInput Input1 ] [] ]
+        , div [ class "col-md-6" ] [ input [ class "form-control bg-dark text-light", placeholder toText.box, type_ "number", onInput Input2 ] [] ]]
+        ,div [class "row"] [div [class "cow-md-12"] [button [ class "btn btn-outline-light mt-2", style "width" "100%", onClick Button] [ text toText.btn ]]]
+        ,   span [class "h6"] [text "Resultado: "] , text <| model.o
+        ] ] 
