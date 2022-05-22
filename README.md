@@ -6,5 +6,12 @@ Based on [4devs](https://www.4devs.com.br)
   - Ádrian dos Santos Gama
   - Rafael Lauton Santos de Oliveira
 
-#### [Main Repo](https://github.com/jordansts/projeto-ufs-elm)
+### Build
+Requires [ELM](https://elm-lang.org/) to build the apps
+```bash
+elm make src/* --optimize
+```
+
+#### This repo is a mirror from this [repo](https://github.com/jordansts/projeto-ufs-elm)
+#### See a [preview](https://jordansts.github.io/)
 
