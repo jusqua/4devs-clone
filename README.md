@@ -12,6 +12,7 @@ Requires [ELM](https://elm-lang.org/) to build the apps
 elm make src/* --optimize
 ```
 
-#### This repo is a mirror from this [repo](https://github.com/jordansts/projeto-ufs-elm)
-#### See a [preview](https://jordansts.github.io/)
+#### This repo is a fork from this [repo](https://github.com/jordansts/jordansts.github.io)
+
+#### See a [preview](https://potential-garbage.gitlab.io/university/math-utils/)
 

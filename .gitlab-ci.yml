@@ -1,0 +1,16 @@
+image: node:latest
+
+pages:
+  stage: deploy
+  script:
+    - mkdir .public
+    - cp -r ./* .public
+    - rm -rf public
+    - mv .public public
+    - npm install -g elm@latest-0.19.1 --unsafe-perm=true
+    - elm make src/* --optimize --output=public/elm.js
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
