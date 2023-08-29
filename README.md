@@ -11,8 +11,3 @@ Requires [ELM](https://elm-lang.org/) to build the apps
 ```bash
 elm make src/* --optimize
 ```
-
-#### This repo is a fork from this [repo](https://github.com/jordansts/jordansts.github.io)
-
-#### See a [preview](https://potential-garbage.gitlab.io/university/math-utils/)
-
