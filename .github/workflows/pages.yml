@@ -26,8 +26,8 @@ jobs:
         uses: actions/checkout@v4
       - name: Set up Node
         run: |
-          curl -fsSL https://fnm.vercel.app/install | bash
-          fnm use --install-if-missing 20
+          curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+          sudo apt-get install -y nodejs
       - name: Install dependencies
         run: npm install -g elm@latest-0.19.1 --unsafe-perm=true
       - name: Build
