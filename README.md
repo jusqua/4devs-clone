@@ -1,5 +1,6 @@
-# Math Utils
-Based on [4devs](https://www.4devs.com.br)
+# 4devs clone
+
+A naive [4devs](https://www.4devs.com.br) implementation
 
 ### Members from Class 8 - Group C
   - Jordan Santos de Jesus
